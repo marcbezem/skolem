@@ -1,0 +1,502 @@
+
+%NB one \newpage on title page!
+\documentclass[12pt]{article}
+\newcommand{\weg}[1]{\medskip}
+%\pagestyle{empty}
+\usepackage{url,a4,proof}
+\usepackage{latexsym}
+\usepackage{amstext}
+\usepackage{amssymb}
+%\usepackage[all]{xy}
+\usepackage{theorem}
+
+\newcommand{\ra}{\rightarrow}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\rsa}{\rightsquigarrow}
+\newcommand{\goal}{\mathit{goal}}
+\newcommand{\halt}{\mathit{halt}}
+\newcommand{\tru}{\mathit{true}}
+\newcommand{\fal}{\mathit{false}}
+\newcommand{\dom}{\mathit{dom}}
+
+\newcommand{\tp}{:}             % typing relation 
+\newcommand{\ltp}{\!:\!}        % typing relation for lambda/pi abstractions
+\newcommand{\ap}{.\,}           % application of lambda abstraction
+
+\newcommand{\obj}[1]{\dot{#1}}
+\newcommand{\E}{\mathit{E}}
+\newcommand{\Nat}{\mathit{Nat}}
+\newcommand{\bfc}{\pitchfork}
+
+%\renewcommand{\vec}[1]{\overrightarrow{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\many}[2]{{#1_1},\ldots,{#1_#2}}
+\newcommand{\ls}{\lbrack\!\lbrack}
+\newcommand{\rs}{\rbrack\!\rbrack}
+\newcommand{\sem}[1]{\ls {#1} \rs}
+\newcommand{\set}[1]{\{#1\}}
+%\newcommand{\Noline}{\ar@{}}
+%\UseComputerModernTips
+\newcommand{\cl}[1]{\overline{#1}}
+
+\newcommand{\Tf}{T_{\!f}}
+\newcommand{\psif}{\psi_{\!f}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{On Skolem's Theorem for Coherent Logic}
+%
+\author{Marc Bezem}
+%\institute{Department of Computer Science, University of Bergen\\
+%P.O.~Box~7800, N-5020 Bergen, Norway\\
+%\email{bezem@ii.uib.no}}
+
+\date{\it Dedicated to Roel de Vrijer on the occasion of his 60-th birthday}
+
+\maketitle
+
+\bibliographystyle{plain}
+
+
+\section{Introduction}\label{sec:intro}
+Assume one replaces, in some first-order theory $T$, an axiom of the form
+\[\forall\many{x}{n}~\exists y~\phi(\many{x}{n},y)\]
+by 
+\[\forall\many{x}{n}~\phi(\many{x}{n},f_\phi(\many{x}{n})),\]
+where $f_\phi$ is a so-called Skolem-function for $\phi$ not occurring in $T$.
+This replacement, for example, for the purpose of eliminating existential quantifications,
+seems a reckless strengthening, as the latter axiom simply will be false
+for many interpretations of $f_\phi$. Reassuringly, 
+Skolem's Theorem states that such a replacement 
+is conservative in the sense that it doesn't allow one to prove more sentences
+not involving $f_\phi$ than one already could prove in $T$.
+
+Skolem's Theorem has an easy \emph{semantic} justification which goes as follows.
+With $T$ as above and abbreviating 
+$\psi:=\forall\vec{x}~\exists y~\phi(\vec{x},y)$,
+let $\sigma$ be a sentence in which the Skolem-function $f_\phi$ doesn't occur. 
+Let $\Tf$ be $T$ with $\psi$ replaced by
+$\psif:=\forall\vec{x}~\phi(\vec{x},f_\phi(\vec{x}))$.
+Assume there is a model of $T$ not satisfying $\sigma$. 
+Let $D$ be the domain of this model and interpret
+$f_\phi$ as a function picking for every $\many{x}{n}\in D$ a $y\in D$ such that
+the interpretation of $\phi(\many{x}{n} ,y)$ is true. Clearly, this interpretation
+of $f_\phi$ makes $\psif$ true. Moreover, interpreting $f_\phi$
+doesn't change the interpretation of neither $T$ nor $\sigma$, as $f_\phi$
+only occurs in $\psif$. It follows that adding the interpretation of
+$f_\phi$ to the model of $T$ results in a model of $\Tf$
+in which $\sigma$ is not satisfied.
+Skolem's Theorem can now be obtained by contraposition: $\sigma$ is a logical
+consequence of $T$ if $\sigma$ is so of $\Tf$.
+
+The above semantic justification of Skolem's Theorem has two important
+drawbacks. First, the construction of the interpretation of
+$f_\phi$ actually requires the Axiom of Choice. Second, the semantic justification
+doesn't in any way explain how to transform proofs in $\Tf$ to proofs in $T$.
+For this reason proof-theorists have for a log time been interested in a \emph{syntactic}
+justification of Skolem's Theorem \cite{Maehara}. By this we mean a proof transformation
+which transforms any proof in $\Tf$ whose conclusion doesn't contain
+a Skolem-function into a proof in $T$ with the same conclusion. 
+A glance at \cite[Ch.~7]{Gallier} makes it
+immediately clear why most textbooks stick to the semantic approach:
+the syntactic proof transformations appear to be rather complicated, 
+to an extent that most readers will prefer the semantic justification.
+Nevertheless, syntactic approaches to Skolem's Theorem
+have several advantages, for example, a direct proof explaining why $\sigma$
+is a logical consequence of $T$. Moreover, such a proof can be verified directly, 
+without the formalization of the semantic justification of Skolem's Theorem
+(which would involve the Axiom of Choice).
+%For the latter purpose it is important that the size of the proofs does not go out of hand.
+
+Now, as the technical difficulties of the syntactic approach to Skolem's Theorem
+seem to depend on the inference system chosen, it may be easier to depart
+from a simpler, yet fully-expressive logic.
+This is exactly the reason why we here propose to study Skolem's Theorem
+in Coherent Logic. 
+
+
+\section{Coherent Logic}\label{sec:cl}
+
+Coherent logic (CL) is
+the fragment of first-order logic consisting of implicitly universally quantified
+implications of the following form:
+\begin{equation}%\label{CLformat}
+  {A_1 \wedge \cdots \wedge A_n} 
+  \ra 
+  {\exists \vec{x}_1.\,\mathbf{C}_1 \vee \cdots \vee \exists \vec{x}_m.\,\mathbf{C}_m}
+\end{equation}
+where the $A_i$ are first-order atoms and the $\mathbf{C}_{j}$ are 
+conjunctions of such atoms. We use some obvious
+notational optimizations to improve readability:
+if $n=0$, then we leave out $\ra$ altogether;
+if $m=0$, then we write $\bot$ (\textit{falsum}) 
+to denote the empty disjunction; 
+empty existential quantifications are left out.
+A coherent theory is a finite set of formulas of the form~(1). %\eqref{CLformat}.
+Closed atoms, i.e., atoms without free variables, are called \emph{facts}.
+
+Let $T$ be a coherent theory.
+The set $\Delta^T(X\vdash F)$ of derivations in $T$ of a fact $F$
+from a set of facts $X$ is inductively defined by the following two rules (explained below): 
+\begin{eqnarray*}
+  \mbox{\infer[F\in X]{~F~}{~X\vphantom{\delta_1}~}}
+  \quad\quad
+  \mbox{
+    \infer[\mathbf{A}\subseteq X]{F}{
+      X & \mathbf{A}\ra \mathbf{D}\quad\delta_1 & \cdots\quad\delta_m%\nonumber\\
+    }
+  }
+\end{eqnarray*}
+In words, the base case (left) applies when the goal $F$ is in the set of facts $X$.
+The step case applies when $\mathbf{A}\ra \mathbf{D}$
+is a closed\footnote{Both the vocabulary of $T$ and of $X$ can be used.}
+instance of a formula in $T$ whose antecedent
+is satisfied by $X$, expressed by $\mathbf{A}\subseteq X$. 
+The subderivations $\delta_i$ correspond to the disjuncts in $\mathbf{D}$
+in the following way. If $\mathbf{D}=
+{\exists \vec{x}_1.\,\mathbf{C}_{1} \vee \cdots \vee \exists \vec{x}_m.\,\mathbf{C}_{m}}$,
+every subderivation $\delta_i$ should be in $\Delta^T(X,\cl{\mathbf{C}_{i}}\vdash F)
+~(1\leq i\leq m)$. Here $X,\cl{\mathbf{C}_{i}}$ is the set of facts $X$
+extended with the atoms in $\mathbf{C}_{i}$, with the variables $\vec{x}_i$
+replaced by fresh constants.
+If $\mathbf{D}$ is $\bot$ there are no subderivations.  
+
+As an example we give the derivation of $r$ in the coherent theory with axioms
+
+\[ p\vee\exists y~q(y) \quad\quad p\ra\bot \quad\quad q(x)\ra r\] 
+(we don't denote side conditions of rule applications):
+\[
+\infer{r\vphantom{|}}
+{\emptyset & p\vee \exists y~q(y) & \infer{r\vphantom{|}}{\set{p} & p\ra\bot} & \infer{r\vphantom{|}}
+ {\set{q(c)} & q(c)\ra r & \infer{r\vphantom{|}}
+  {\set{q(c),r}
+  }
+ }
+}
+\]
+The rightmost inference is the only base case, all other
+inferences are step cases. Note that the step using $p\ra\bot$
+has no subderivations but is not a base case.
+
+There are two views on CL's proof theory.
+One is to view the above rules as a 
+natural deduction-style system of inference.
+The step case is actually a combination of
+instantiation (of the formulas in $T$), Modus Ponens (combining $X$
+with $\mathbf{A}\ra \mathbf{D}$), disjunction elimination 
+(the subderivations for each disjunct in $\mathbf{D}$)
+and existential elimination (the fresh constants in $\cl{\mathbf{C}_i}$).
+The proof theory is complete.
+
+The other view is that of forward reasoning.
+This can also be observed in the example above: 
+we start with the empty set of facts, we split in
+two branches with sets $\set{p}$ and $\set{q(c)}$, respectively,
+and finally extend the latter to $\set{q(c),r}$. 
+For every set of facts $X$, every derivation in $\Delta^T(X\vdash F)$
+ends in $F$, so denoting $F$ is rather redundant.
+If we apply this to the example above, only denoting the sets of
+facts (and shifting a bit), the following tree emerges:
+
+\[
+\infer{\emptyset}
+{
+\infer{\set{p}}{(\bot)} & \infer{\set{q(c)}}{\set{q(c),r}}
+}
+\]
+The line above the set $\set{p}$ is expressing that this is 
+not a base case, but an induction case with zero subderivations
+(in which $r$ doesn't need to be checked). 
+Alternatively, we could have written $\bot$ above this line
+to close the branch.
+
+Observe that the axioms are used more or less as rewrite roels
+to generate new facts
+from already known ones, distinguishing cases
+for each disjunct in the consequent and introducing witnesses
+in the case of existential quantifiers.
+The view of forward reasoning will make it particularly easy to
+devise a proof transformation eliminating Skolem-functions.
+ 
+\weg{and reasoning in CL is constructive
+in the sense of intuitionistic logic.
+Completeness proofs can be found in~\cite{Beze:Coqu:04,Beze:Coqu:05}.
+We have implemented the CL proof procedure in Prolog, 
+see~\cite[\url{CL.pl}]{Beze:Hend:05}. 
+The implementation generates {\coq} proof scripts.
+This does not increase the size of the trusted core of {\coq}.
+Elaborated examples of the reasoning mechanism are given in 
+Section~\ref{sec:machine} and in the appendix.
+}%\endweg
+
+\section{Elimination of Skolem-functions}
+
+As a fragment of first-order predicate logic, CL is very expressive. 
+For example, the following two coherent formulas define
+$np$ as the negation of the predicate $p$:
+\[p(x,y)\vee np(x,y) \quad\quad p(x,y)\wedge np(x,y)\ra\bot\]
+By introducing new predicates and defining them equivalent to (sub)formulas
+one can easily prove that every first-order theory has a definitional extension
+which is equivalent to a coherent theory.
+
+Note that both $\forall\vec{x}~\exists y~ \phi(\vec{x},y)$
+and $\forall\vec{x}~\phi(\vec{x},f_\phi(\vec{x}))$
+already are coherent if $\phi$ is a predicate.
+Moreover, by the last remark in the previous paragraph it suffices to
+restrict attention to predicates only; for simplicity
+we take the predicate to be binary.
+
+Let $T$ be a coherent theory containing
+$\psi:=\forall x~\exists y~p(x,y)$ and let $\Tf$ be $T$ with
+$\psi$ replaced by $\psif:=\forall x~p(x,f(x))$,
+where $f$ doesn't occur in $T$.
+Assume some fact $q$ not containing $f$ can be inferred
+from $\Tf$ by a proof $\delta$ 
+in the inference system from Section~\ref{sec:cl}.
+
+Let us take the view of forward ground reasoning on $\delta$.
+If $f$ doesn't occur in $\delta$, then $\psif$ has
+not been used and $\delta$ is actually a proof in $T$
+(even without $\psi$). Otherwise, there is a term $f(t)$ which
+occurs in $\delta$. 
+%In other words, $f(t)$ is a minimal $f$-term in $\delta$.
+There are two ways in which $f(t)$ can show up in $\delta$:
+as a (sub)term substituted for a variable in an axiom of $T$, or in
+$p(t,f(t))$ when applying $\psif$. 
+One is tempted to take a fresh constant $t_p$ and
+replace $f(t)$ by $t_p$ everywhere in $\delta$.
+The problem is that one may not get a valid proof using $\psi$ in this way.
+%$exists y~p(x,y)$
+As an example of what can go wrong in the proof transformation,
+consider the following coherent theory $\Tf$:
+
+\[q(x) \quad\quad p(x,f(x)) \quad\quad p(x,y),q(y)\ra r(a)\] 
+Since there are no disjunctions, proofs are linear
+and can be written horizontally. Consider the following proof of $r(a)$:
+
+\[\emptyset \mid \set{q(f(a))} \mid \set{q(f(a)),p(a,f(a))} \mid \set{q(f(a)),p(a,f(a)),r(a)} \] 
+Replacing the term $f(a)$ by a new constant $a_p$ in the proof we get:
+
+\[\emptyset \mid \set{q(a_p)} \mid \set{q(a_p),p(a,a_p)} \mid \set{q(a_p),p(a,a_p),r(a)} \] 
+Unfortunately, this is \emph{not} a proof using $\exists y~p(x,y)$
+instead of $p(x,f(x))$, since the constant $a_p$ in $p(a,a_p)$ is not fresh.
+The solution is to let the proof start with the application of $p(x,f(x))$:
+
+\[\emptyset \mid \set{p(a,f(a))} \mid \set{p(a,f(a)),q(f(a))} \mid \set{p(a,f(a)),q(f(a)),r(a)} \]
+Replacing $f(a)$ by $a_p$ now yields a correct proof:
+
+\[\emptyset \mid \set{p(a,a_p)} \mid \set{p(a,a_p),q(a_p)} \mid \set{p(a,a_p),q(a_p),r(a)} \]
+of $r(a)$ in the coherent theory $T$:
+
+\[q(x) \quad\quad \exists y~p(x,y) \quad\quad p(x,y),q(y)\ra r(a)\]
+
+So the idea is to have the applications of $p(x,f(x))$ as early as possible in the proof.
+The question is now: what does `as early as possible' mean? If the term $f(t)$
+is built from the vocabulary of $\Tf$ the above method works correctly.
+But what if $t$ contains a constant that is introduced as a fresh constant at some
+place in the proof? 
+As the examples get a little longer, we make use of the fact that the sets
+of facts are increasing and only denote the newly inferred atoms. At any point in
+the proof the set of facts can be reconstructed by collecting all facts occurring on the left.
+Consider the following proof in the coherent theory $\Tf$:
+
+\[q(f(f(a))) \mid p(a,f(a)) \mid p(f(a),f(f(a))) \mid r(a) \] 
+By the above proof transformation we correctly eliminate $p(a,f(a))$:
+
+\[p(a,a_p) \mid q(f(a_p)) \mid p(a_p,f(a_p)) \mid r(a) \] 
+Note that $p(a_p,f(a_p))$ contains a constant which doesn't occur
+in $T$, but has been introduced in the first step of the proof above.
+It is therefore not possible to start the proof by inferring $p(a_p,f(a_p))$.
+The phrase `as early as possible' means `as soon as all constants occurring
+in the term have been introduced', in this case as the second atom.
+Replacing $f(a_p)$ by a fresh constant then indeed leads to a proof in $T$:
+
+\[p(a,a_p) \mid p(a_p,a_{pp})) \mid q(a_{pp}) \mid r(a) \] 
+
+We now sketch the proof transformation in general.
+Assume a proof in a coherent theory $\Tf$ contains a term $f(t)$.
+If the proof doesn't contain a fact $p(t,f(t))$,
+then all occurrences of $f(t)$ have been introduced
+by substitution and we can replace them without difficulty
+by $t$ (which is the only closed term of which we can
+be certain that it exists!).
+Since $f$ occurs in no other axiom than $p(x,f(x))$,
+all inferences remain valid. 
+
+If, on the other hand, the proof contains a fact $p(t,f(t))$,
+then we move this application of $p(x,f(x))$ towards the root
+of the tree to the first position where all constants
+occurring in $t$ have been introduced. In the subtree above
+this position (inclusive), we replace all occurrences of $f(t)$
+by a fresh constant, and the application of $p(x,f(x))$ is
+replaced by an application of $\exists y~p(x,y)$. Possible
+multiple occurrences of $p(t,f(t))$, for example, in different
+branches, should all be removed. After this operation, again all
+inferences are valid.  
+
+Proceeding in this way we get after finitely many steps
+a proof in which $f$ doesn't occur, that is, a proof in $T$.
+Moreover, all facts not containing $f$, including the conclusion,
+are unaffected by the substitutions.
+Thus we have proved Skolem's Theorem syntactically.
+Note that the proof transformation is quite robust in the sense
+that it doesn't matter whether or not $f(t)$ contains
+other occurrences of $f$ and/or other functions.
+Also, branching poses no extra difficulties over the linear case.
+
+\section*{Acknowledgements}
+The author wants to thank Gilles Dowek for several discussions
+on Skolem's Theorem over the past decade.
+
+\bibliographystyle{plain}
+\begin{thebibliography}{99}
+
+\bibitem{Gallier} 
+J. Gallier, 
+\newblock\emph{Logic for Computer Science: Foundations of Automatic Theorem Proving},
+Wiley, 1986. Freely available online at: \url{www.cis.upenn.edu/~jean/gbooks/logic.html}
+
+\bibitem{Maehara}
+S.~Maehara, 
+\newblock\emph{The predicate calculus with $\varepsilon$-symbol},
+Journal of the Mathematical Society of Japan, \textbf{7}(4):323--344, 1955.
+
+\end{thebibliography}
+
+\end{document}
+
+
+\bibitem{Skolem}
+Th.~Skolem,
+\newblock\emph{Logisch-kombinatorische Untersuchungen \"{u}ber
+die Erf\"{u}llbarkeit % manual break
+und Beweisbarkeit mathematischen S\"{a}tze
+nebst einem Theoreme \"{u}ber dichte Mengen},
+{Skrifter} I \textbf{4}:1--36, Det Norske Videnskaps-Akademi, 1920.
+\newblock Also in: Jens Erik Fenstad, editor,
+\emph{Selected Works in Logic by Th. Skolem}, pp.~103--136,
+Universitetsforlaget, Oslo, 1970.
+
+
+Every inference of $p(t,f(t))$ using $\psif$
+can be replaced by an inference of
+$p(t,t_p)$ using $\psi$. 
+All other occurrences of $f(t)$ are introduced
+by substituting a term $t'(f(t))$ for a variable, in which case we 
+equally well could have substituted $t'(t_p)$ instead of $t'(f(t))$.
+Since $f$ occurs in no other axiom than $\psif$,
+all inferences remain valid. Furthermore, all facts
+not containing $f$ are unaffected by the substitution,
+and this holds in particular for the conclusion $q$.
+Thus we have managed to eliminate at least one occurrence of $f$ from
+the proof, and can continue this process until all occurrences
+of $f$ have been eliminated. This will result in a proof of $q$
+from $T$. Note that the resulting proof has exactly the same
+tree-structure as the original one.
+
+
+
+consisting of:
+\[
+p(x),~
+q(a,a_p)\vee q(a,c),~
+q(x,y)\ra q(y,y),~
+p(x),q(x,x)\ra r
+\]
+
+The following is a (purposedly contrived) proof of $r$ from $T$ using 
+the Skolem-axiom for $q$ in the 4-th line from below, left and right:
+\[
+\infer{\emptyset}
+{
+\infer{\set{p(f(a))}}
+ {
+%left
+\infer{\set{p(f(a)),q(a,a_p)}}
+  {
+\infer{\set{p(f(a)),q(a,a_p),q(a,f(a))}}
+   {
+\infer{X_b \ cup \set{q(f(a),f(a))}}
+    {
+       X_b \ cup \set{q(f(a),f(a)),r}
+    }
+   }
+  }
+&
+%right
+\infer{\set{p(f(a)),q(a,c)}}
+  {
+\infer{\set{p(f(a)),q(a,c),q(a,f(a))}}
+   {
+\infer{X_c \ cup \set{q(f(a),f(a))}}
+    {
+       X_c \ cup \set{q(f(a),f(a)),r}
+    }
+   }
+  }
+ }
+}
+\]
+
+Here $X_b$ abbreviates $p(f(a)),q(a,a_p),q(a,f(a))$ 
+ and $X_c$ abbreviates $p(f(a)),q(a,c),q(a,f(a))$.
+The above example shows the essential difficulty of the elimination
+of a Skolem-axiom from a proof in CL. Observe that, in $\set{p(f(a))}$,
+the Skolem-function may show up in a term before the
+Skolem-axiom has been applied. Second, the tree may branch,
+in this case by $q(a,a_p)\vee q(a,c)$, and there may be
+\emph{different applications} of the Skolem-axiom in each branch:
+the Skolem-term $f(a)$ replaces $b$ in one branch and $c$ in the other.
+One is tempted to replace $f(a)$ by $b$ in the left branch
+and by $c$ in the right, while at the same time eliminating
+the respective applications of the Skolem-axiom. To get a closed
+proof, one then needs $p(a)$ in the left, and $p(a_p)$ in the right branch.
+This is in fact possible, since $p(f(a))$ has been obtained
+by instantiating $p(x)$ in the first line from below.
+By instantiating $p(x)$ one can equally well obtain $p(a)$ and $p(a_p)$.
+This would lead to the following proof not using the Skolem-axiom:
+
+\[
+\infer{\emptyset}
+{
+\infer{\set{p(a)}}
+ {
+\infer{\set{p(a),p(a_p)}}
+  {
+%left
+\infer{\set{p(a),p(a_p),q(a,a_p)}}
+   {
+\infer{\set{p(a),p(a_p),q(a,a_p),q(b,a_p)}}
+    {
+       \set{p(a),p(a_p),q(a,a_p),q(b,a_p),r}
+    }
+   }
+&
+%right
+\infer{\set{p(a),p(a_p),q(a,c)}}
+   {
+\infer{\set{p(a),p(a_p),q(a,c),q(c,c)}}
+    {
+       \set{p(a),p(a_p),q(a,c),q(c,c),r}
+    }
+   }
+  }
+ }
+}
+\]
+
+How to generalize from this example?
+Let us first consider a proof that doesn't branch.
+
+
+Write $\neg\phi$ as $\phi\ra\bot$: each of $\wedge,\vee,\ra,\forall,\exists$
+can be the main connective/quantifier of a coherent formula.
+
+

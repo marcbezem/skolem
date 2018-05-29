@@ -1,0 +1,622 @@
+%\documentclass[12pt,a4paper]{amsart}
+\documentclass[10pt,a4paper]{article}
+\ifx\pdfpageheight\undefined\PassOptionsToPackage{dvips}{graphicx}\else%
+\PassOptionsToPackage{pdftex}{graphicx}
+\PassOptionsToPackage{pdftex}{color}
+\fi
+
+\usepackage{diagrams1}
+\usepackage[all]{xy}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{latexsym}
+\usepackage{amssymb,amstext,amsmath}
+
+\usepackage{float}
+\floatstyle{boxed}
+\restylefloat{figure}
+
+
+%%%%%%%%%
+\def\oge{\leavevmode\raise
+.3ex\hbox{$\scriptscriptstyle\langle\!\langle\,$}}
+\def\feg{\leavevmode\raise
+.3ex\hbox{$\scriptscriptstyle\,\rangle\!\rangle$}}
+
+%%%%%%%%%
+
+\newcommand\myfrac[2]{
+ \begin{array}{c}
+ #1 \\
+ \hline \hline 
+ #2
+\end{array}}
+
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{$#2$}}%
+\newcommand*{\Resize}[2]{\resizebox{#1}{!}{$#2$}}
+
+\newcommand{\ideal}[1]{\langle #1\rangle}
+\newcommand{\elim}{{\sf elim}}
+\newcommand{\dM}{{\sf dM}}
+\newcommand{\Cir}{\mathsf{S^1}}
+\newcommand{\base}{{\sf base}}
+\newcommand{\inc}{{\sf inc}}
+\newcommand{\inh}{\mathsf{inh}}
+\newcommand{\squash}{{\sf squash}}
+\newcommand{\transp}{{\sf transp}}
+\newcommand{\squeeze}{{\sf squeeze}}
+\newcommand{\LOOP}{{\sf loop}}
+\newcommand{\Top}{{\sf Top}}
+\newcommand{\Sys}{{\sf S}}
+\newcommand{\Ref}{{\sf Ref}}
+\newcommand{\LINE}{{\sf line}}
+\newcommand{\JJ}{{\sf J}}
+\newcommand{\II}{\mathbb{I}}
+\newcommand{\PP}{{\sf Path}}
+\newcommand{\Sp}{{\sf S}}
+\newcommand{\TT}{\mathbb{F}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\DD}{\mathbb{D}}
+\newcommand{\Iso}{{\sf Iso}}
+\newcommand{\refl}{{\bf refl}}
+\newcommand{\HH}{{\sf H}}
+
+
+\newcommand{\mkbox}[1]{\ensuremath{#1}}
+
+
+\newcommand{\Id}{{\sf Id}}
+\newcommand{\ident}{{\sf id}}
+\newcommand{\Path}{{\sf Path}}
+\newcommand{\IdP}{{\sf IdP}}
+\newcommand{\ID}{{\sf ID}}
+\newcommand{\Equiv}{{\sf Equiv}}
+\newcommand{\isEquiv}{{\sf isEquiv}}
+\newcommand{\ext}{\mathsf{ext}}
+\newcommand{\lift}{\mathsf{lift}}
+\newcommand{\cof}{\mathsf{cof}}
+\newcommand{\isContr}{{\sf isContr}}
+\newcommand{\Fib}{{\sf Fib}}
+
+\newcommand{\CC}{{\mathcal C}}
+\newcommand{\subst}{{\sf subst}}
+\newcommand{\res}{{\sf res}}
+\newcommand{\Int}{{\bf I}}
+\newcommand{\sem}[1]{\langle #1\rangle}
+
+\newcommand{\Sph}{{\sf S}^1}
+\newcommand{\PROP}{{\sf prop}}
+\newcommand{\SET}{{\sf set}}
+\newcommand{\pair}[1]{{\langle #1 \rangle}}
+\newcommand{\openb}[1]{\mathsf{b}(#1)}
+%\newcommand{\pth}[1]{\mathsf{P}(#1)}
+\newcommand{\pth}[1]{#1^{\II}}
+%\newcommand{\cyl}[1]{\mathsf{Cyl}(#1)}
+\newcommand{\cyl}[1]{#1\times\II}
+\newcommand{\free}[1]{\mathsf{D}(#1)}
+\newcommand{\Prod}[2]{\displaystyle\prod _{#1}~#2}
+\newcommand{\Sum}[2]{\displaystyle\sum _{#1}~#2}
+\newcommand{\gothic}{\mathfrak}
+\newcommand{\omicron}{*}
+\newcommand{\gP}{{\gothic p}}
+%\newcommand{\lift}[1]{\tilde{#1}}
+\newcommand{\gM}{{\gothic M}}
+\newcommand{\gN}{{\gothic N}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+
+\usepackage{epsf}
+\usepackage{epsfig}
+% \usepackage{isolatin1}
+\usepackage{a4wide}
+\usepackage{verbatim}
+\usepackage{proof}
+\usepackage{latexsym}
+\usepackage{amssymb}
+% \usepackage{stmaryrd}
+\newcommand{\abs}[2]{\lambda #1 . #2}            % abstraction of #1 in #2
+\usepackage{mytheorems}
+%\newtheorem{proposition}[theorem]{Proposition}
+
+%\documentstyle{article}
+\newcommand{\IF}[3]{{{\sf if}~#1~{\sf then}~#2~{\sf else}~#3}}
+\newcommand{\lfpi}[3]{(\Pi #1{:}#2)#3}
+\newcommand{\HA}{{\sf HA}}
+\newcommand{\AC}{{\sf AC}}
+\newcommand{\HAw}{\hbox{\sf{HA}$^{\omega}$}}
+\newcommand{\EM}{\hbox{\sf{EM}}}
+\newcommand{\DC}{\hbox{\sf{DC}}}
+\newcommand{\BB}{\hbox{\sf{B}}}
+
+\def\NN{\hbox{\sf N}}
+\def\Type{\hbox{\sf Type}}
+%\def\Box[1]{\mathsf{b}(#1)}
+\def\PER{\hbox{\sf PER}}
+\def\FUN{\Pi}
+\def\ELEM{\hbox{\sf El}}
+\def\GG{\hbox{\sf G}}
+\def\TP{\hbox{\sf TP}}
+\def\N0{\hbox{\sf N}_0}
+\def\ZERO{\hbox{\sf zero}}
+\def\SUCC{\hbox{s}}
+\setlength{\oddsidemargin}{0in} % so, left margin is 1in
+\setlength{\textwidth}{6.27in} % so, right margin is 1in
+\setlength{\topmargin}{0in} % so, top margin is 1in
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{9.19in} % so, foot margin is 1.5in
+\setlength{\footskip}{.8in}
+
+% Definition of \placetitle
+% Want to do an alternative which takes arguments
+% for the names, authors etc.
+
+\newcommand{\lbr}{\lbrack\!\lbrack}
+\newcommand{\rbr}{\rbrack\!\rbrack}
+%\newcommand{\sem}[2] {\lbr #1 \rbr_{#2}}  % interpretation of the terms
+\newcommand{\PAIR}[2] {{<}#1,#2{>}}  % interpretation of the terms
+\newcommand{\add}{\mathsf{add}}
+\newcommand{\app}{\mathsf{app}}
+\newcommand{\APP}{\mathsf{APP}}
+\newcommand{\BAPP}[2]{\mathsf{app}(#1,#2)}
+\newcommand{\nat}{{N}}
+\newcommand{\NNO}{\hbox{\sf N$_0$}}
+\newcommand{\UU}{\hbox{\sf U}}
+\newcommand{\VV}{\hbox{\sf V}}
+\newcommand{\EXIT}{\mathsf{exit}}
+\newcommand{\natrec}{\hbox{\sf{natrec}}}
+\newcommand{\boolrec}{\hbox{\sf{boolrec}}}
+\newcommand{\nil}{[]}
+\newcommand{\cons}{\mathsf{cons}}
+\newcommand{\lists}{\mathsf{list}}
+\newcommand{\VEC}{\mathsf{vec}}
+\newcommand{\reclist}{\mathsf{RecL}}
+\newcommand{\vect}{\mathsf{vect}}
+\newcommand{\brecp}{\Psi}
+\newcommand{\true}{\mathsf{true}}
+\newcommand{\false}{\mathsf{false}}
+\newcommand{\bool}{{N_2}}
+\newcommand{\ifte}[3]{\mathsf{if}\ #1\ \mathsf{then}\ #2\ \mathsf{else}\ #3}
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\Con}{{\sf Con}}
+\newcommand{\Typ}{{\sf Type}}
+\newcommand{\Elem}{{\sf Elem}}
+\newcommand{\Char}{{\sf Char}}
+%\newcommand{\id}{{\sf id}}
+\newcommand{\id}{{1}}
+\newcommand{\pp}{{\sf p}}
+\newcommand{\mm}{{\sf m}}
+\newcommand{\qq}{{\sf q}}
+\newcommand{\COMP}[3]{{\sf comp}~#1~#2~#3}
+\newcommand{\comp}{{\sf comp}}
+\newcommand{\hcomp}{{\sf hcomp}}
+\newcommand{\genComp}{{\sf Comp}}
+\newcommand{\pres}{{\sf pres}}
+\newcommand{\extend}{{\sf extend}}
+\newcommand{\eq}{{\sf equiv}}
+
+\newcommand{\Transp}{{\sf fill}}
+\newcommand{\Glue}{{\sf Glue}}
+\newcommand{\glue}{{\sf glue}}
+\newcommand{\Comp}{{\sf fill}}
+% Marc's macros
+\newcommand{\op}[1]{#1^\mathit{op}}
+\newcommand{\set}[1]{\{#1\}} 
+\newcommand{\es}{\emptyset}
+\newcommand{\lto}{\longmapsto}
+\newcommand{\rup}[1]{#1{\uparrow}}
+\newcommand{\rdo}[1]{#1{\downarrow}}
+\newcommand{\rupx}[1]{#1{\uparrow_{x}}}
+\newcommand{\rdox}[1]{#1{\downarrow_{x}}}
+\newcommand{\rupxy}[1]{#1{\uparrow_{x,y}}}
+\newcommand{\rdoxy}[1]{#1{\downarrow_{x,y}}}
+\newcommand{\rupyx}[1]{#1{\uparrow_{y,x}}}
+\newcommand{\rdoyx}[1]{#1{\downarrow_{y,x}}}
+\newcommand{\del}[1]{}
+\newcommand{\ul}[1]{\underline{#1}}
+\newcommand{\bind}[2]{{\langle}#1{\rangle}#2}
+\newcommand{\lam}[2]{{\langle}#1{\rangle}#2}
+\newcommand{\make}[1]{{\langle}#1{\rangle}}
+\newcommand{\OO}{O}
+
+% end Marc's macros
+\begin{document}
+
+\title{Proof theory of coherent theories}
+
+\author{}
+\date{}
+\maketitle
+
+%\rightfooter{}
+
+\section*{Introduction}
+
+ We analyse if we can eliminate Skolem function symbols in geometrical theories.
+
+\section{Geometrical theory}
+ 
+ We use letters $r,s,t,\dots$ for terms and $x,y,z,u,\dots$ for variables.
+
+\medskip
+
+ We consider a theory $T$ with axioms of the form
+$$
+\Delta_0(\vec{y})~\vdash_{\vec{y}}~
+\exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
+$$
+where $\Gamma(\vec{y}), \Delta(\vec{y}),\dots$ denote conjunctions of atomic formulae
+all free variables of which are in $\vec{y}$, thought of as a finite sets of atomic formulae.
+We write $\Gamma,\Delta$ for the union of $\Gamma$ and $\Delta$.
+
+ We define inductively when we have $\Gamma\vdash_{\vec{x}}^T A$ where $A$ is a atomic formula
+and all free variables of $\Gamma,A$ are in $\vec{x}$. There are two clauses
+
+\begin{enumerate}
+\item $A$ is in $\Gamma$
+
+\item there is a rule
+$$
+\Delta_0(\vec{y})~\vdash_{\vec{y}}~
+\exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
+$$
+in $T$ such that $\Delta_0(\vec{t})$ is a subset of $\Gamma$ and
+we have $\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}} A$ for all $i = 1,\dots,n$
+where $\vec{t}$ are terms using variables in $\vec{x}$.
+\end{enumerate}
+
+ Note that we can have $n=0$: if a finite set $\Delta_0(\vec{y})$ is inconsistent
+then $\Gamma\vdash_{\vec{x}} A$ is provable as soon as $\Delta_0(\vec{t})$ is a subset of $\Gamma$.
+
+
+\section{Some Lemmas}
+
+%% \begin{lemma}\label{rename}
+%% If $\sigma$ is a renaming on variables and
+%% $\Gamma\vdash_{\vec{x}}^T A$ then $\Gamma\sigma\vdash_{\vec{x},z}^T A\sigma$.
+%% \end{lemma}
+
+\begin{lemma}\label{weak}
+If $\Gamma\vdash_{\vec{x}}^T A$ and all free variables of $\Sigma$ are in $\vec{x}$ and
+$\Gamma\subseteq \Sigma$ then $\Sigma\vdash_{\vec{x}}^T A$.
+\end{lemma}
+
+\begin{lemma}\label{subst1}
+If $\vec{t} = t_1,\dots,t_n$ are terms using free variables in $\vec{y}$ and
+$\Gamma\vdash_{x_1,\dots,x_n}^T A$ then $\Gamma(\vec{t})\vdash_{\vec{y}}^T A(\vec{t})$.
+\end{lemma}
+
+ Let $r$ be a term, and $u$ a variable, we denote by $\rho = \rho_{r,u}$ the substitution of $r$ by $u$
+in an atomic formula. It is defined by taking $P(\vec{t})\rho = P(\vec{t}\rho)$ and
+on terms
+\begin{itemize}
+\item $s\rho = u$ if $s = r$ otherwise
+\item $f(\vec{t})\rho = f(\vec{t}\rho)$
+\item $x\rho = x$
+\end{itemize}
+
+\begin{lemma}\label{subst2}
+If all free variables of $r$ are in $\vec{x}$ and
+$\Gamma\vdash_{\vec{x}}^T A$ then $\Gamma\rho_{r,u}\vdash_{\vec{x},u}^T A\rho_{r,u}$.
+\end{lemma}
+
+\begin{proof}
+By induction on the proof of $\Gamma\vdash_{\vec{x}}^T A$.
+
+If $A$ is in $\Gamma$ then $A\rho$ is in $\Gamma\rho$.
+
+If there is a rule
+$$
+\Delta_0(\vec{y})~\vdash_{\vec{y}}~
+\exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
+$$
+in $T$ such that $\Delta_0(\vec{t})$ is a subset of $\Gamma$ and
+we have $\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}} A$ for all $i = 1,\dots,n$
+where $\vec{t}$ are terms using variables in $\vec{x}$ then we have by induction
+$\Gamma\rho,\Delta_i(\vec{t},\vec{z_i})\rho\vdash^T_{\vec{x},\vec{z_i},u} A\rho$ for all $i = 1,\dots,n$
+Since $z\rho = z$ for all variable $z$ in $\vec{z_i}$, we get
+$\Gamma\rho,\Delta_i(\vec{t}\rho,\vec{z_i})\vdash^T_{\vec{x},\vec{z_i},u} A\rho$ for all $i = 1,\dots,n$
+and hence $\Gamma\rho\vdash^T_{\vec{x},u} A\rho$ as desired.
+\end{proof}
+
+\begin{lemma}\label{cut}
+If $\Gamma\vdash_{\vec{x}}^T A$ and $\Delta,A\vdash_{\vec{x}}^T B$ then
+$\Gamma,\Delta\vdash_{\vec{x}}^T B$
+\end{lemma}
+
+\begin{proof}
+By induction on the proof of $\Gamma\vdash_{\vec{x}}^T A$. If $A$ belongs to $\Gamma$ we can
+conclude by Lemma \ref{weak}. 
+Otherwise we have a rule
+$$
+\Delta_0(\vec{y})~\vdash_{\vec{y}}~
+\exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
+$$
+in $T$ such that $\Delta_0(\vec{t})$ is a subset of $\Gamma$ and
+$\Gamma,\Delta_i(\vec{t},\vec{y_i})\vdash_{\vec{x},\vec{y_i}} A$ for all $i$.
+By induction, we have $\Gamma,\Delta,\Delta_i(\vec{t},\vec{y_i})\vdash_{\vec{x},\vec{y_i}} B$ for all $i$
+and hence $\Gamma,\Delta\vdash_{\vec{x}}^T B$ as desired.
+\end{proof}
+
+\section{Proving disjunctive and existential statements}
+
+ We generalize the definition of $\Gamma\vdash_{\vec{x}}^T A$ to 
+$\Gamma\vdash_{\vec{x}}^T \Delta$ where $\Delta$ is a finite set of atomic formulae, the free
+variable of which are among $\vec{x}$, which is now thought of as a disjunction. The clauses are
+
+\begin{enumerate}
+\item $\Delta$ meets $\Gamma$
+
+\item there is a rule
+$$
+\Delta_0(\vec{y})~\vdash_{\vec{y}}~
+\exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
+$$
+in $T$ such that $\Delta_0(\vec{t})$ is a subset of $\Gamma$ and
+we have $\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}} \Delta$ for all $i = 1,\dots,n$
+where $\vec{t}$ are terms using variables in $\vec{x}$.
+\end{enumerate}
+
+ We define $\vdash_{y_0,y_1}^T \exists u~P(u,y_0,y_1)$ to mean that there are a finite number
+of terms $r_1(y_0,y_1),\dots,r_n(y_0,y_1)$ such that
+$\vdash_{y_0,y_1}^T P(r_1,y_0,y_1),\dots,P(r_n,y_0,y_1)$.
+
+%% \begin{lemma}
+%% If $\vdash_{y_0,y_1}^T \exists u~P(u,y_0,y_1)$ and all free variables of $\Gamma,A,t_0,t_1$ are in
+%% $\vec{x}$
+%% and $\Gamma,P(z,t_0,t_1)\vdash_{\vec{x},z}^T A$ then $\Gamma\vdash_{\vec{x}}^T A$.
+%% \end{lemma}
+
+\section{Addition of existential rules}
+
+ We assume that there are a finite number
+of terms $r_i(y_0,y_1)$ such that
+$\vdash_{y_0,y_1}^T P(r_1,y_0,y_1),\dots,P(r_n,x,y)$ (i.e. $\vdash_{y_0,y_1}^T \exists u~P(u,y_0,y_1)$).
+We let $T'$ be the theory where we add the rule
+$$
+\vdash_{y_0,y_1}~\exists u~P(u,y_0,y_1)
+$$
+
+\begin{lemma}
+If $\Gamma\vdash_{\vec{x}}^{T'} A$ then $\Gamma\vdash_{\vec{x}}^T A$.
+\end{lemma}
+
+
+\begin{proof}
+By induction on the proof of $\Gamma\vdash_{\vec{x}}^{T'} A$. The only complex
+case is if we use the new rule. In this case we have terms $t_0,t_1$ using only
+free variables in $\vec{x}$ and $\Gamma,P(u,t_0,t_1)\vdash_{\vec{x},u}^T A$ by induction.
+Using Lemma \ref{subst1} we get
+$\Gamma,P(r_i(t_0,t_1),t_0,t_1)\vdash_{\vec{x}} A$ for $i = 1,\dots,n$.
+We also have $\vdash_{\vec{x}}^T P(r_i(t_0,t_1),t_0,t_1)$, and we can conclude by Lemma \ref{cut}.
+\end{proof}
+
+
+\section{Elimination of function symbols}
+
+ We assume that we have the rule $\vdash_{y_0,y_1}\exists u~P(u,y_0,y_1)$ in $T$.
+(Using the previous section, we can assume instead only that this rule is {\em derivable}
+in $T$.)
+We introduce $f$ a binary function
+symbol which is {\em not} in the language of $T$. We let $T_0$ be the theory like $T$ but where we
+add the symbol function $f$ and $T'$ the extension of $T_0$ with the rule
+$$
+\vdash_{y_0,y_1}~P(f(y_0,y_1),y_0,y_1)\leqno{(*)}
+$$
+
+ The goal of this section is to prove that $T'$ is a conservative extension of $T_0$. (It is clear
+that $T_0$ is a conservative extension of $T$ if we have a constant symbol in $T$ since we can always
+interpret the function by a constant function.) The main idea is that if we use $f$ and the rule
+$(*)$ with $P(f(s,t),s,t)$ we should be able to replace $f(s,t)$ by a fresh variable 
+$P(u,s,t)$ and then we can use the fact that $\exists u~P(u,s,t)$ is provable.
+This idea is cleverly expressed in the crucial Lemma \ref{crucial} (which comes from \cite{Maehara}).
+
+% We define a $f$-term of $\Gamma$ to be any term of the form $f(t_0,t_1)$ which appears
+%in $\Gamma$.
+
+\begin{lemma}\label{simpl}
+If $\Gamma,P(f(s,t),s,t)\vdash_{\vec{x}}^{T_0} A$ and
+$f(s,t)$ is not in $\Gamma,A$ then $\Gamma\vdash_{\vec{x}}^{T_0} A$.
+\end{lemma}
+
+\begin{proof}
+We take $r = f(s,t)$ and we use Lemma \ref{subst2}. We get
+$\Gamma,P(u,s,t)\vdash_{\vec{x},u}^{T_0} A$. Since we also have
+$\vdash_{\vec{x}}\exists u~P(u,x,t)$ we get  $\Gamma\vdash_{\vec{x}}^{T_0} A$.
+\end{proof}
+
+\begin{corollary}\label{simpl1}
+If $\Gamma,P(f(s_1,t_1),s_1,t_1),\dots,P(f(s_n,t_n),s_n,t_n)\vdash_{\vec{x}}^{T_0} A$ and
+$f(s_1,t_1),\dots,f(s_n,t_n)$ are not in $\Gamma,A$ then $\Gamma\vdash_{\vec{x}}^{T_0} A$.
+\end{corollary}
+
+
+\begin{lemma} \label{crucial} (crucial Lemma) 
+If $\Gamma\vdash_{\vec{x}}^{T'} A$ then $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$ where
+$\Sigma$ is a set of formulae $P(f(s,t),s,t)$ where $f(s,t)$ is a term which
+occurs in $\Gamma,A$.
+\end{lemma}
+
+\begin{proof}
+By induction on the proof of $\Gamma\vdash_{\vec{x}}^{T'} A$.
+
+\medskip
+
+ The first case if if $A$ is in $\Gamma$ then $A$ is in $\Gamma,\Sigma$ and so 
+$\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$.
+
+\medskip
+
+ The second case is if there is a rule
+$$
+\Delta_0(\vec{y})~\vdash_{\vec{y}}~
+\exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
+$$
+in $T$ with $\vec{t}$ terms using free variables in $\vec{x}$ and
+we have $\Delta_0(\vec{t})$ subset of $\Gamma$ and we have
+$\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash_{\vec{x},\vec{z_i}}^{T'} A$ for $i=1,\dots,n$.
+By induction we have $\Gamma,\Delta_i(\vec{t},\vec{z_i}), \Sigma_i\vdash_{\vec{x},\vec{z_i}}^{T_0} A$
+for $i = 1,\dots,n$, where $\Sigma_i$ is a set of formulae $P(f(t_0,t_1),t_0,t_1)$ where
+$f(t_0,t_1)$ occurs in $\Gamma,A,\Delta_i(\vec{t},\vec{z_i})$.
+Since $\Delta(\vec{y},\vec{z_i})$ does not mention $f$ and all free variables of $\vec{t}$ are
+in $\vec{x}$ it follows that all free variables of $\Sigma_i$ are in $\vec{x}$.
+It follows that we have
+$\Gamma,\Sigma_1,\dots,\Sigma_n\vdash_{\vec{x}}^{T_0} A$.
+Then using Corollary \ref{simpl1}, we get the required conclusion.
+
+\medskip
+
+ The last case is that we have used the rule $(*)$ and
+we have $\Gamma,P(f(t_0,t_1),t_0,t_1)\vdash_{\vec{x}}^{T'} A$. By induction we get
+$\Gamma,P(f(t_0,t_1),t_0,t_1),\Sigma \vdash_{\vec{x}}^{T_0} A$ where
+$\Sigma$ is a set of all formulae $P(f(s,t),s,t)$ where $f(s,t)$ occurs
+in $\Gamma,A,P(f(t_0,t_1),t_0,t_1)$. We then conclude using Corollary \ref{simpl1} as in the
+previous case.
+\end{proof}
+
+ For the next result, we assume the theory to have at least one constant symbol.
+
+\begin{theorem}
+If $\Gamma,A$ does not mention $f$ and $\Gamma\vdash_{\vec{x}}^{T'} A$ then
+$\Gamma\vdash_{\vec{x}}^T A$.
+\end{theorem}
+
+\begin{proof}
+By the previous crucial Lemma we get $\Gamma\vdash_{\vec{x}}^{T_0} A$. We then conclude
+$\Gamma\vdash_{\vec{x}}^T A$ by replacing all terms using $f$ by the given constant.
+\end{proof}
+
+%%  If we have an equality symbol, we consider that we have added all equality axioms for
+%% predicate and function symbols in the theory. It follows from this Theorem that we
+%% can eliminate function symbols whenever we have unique existence. 
+
+\section{Addition of equality}
+
+ The same reasoning seems also to work with the addition of the rule
+$$x=x',~ y = y'\rightarrow f(x,y) = f(x',y')$$
+for the new function symbol $f$.
+
+ We only have to consider the new case where we deduce $\Gamma\vdash_{\vec{x}}^{T'} A$ from 
+$\Gamma,f(s_0,t_0) = f(s_1,t_1)\vdash_{\vec{x}}^{T'} A$ and $s_0 = s_1$ and
+$t_0 = t_1$ in $\Gamma$. We then have by induction
+$\Gamma,f(s_0,t_0) = f(s_1,t_1),\Sigma \vdash_{\vec{x}}^{T_0} A$
+where  $\Sigma$ is a set of formulae $P(f(s,t),s,t)$ where $f(s,t)$ occurs
+in $\Gamma,f(s_0,t_0) = f(s_1,t_1),A$ and we conclude using Corollary \ref{simpl1}.
+
+\medskip
+
+ It is remarkable that this proof transformation is quite simple (no combinatorial explosion), while
+the introduction of an extensional Skolem function is intuitively problematic. For instance,
+we do have for real numbers $\vdash_x \exists n~n\leqslant x$ but there is no Skolem function
+giving $n$ from $x$. While this remark is only heuristic, we provide next two examples where there
+is {\em no} Skolem functions in some natural models of the theory $T$.
+
+\section{Examples}
+
+\subsection{Algebraically closed field}
+
+ We can take $T$ be the theory of algebraically closed field. This theory
+has for axioms the equational theory of rings together with the rules
+$$
+\vdash_x x = 0 \vee \exists y~(xy = 1)~~~~~~~~~~~~
+\vdash_{x_1,\dots,x_n} \exists x~(x^n = x_1 x^{n-1} + \dots + x_n)
+$$
+
+ We can prove in this theory
+$$
+\vdash_{x} \exists u~ (x(1-ux) = 0)
+$$
+in this theory. Hence we can introduce a function $inv(x)$ with the axiom
+$x(1 -inv(x) x) = 0$ and we get a conservative extension. 
+
+ Another example with the same theory is to introduce a function $sqrt(x)$ with the axiom
+$sqrt(x)^2 = x$. Since we have $\vdash_{x} \exists u~(u^2 = x)$, we also get a conservative
+extension.
+
+ For this example, notice that we have models of the theory (for instance the model described
+in \cite{Mannaa}) where there is no square root function.
+
+\subsection{Local rings}
+
+ Another example is the the theory of local rings, given by the equational theory of rings
+with the rules
+$$
+0=1\vdash~~~~~~~~~~~~~~~~~~~~~~~~~~~~\vdash_x inv(x)\vee inv(1-x)
+$$
+where $inv(x)$ means $\exists y~(xy = 1)$. 
+
+ The generic model is given by the site of finitely presented rings with covering
+$R\rightarrow R[1/x_i]$ for $1 = \ideal{x_1,\dots,x_n}$ (we can have $n = 0$ if $1=0$ in $R$).
+
+ We can prove in this theory
+$$
+\vdash_x \exists y~z~(x y = 1~\vee ~(1-x) z = 1)
+$$
+hence it is possible in a conservative way
+to introduce two skolem functions $J(x)$ and $K(x)$ with the rule
+$$
+\vdash_x xJ(x) = 1~\vee~(1-x)K(x) = 1
+$$
+
+ There are no such functions for the generic model since these functions should be defined
+at all levels and $\ints$ is not a local ring.
+(All functions on the generic local rings are polynomials but we don't need to use this fact.)
+
+\medskip
+
+ Despite the fact that the conservativity can be proved in a simple way, in the last case, we
+have no Skolem function in the generic model, and thus, we cannot simply rely on a semantical
+argument.
+
+\section{Application to a question of Gavin Wraith}
+
+ We take the language with only a binary relation $R$. The theory $T$ has the rule
+$\vdash_x \exists y~R(x,y)$. As an application of what we have seen, we can add
+in a conservative way a function symbol $f$ with the rule $\vdash _x R(x,f(x))$ and
+get a theory $T'$ which is conservative over $T$ for {\em coherent} formulae. 
+
+ This theory however is {\em not} conservative for arbitrary formulae since we can prove in
+$T'$ the non coherent formula
+$$
+\exists y_1~y_2~(R(x_1,y_1)\wedge R(x_2,y_2)\wedge (x_1=x_2\rightarrow y_1=y_2))\leqno{(**)}
+$$
+which is not provable in $T$.
+
+ We show that this theory is {\em not} valid in the generic model of $T$, answering
+in this way a question of Gavin Wraith \cite{Wraith}. The generic model can be described
+in the following way. It is a site model. The object of the site are relations (graphs)
+$I,R_I$ on a finite set
+and morphisms maps $f:I\rightarrow J$ which preserve the relation: if $R_I(i_0,i_1)$
+then $R_J(f(i_0),f(i_1))$. A basic covering of $I,R_I$ is obtained by choosing an element $i$
+in $I$ and adding a fresh element $I\rightarrow I,j$ and the relation $R(i,j)$.
+The covariant functor $(I,R_I)\longmapsto I$ satisfies the sheaf condition and is the domain
+of the generic model. We define $(I,R_I)\Vdash\varphi$ by induction on $\varphi$ as usual.
+It can then be checked that the formula $(**)$ above is not forced.
+
+\begin{thebibliography}{9}
+
+\bibitem{DW}
+G. Dowek and B. Werner.
+\newblock{A constructive proof of Skolem theorem for constructive logic.}
+\newblock{Manuscript, 2004.}
+
+\bibitem{Maehara}
+S. Maehara.
+\newblock{The predicate calculus with $\epsilon$-symbol.}
+\newblock{Journal of the Mathematical Society of Japan, 1955.}
+
+\bibitem{Mannaa}
+Th. Coquand and B. Mannaa.
+\newblock{A Sheaf Model of the Algebraic Closure.}
+\newblock{Proceedings of EPTCS, 2014.}
+
+\bibitem{Wraith}
+G. C. Wraith
+\newblock{Intuitionistic algebra: some recent developments in topos theory.}
+\newblock{Proceedings of the International Congress of Mathematicians (Helsinki, 1978), pp. 331–337.}
+
+\end{thebibliography}
+
+\end{document}      
+                                                                                  
+ 

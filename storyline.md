@@ -6,7 +6,12 @@
 
 2. (I) Skolem's Theorem in intuitionistic logic
 * not conservative, (D) example
+  - the last formula of the example is not provable _because_ it is not forced
+  - a Kripke countermodel also exists (how big? relation to generic model?)
 * remark: Maehara's proof transformation is constructive, but the resulting proofs are not
 * conservative with uniqueness
 
-3. (D) Coherent logic
+3. (D) Coherent logic, proof theory,
+* (I) conservativity of classical logic (Barr)
+* (D) Skolem's Theorem for coherent logic
+* (D) example revisted, last formula is redundant: new counterexample to Wraith's question

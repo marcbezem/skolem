@@ -11,7 +11,8 @@
 * remark: Maehara's proof transformation is constructive, but the resulting proofs are not
 * conservative with uniqueness
 
-3. (D) Coherent logic, proof theory,
+3. (D) Coherent logic, proof theory
 * (I) conservativity of classical logic (Barr)
 * (D) Skolem's Theorem for coherent logic
+* remark: both the proof transformation and the resulting proofs are constructive
 * (D) example revisted, last formula is redundant: new counterexample to Wraith's question

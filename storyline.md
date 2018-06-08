@@ -7,7 +7,7 @@
 2. (I) Skolem's Theorem in intuitionistic logic
 * not conservative, (D) example
   - the last formula of the example is not provable _because_ it is not forced
-  - a Kripke countermodel also exists (how big? relation to generic model?)
+  (a Kripke countermodel also exists, but we don't need that)
 * remark: Maehara's proof transformation is constructive, but the resulting proofs are not
 * conservative with uniqueness
 

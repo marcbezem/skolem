@@ -239,13 +239,27 @@ and a new negative answer to a question by Wraith.
 
 \section*{Introduction}
 Skolemization is the replacement of an axiom of the form
-\[\forall\many{x}{n}~\exists y~\phi(\many{x}{n},y)\]
+\begin{equation}\label{allexists}
+\forall\many{x}{n}~\exists y~\phi(\many{x}{n},y)
+\end{equation}
 by one of the form
-\[\forall\many{x}{n}~\phi(\many{x}{n},f_\phi(\many{x}{n})),\]
-where $f_\phi$ is a fresh function symbol, also called a Skolem-function.
+\begin{equation}\label{allfunction}
+\forall\many{x}{n}~\phi(\many{x}{n},f_\phi(\many{x}{n})),
+\end{equation}
+where $f_\phi$ is a fresh function symbol, also called a Skolem function.
 
-Skolem's Theorem states that skolemization is conservative for classical 
-first-order logic, which means that ...
+Clearly, (\ref{allfunction}) is stronger than (\ref{allexists}).
+Nevertheless, Skolem's Theorem states that skolemization is \emph{conservative}
+for classical first-order logic. This means that classical consequences of
+(\ref{allfunction}) not containing $f_\phi$ already follow from (\ref{allexist}). 
+Semantically, Skolem's Theorem follows from the observation that
+any model of (\ref{allexists}) can be extended with an interpretation
+of $f_\phi$ to satisfy (\ref{allfunction}). This approach has two
+drawbacks. First, the interpretation of $f_\phi$ uses the Axiom of Choice.
+Second, the approach does not explain how to transform proofs using
+(\ref{allfunction}) into proofs using (\ref{allexists}).
+Of course, the mere existence of such a proof transformation
+follows from the semantical argument by applying soundness and completeness.
 
 
 

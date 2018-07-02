@@ -251,7 +251,7 @@ where $f_\phi$ is a fresh function symbol, also called a Skolem function.
 Clearly, (\ref{allfunction}) is stronger than (\ref{allexists}).
 Nevertheless, Skolem's Theorem states that skolemization is \emph{conservative}
 for classical first-order logic. This means that classical consequences of
-(\ref{allfunction}) not containing $f_\phi$ already follow from (\ref{allexist}). 
+(\ref{allfunction}) not containing $f_\phi$ already follow from (\ref{allexists}). 
 Semantically, Skolem's Theorem follows from the observation that
 any model of (\ref{allexists}) can be extended with an interpretation
 of $f_\phi$ to satisfy (\ref{allfunction}). This approach has two
@@ -261,6 +261,15 @@ Second, the approach does not explain how to transform proofs using
 Of course, the mere existence of such a proof transformation
 follows from the semantical argument by applying soundness and completeness.
 
+Despite its elegance, the above argument is unsatisfactory from the
+proof theoretic point of view. One would like to understand
+how to transform proofs using (\ref{allfunction}) into proofs
+using  (\ref{allexists}) in a combinatorial way, bypassing the use 
+of the Axiom of Choice. (Here and below we restrict attention to
+proofs with conclusion not containing $f_\phi$.)
+Such a proof transformation must exist and has been found by Maehara~\cite{Maehara}. 
+A modern account can be found in, for example, Gallier~\cite[Ch.~7]{Gallier}.
+It may come as a surprise that these proof transformations are rather 
 
 
 \section{Geometrical theory}
@@ -629,15 +638,31 @@ G. Dowek and B. Werner.
 \newblock{A constructive proof of Skolem theorem for constructive logic.}
 \newblock{Manuscript, 2004.}
 
+\bibitem{Gallier} 
+J. Gallier, 
+\newblock\emph{Logic for Computer Science: Foundations of Automatic Theorem Proving},
+Wiley, 1986. Freely available online at: \url{www.cis.upenn.edu/~jean/gbooks/logic.html}
+
 \bibitem{Maehara}
 S. Maehara.
 \newblock{The predicate calculus with $\epsilon$-symbol.}
-\newblock{Journal of the Mathematical Society of Japan, 1955.}
+Journal of the Mathematical Society of Japan, \textbf{7}(4):323--344, 1955.
 
 \bibitem{Mannaa}
 Th. Coquand and B. Mannaa.
 \newblock{A Sheaf Model of the Algebraic Closure.}
 \newblock{Proceedings of EPTCS, 2014.}
+
+\bibitem{Skolem}
+Th.~Skolem,
+\newblock\emph{Logisch-kombinatorische Untersuchungen \"{u}ber
+die Erf\"{u}llbarkeit % manual break
+und Beweisbarkeit mathematischen S\"{a}tze
+nebst einem Theoreme \"{u}ber dichte Mengen},
+{Skrifter} I \textbf{4}:1--36, Det Norske Videnskaps-Akademi, 1920.
+\newblock Also in: Jens Erik Fenstad, editor,
+\emph{Selected Works in Logic by Th. Skolem}, pp.~103--136,
+Universitetsforlaget, Oslo, 1970.
 
 \bibitem{Wraith}
 G. C. Wraith

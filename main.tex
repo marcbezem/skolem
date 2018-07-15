@@ -251,25 +251,25 @@ where $f_\phi$ is a fresh function symbol, also called a Skolem function.
 Clearly, (\ref{allfunction}) is stronger than (\ref{allexists}).
 Nevertheless, Skolem's Theorem states that skolemization is \emph{conservative}
 for classical first-order logic. This means that classical consequences of
-(\ref{allfunction}) not containing $f_\phi$ already follow from (\ref{allexists}). 
+(\ref{allfunction}) not containing $f_\phi$ already follow from (\ref{allexists}).
+
 Semantically, Skolem's Theorem follows from the observation that
 any model of (\ref{allexists}) can be extended with an interpretation
-of $f_\phi$ to satisfy (\ref{allfunction}). This approach has two
+of $f_\phi$ to satisfy (\ref{allfunction}). This simple, elegant argument has two
 drawbacks. First, the interpretation of $f_\phi$ uses the Axiom of Choice.
-Second, the approach does not explain how to transform proofs using
+Second, the argument does not explain how to transform proofs using
 (\ref{allfunction}) into proofs using (\ref{allexists}).
 Of course, the mere existence of such a proof transformation
 follows from the semantical argument by applying soundness and completeness.
 
-Despite its elegance, the above argument is unsatisfactory from the
-proof theoretic point of view. One would like to understand
-how to transform proofs using (\ref{allfunction}) into proofs
-using  (\ref{allexists}) in a combinatorial way, bypassing the use 
-of the Axiom of Choice. (Here and below we restrict attention to
-proofs with conclusion not containing $f_\phi$.)
-Such a proof transformation must exist and has been found by Maehara~\cite{Maehara}. 
+From the proof theoretic point of view one would like to understand
+in a combinatorial way how to transform proofs using (\ref{allfunction}) into proofs
+using  (\ref{allexists}).  Here and below we restrict attention to
+proofs with conclusion not containing $f_\phi$. After all, such proofs are finite
+combinatorial objects and will not use the skolem function in its entirety.
+Such a proof transformation exists and has been found by Maehara~\cite{Maehara}. 
 A modern account can be found in, for example, Gallier~\cite[Ch.~7]{Gallier}.
-It may come as a surprise that these proof transformations are rather 
+It may come as a surprise that these proof transformations are quite complicated.
 
 
 \section{Geometrical theory}

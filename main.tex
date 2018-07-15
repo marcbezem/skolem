@@ -239,32 +239,32 @@ and a new negative answer to a question by Wraith.
 
 \section*{Introduction}
 Skolemization is the replacement of an axiom of the form
-\begin{equation}\label{allexists}
+\begin{equation}\label{allexist}
 \forall\many{x}{n}~\exists y~\phi(\many{x}{n},y)
 \end{equation}
 by one of the form
-\begin{equation}\label{allfunction}
+\begin{equation}\label{allskol}
 \forall\many{x}{n}~\phi(\many{x}{n},f_\phi(\many{x}{n})),
 \end{equation}
 where $f_\phi$ is a fresh function symbol, also called a Skolem function.
 
-Clearly, (\ref{allfunction}) is stronger than (\ref{allexists}).
+Clearly, (\ref{allskol}) is stronger than (\ref{allexist}).
 Nevertheless, Skolem's Theorem states that skolemization is \emph{conservative}
 for classical first-order logic. This means that classical consequences of
-(\ref{allfunction}) not containing $f_\phi$ already follow from (\ref{allexists}).
+(\ref{allskol}) not containing $f_\phi$ already follow from (\ref{allexist}).
 
 Semantically, Skolem's Theorem follows from the observation that
-any model of (\ref{allexists}) can be extended with an interpretation
-of $f_\phi$ to satisfy (\ref{allfunction}). This simple, elegant argument has two
+any model of (\ref{allexist}) can be extended with an interpretation
+of $f_\phi$ to satisfy (\ref{allskol}). This simple, elegant argument has two
 drawbacks. First, the interpretation of $f_\phi$ uses the Axiom of Choice.
 Second, the argument does not explain how to transform proofs using
-(\ref{allfunction}) into proofs using (\ref{allexists}).
+(\ref{allskol}) into proofs using (\ref{allexist}).
 Of course, the mere existence of such a proof transformation
 follows from the semantical argument by applying soundness and completeness.
 
 From the proof theoretic point of view one would like to understand
-in a combinatorial way how to transform proofs using (\ref{allfunction}) into proofs
-using  (\ref{allexists}).  Here and below we restrict attention to
+in a combinatorial way how to transform proofs using (\ref{allskol}) into proofs
+using  (\ref{allexist}).  Here and below we restrict attention to
 proofs with conclusion not containing $f_\phi$. After all, such proofs are finite
 combinatorial objects and will not use the skolem function in its entirety.
 Such a proof transformation exists and has been defined by Maehara~\cite{Maehara}. 
@@ -274,7 +274,23 @@ First, the transformed proofs can be much longer than the original, see \cite{xx
 Second, as we shall see below, in certain cases the transformed proofs must use
 the law of the excluded middle even if the original proof does not.
 
-
+One natural question is whether Skolem's Theorem holds for other logics as well.
+We first consider constructive logic. Surprisingly, Skolem's Theorem fails
+for constructive logic, a result that is due to Minc?~\cite{xxx}.
+For simplicity, take $n=1$ in (\ref{allexist}) and (\ref{allskol}),
+and let $\phi$ be atomic. Consider the sentence
+\begin{equation}\label{all2exist2}
+\forall x_1,x_2~\exists y_1,y_2.~\phi(x_1,y_1) \land \phi(x_2,y_2) \land (x_1 = x_2 \to y_1 = y_2)
+\end{equation}
+Clearly,  (\ref{all2exist2}) follows from (\ref{allskol}) by taking $y_i = f_\phi(x_i)$.
+In an attempt to prove (\ref{all2exist2}) from (\ref{allexist}), let $x_1,x_2$ be given.
+Using (\ref{allexist}) we can get $y_1,y_2$ satisfying the first two conjuncts
+in (\ref{all2exist2}). However, (\ref{allexist}) does not guarantee the third conjunct.
+For this we would have to decide $ x_1 = x_2 \lor x_1 \neq x_2$ before the
+application of (\ref{allexist}). In constructive logic, equality is in general not decidable.
+We shall prove below that indeed (\ref{all2exist2}) does not follow from  (\ref{allexist})
+in constructive logic.
+Therefore Skolem's Theorem fails there.
 
 
 \section{Geometrical theory}

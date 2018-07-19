@@ -325,8 +325,8 @@ in $T$ and a sequence of terms $\vec{t}$ with variables in $\vec{x}$,
 such that $\Delta_0(\vec{t})$ is a subset of $\Gamma$ and
 we have 
 $$
-\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}}
-\text{for all $i = 1,\dots,n$.}
+\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}} A
+\quad \text{for all $i = 1,\dots,n$.}
 $$
 \end{enumerate}
 
@@ -345,8 +345,7 @@ which is true in any $\Gamma$.
 %% \end{lemma}
 
 \begin{lemma}\label{weak}
-If $\Gamma\vdash_{\vec{x}}^T A$ and all free variables of $\Sigma$ are in $\vec{x}$ and
-$\Gamma\subseteq \Sigma$ then $\Sigma\vdash_{\vec{x}}^T A$.
+If $\Gamma\vdash_{\vec{x}}^T A$, $\vec{x}\subseteq \vec{y}$, $\Gamma\subseteq \Sigma$ and all free variables of $\Sigma$ are in $\vec{y}$, then $\Sigma\vdash_{\vec{y}}^T A$.
 \end{lemma}
 
 \begin{lemma}\label{subst1}
@@ -354,16 +353,36 @@ If $\vec{t} = t_1,\dots,t_n$ are terms using free variables in $\vec{y}$ and
 $\Gamma\vdash_{x_1,\dots,x_n}^T A$ then $\Gamma(\vec{t})\vdash_{\vec{y}}^T A(\vec{t})$.
 \end{lemma}
 
- Let $r$ be a term, and $u$ a variable, we denote by $\rho = \rho_{r,u}$ the substitution of $r$ by $u$
-in an atomic formula. It is defined by taking $P(\vec{t})\rho = P(\vec{t}\rho)$ and
-on terms
+We will continue using ordinary substitution of variables by terms implicitly, such as in,
+for example, $\Delta_0(\vec{t})$. In proving Skolem's Theorem we also need to
+substitute variables for terms. This we denote explicitly.
+For $r$ be a term, and $u$ a variable, we denote by $\rho = \rho_{r,u}$ the 
+substitution of $r$ by $u$, inductively defined on terms by
 \begin{itemize}
-\item $s\rho = u$ if $s = r$ otherwise
+\item $s\rho = u$ if $s = r$, and otherwise
 \item $f(\vec{t})\rho = f(\vec{t}\rho)$
 \item $x\rho = x$
 \end{itemize}
+We extend in the usual way by taking $P(\vec{t})\rho = P(\vec{t}\rho)$ for
+predicate symbols  $P$, and likewise for sets of atoms. 
+One subtlety in the interaction of the two notions of subtitution is that for an
+atomic formula $\phi(\vec{x})$ in free variables $\vec{x}$ and
+a sequence of terms $\vec{t}$, $\phi(\vec{t})\rho$
+can be different from $\phi(\vec{t}\rho)$ when $\phi(\vec{x})$
+contains the term $r$. For example, if  $\phi(x) = P(r,x)$
+and $t=r$, then $\phi(t)\rho = P(u,u)$ and $\phi(t\rho) = P(r,u)$.
+Even worse, if $\phi(x) = P(f(x))$ and $t=c$ and $r=f(c)$,
+then $\phi(t)\rho = P(u)$ and $\phi(t\rho) = P(f(c))$.
+A sufficient condition to rule out these anomalies is given in
+the following lemma.
+
+\begin{lemma}\label{subst0}
+If $\rho = \rho_{r,u}$ and the head symbol of $r$ does not occur in 
+$\phi(\vec{x})$, then $\phi(\vec{t})\rho =\phi(\vec{t}\rho)$.
+\end{lemma}
 
 \begin{lemma}\label{subst2}
+Assume $\rho = \rho_{r,u}$ and the head symbol of $r$ does not occur in $T$.
 If all free variables of $r$ are in $\vec{x}$ and
 $\Gamma\vdash_{\vec{x}}^T A$ then $\Gamma\rho_{r,u}\vdash_{\vec{x},u}^T A\rho_{r,u}$.
 \end{lemma}
@@ -379,12 +398,19 @@ $$
 \exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
 $$
 in $T$ such that $\Delta_0(\vec{t})$ is a subset of $\Gamma$ and
-we have $\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}} A$ for all $i = 1,\dots,n$
-where $\vec{t}$ are terms using variables in $\vec{x}$ then we have by induction
-$\Gamma\rho,\Delta_i(\vec{t},\vec{z_i})\rho\vdash^T_{\vec{x},\vec{z_i},u} A\rho$ for all $i = 1,\dots,n$
-Since $z\rho = z$ for all variable $z$ in $\vec{z_i}$, we get
+we have $\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}} A$ for all $i = 1,\dots,n$,
+where $\vec{t}$ are terms using variables in $\vec{x}$, then we have by induction
+$\Gamma\rho,\Delta_i(\vec{t},\vec{z_i})\rho\vdash^T_{\vec{x},\vec{z_i},u} A\rho$
+for all $i = 1,\dots,n$. 
+
+We want to apply the same rule as above, instantiated
+with $\vec{t}\rho$ instead of $\vec{t}$. Due to the condition on $r$ we have that
+$\Delta_0(\vec{t}\rho) = \Delta_0(\vec{t})\rho$ is a subset of $\Gamma\rho$.
+Moreover, $\Delta_i(\vec{t},\vec{z_i})\rho = \Delta_i(\vec{t}\rho,\vec{z_i})$ 
+for all $i = 1,\dots,n$, since $z\rho = z$ for all variable $z$ in $\vec{z_i}$.
+Hence we get
 $\Gamma\rho,\Delta_i(\vec{t}\rho,\vec{z_i})\vdash^T_{\vec{x},\vec{z_i},u} A\rho$ for all $i = 1,\dots,n$
-and hence $\Gamma\rho\vdash^T_{\vec{x},u} A\rho$ as desired.
+and can infer $\Gamma\rho\vdash^T_{\vec{x},u} A\rho$ as desired.
 \end{proof}
 
 \begin{lemma}\label{cut}

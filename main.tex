@@ -293,9 +293,9 @@ in constructive logic.
 Therefore Skolem's Theorem fails there.
 
 
-\section{Geometrical theory}
+\section{Coherent theories}
  
- We use letters $r,s,t,\dots$ for terms and $x,y,z,u,\dots$ for variables.
+We use letters $r,s,t,\dots$ for terms and $x,y,z,u,\dots$ for variables.
 
 \medskip
 
@@ -306,27 +306,36 @@ $$
 $$
 where $\Gamma(\vec{y}), \Delta(\vec{y}),\dots$ denote conjunctions of atomic formulae
 all free variables of which are in $\vec{y}$, thought of as a finite sets of atomic formulae.
+Such sets, as well as the sequences of variables, can be empty, 
+and we can have axioms with $n=0$. 
 We write $\Gamma,\Delta$ for the union of $\Gamma$ and $\Delta$.
 
  We define inductively when we have $\Gamma\vdash_{\vec{x}}^T A$ where $A$ is a atomic formula
-and all free variables of $\Gamma,A$ are in $\vec{x}$. There are two clauses
+and all free variables of $\Gamma,A$ are in $\vec{x}$. There are two clauses:
 
 \begin{enumerate}
-\item $A$ is in $\Gamma$
+\item (base case) $A$ is in $\Gamma$ 
 
-\item there is a rule
+\item (step case) there is an axiom 
 $$
 \Delta_0(\vec{y})~\vdash_{\vec{y}}~
 \exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
 $$
-in $T$ such that $\Delta_0(\vec{t})$ is a subset of $\Gamma$ and
-we have $\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}} A$ for all $i = 1,\dots,n$
-where $\vec{t}$ are terms using variables in $\vec{x}$.
+in $T$ and a sequence of terms $\vec{t}$ with variables in $\vec{x}$,
+such that $\Delta_0(\vec{t})$ is a subset of $\Gamma$ and
+we have 
+$$
+\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}}
+\text{for all $i = 1,\dots,n$.}
+$$
 \end{enumerate}
 
- Note that we can have $n=0$: if a finite set $\Delta_0(\vec{y})$ is inconsistent
-then $\Gamma\vdash_{\vec{x}} A$ is provable as soon as $\Delta_0(\vec{t})$ is a subset of $\Gamma$.
-
+In the special case $n=0$ this means that $\Gamma\vdash_{\vec{x}} A$ for any $A$ if $\Gamma$
+includes a finite set $\Delta_0(\vec{t})$. This shows that $\bot$ (absurdity) in coherent logic
+is represented by the empty disjunction, satisfying the Ex Falso rule. Dually, we have $\top$
+in coherent logic represented by  the empty conjunction (set of atoms), 
+which is true in any $\Gamma$.
+% left out remark on inconsistency that I didn't understand
 
 \section{Some Lemmas}
 

@@ -289,8 +289,12 @@ in (\ref{all2exist2}). However, (\ref{allexist}) does not guarantee the third co
 For this we would have to decide $ x_1 = x_2 \lor x_1 \neq x_2$ before the
 application of (\ref{allexist}). In constructive logic, equality is in general not decidable.
 We shall prove below that indeed (\ref{all2exist2}) does not follow from  (\ref{allexist})
-in constructive logic.
-Therefore Skolem's Theorem fails there.
+in constructive logic, using an argument different from \cite{xxx}.
+The failure of Skolem's Theorem for constructive logic can be remedied by 
+requiring in (\ref{allexist}) unique existence instead of existence, see \cite{xxx}.
+This, of course, results in a weaker Skolem's Theorem for constructive logic.
+
+Coherent logic ... TBE
 
 
 \section{Coherent theories}
@@ -374,7 +378,7 @@ and $t=r$, then $\phi(t)\rho = P(u,u)$ and $\phi(t\rho) = P(r,u)$.
 Even worse, if $\phi(x) = P(f(x))$ and $t=c$ and $r=f(c)$,
 then $\phi(t)\rho = P(u)$ and $\phi(t\rho) = P(f(c))$.
 A sufficient condition to rule out these anomalies is given in
-the following lemma.
+the following lemma, whose simple proof we omit.
 
 \begin{lemma}\label{subst0}
 If $\rho = \rho_{r,u}$ and the head symbol of $r$ does not occur in 
@@ -384,7 +388,7 @@ $\phi(\vec{x})$, then $\phi(\vec{t})\rho =\phi(\vec{t}\rho)$.
 \begin{lemma}\label{subst2}
 Assume $\rho = \rho_{r,u}$ and the head symbol of $r$ does not occur in $T$.
 If all free variables of $r$ are in $\vec{x}$ and
-$\Gamma\vdash_{\vec{x}}^T A$ then $\Gamma\rho_{r,u}\vdash_{\vec{x},u}^T A\rho_{r,u}$.
+$\Gamma\vdash_{\vec{x}}^T A$, then $\Gamma\rho_{r,u}\vdash_{\vec{x},u}^T A\rho_{r,u}$.
 \end{lemma}
 
 \begin{proof}
@@ -404,13 +408,13 @@ $\Gamma\rho,\Delta_i(\vec{t},\vec{z_i})\rho\vdash^T_{\vec{x},\vec{z_i},u} A\rho$
 for all $i = 1,\dots,n$. 
 
 We want to apply the same rule as above, instantiated
-with $\vec{t}\rho$ instead of $\vec{t}$. Due to the condition on $r$ we have that
+with $\vec{t}\rho$ instead of $\vec{t}$. From Lemma~\ref{subst0} we get that
 $\Delta_0(\vec{t}\rho) = \Delta_0(\vec{t})\rho$ is a subset of $\Gamma\rho$.
-Moreover, $\Delta_i(\vec{t},\vec{z_i})\rho = \Delta_i(\vec{t}\rho,\vec{z_i})$ 
-for all $i = 1,\dots,n$, since $z\rho = z$ for all variables $z$ in $\vec{z_i}$.
+Also, $\Delta_i(\vec{t},\vec{z_i})\rho = \Delta_i(\vec{t}\rho,\vec{z_i})$ 
+for all $i = 1,\dots,n$, since $z\rho = z$ for any variable $z$ in $\vec{z_i}$.
 Hence we get
-$\Gamma\rho,\Delta_i(\vec{t}\rho,\vec{z_i})\vdash^T_{\vec{x},\vec{z_i},u} A\rho$ for all $i = 1,\dots,n$
-and can infer $\Gamma\rho\vdash^T_{\vec{x},u} A\rho$ as desired.
+$\Gamma\rho,\Delta_i(\vec{t}\rho,\vec{z_i})\vdash^T_{\vec{x},\vec{z_i},u} A\rho$ for all $i = 1,\dots,n$,
+and we can infer $\Gamma\rho\vdash^T_{\vec{x},u} A\rho$ as desired.
 \end{proof}
 
 \begin{lemma}\label{cut}
@@ -435,13 +439,16 @@ and hence $\Gamma,\Delta\vdash_{\vec{x}}^T B$ as desired.
 \section{Proving disjunctive and existential statements}
 
  We generalize the definition of $\Gamma\vdash_{\vec{x}}^T A$ to 
-$\Gamma\vdash_{\vec{x}}^T \Delta$ where $\Delta$ is a finite set of atomic formulae, the free
-variable of which are among $\vec{x}$, which is now thought of as a disjunction. The clauses are
+$\Gamma\vdash_{\vec{x}}^T \nabla$ where $\nabla$ is a finite set of atomic formulae with
+free variables among $\vec{x}$, which is now thought of as a disjunction
+(and therefore denoted by $\nabla$ instead of $\Delta$). 
+The inductive clauses are:
 
 \begin{enumerate}
-\item $\Delta$ meets $\Gamma$
+\item (base) $\nabla$ meets $\Gamma$, that is, there is an $A$ in $\nabla$ that is 
+also in $\Gamma$
 
-\item there is a rule
+\item (step) there is a rule
 $$
 \Delta_0(\vec{y})~\vdash_{\vec{y}}~
 \exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
@@ -568,7 +575,7 @@ in $\Gamma,A,P(f(t_0,t_1),t_0,t_1)$. We then conclude using Corollary \ref{simpl
 previous case.
 \end{proof}
 
- For the next result, we assume the theory to have at least one constant symbol.
+ For the next result, we assume the signature to have at least one constant symbol.
 
 \begin{theorem}
 If $\Gamma,A$ does not mention $f$ and $\Gamma\vdash_{\vec{x}}^{T'} A$ then

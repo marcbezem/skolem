@@ -297,7 +297,7 @@ This, of course, results in a weaker Skolem's Theorem for constructive logic.
 Coherent logic ... TBE
 
 
-\section{Coherent theories}
+\section{Coherent theories}\label{coherent}
  
 We use letters $r,s,t,\dots$ for terms and $x,y,z,u,\dots$ for variables.
 
@@ -454,21 +454,29 @@ $$
 \exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
 $$
 in $T$ such that $\Delta_0(\vec{t})$ is a subset of $\Gamma$ and
-we have $\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}} \Delta$ for all $i = 1,\dots,n$
+we have $\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}} \nabla$ for all $i = 1,\dots,n$
 where $\vec{t}$ are terms using variables in $\vec{x}$.
 \end{enumerate}
 
+The base case above is essentially the introduction rule for $n$-ary disjunction,
+which includes the base case in Section~\ref{coherent} when $n=1$.
+We could do the same for existential statements and add a base case
+$\Gamma\vdash_{y_0,y_1}^T \exists u~P(u,y_0,y_1)$ if there exists a term $r(y_0,y_1)$
+such that $\Gamma\vdash_{y_0,y_1}^T P(r(y_0,y_1),y_0,y_1)$.
+However ... TBE
+
+For proving existential statements we could use the 
  We define $\vdash_{y_0,y_1}^T \exists u~P(u,y_0,y_1)$ to mean that there are a finite number
 of terms $r_1(y_0,y_1),\dots,r_n(y_0,y_1)$ such that
-$\vdash_{y_0,y_1}^T P(r_1,y_0,y_1),\dots,P(r_n,y_0,y_1)$.
-
+$\vdash_{y_0,y_1}^T P(r_1,y_0,y_1),\dots,P(r_n,
+y_0,y_1)$.
 %% \begin{lemma}
 %% If $\vdash_{y_0,y_1}^T \exists u~P(u,y_0,y_1)$ and all free variables of $\Gamma,A,t_0,t_1$ are in
 %% $\vec{x}$
 %% and $\Gamma,P(z,t_0,t_1)\vdash_{\vec{x},z}^T A$ then $\Gamma\vdash_{\vec{x}}^T A$.
 %% \end{lemma}
 
-\section{Addition of existential rules}
+%\section{Addition of existential rules}
 
  We assume that there are a finite number
 of terms $r_i(y_0,y_1)$ such that

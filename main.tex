@@ -318,9 +318,9 @@ We write $\Gamma,\Delta$ for the union of $\Gamma$ and $\Delta$.
 and all free variables of $\Gamma,A$ are in $\vec{x}$. There are two clauses:
 
 \begin{enumerate}
-\item (base case) $A$ is in $\Gamma$ 
+\item (base) $A$ is in $\Gamma$ 
 
-\item (step case) there is an axiom 
+\item (step) there is an axiom 
 $$
 \Delta_0(\vec{y})~\vdash_{\vec{y}}~
 \exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
@@ -341,7 +341,48 @@ in coherent logic represented by  the empty conjunction (set of atoms),
 which is true in any $\Gamma$.
 % left out remark on inconsistency that I didn't understand
 
-\section{Some Lemmas}
+\section{Skolem constants}
+
+Coherent is a logic that, unlike ordinary first-order logic with Tarski semantics,
+allows the domain to be empty. This means that adding a constant to a signature
+that does not contain constant symbols is \emph{not} conservative.
+As an example, consider the rule $\vdash_{y} P$ for a proposition $P$.
+Now we can only infer $\vdash P$ if we have a constant in the signature.
+Skolemization with constants is conservative, and the proof is simpler than,
+but slightly different from, the case of Skolem functions.
+Therefore we deal with Skolem constants in this section first.
+This will also give us a good picture of what we need to prove
+the case of Skolem functions.
+
+%TODO Without loss of generality we take $\phi$ to be $P$
+Let $T$ be a coherent theory with $\vdash\exists y P(y)$ among its axioms.
+Replace this axiom by $\vdash P(c)$ for a fresh constant $c$
+and call the resulting theory $T_c$. 
+
+\begin{theorem}
+If $\Gamma,A$ does not mention $c$ and $\Gamma\vdash_{\vec{x}}^{T_c} A$, then
+$\Gamma\vdash_{\vec{x}}^{T} A$.
+\end{theorem}
+
+\begin{proof}
+If $\Gamma\vdash_{\vec{x}}^{T_c} A$, then $\Gamma,P(c)\vdash_{\vec{x}}^{T_c} A$
+by weakening, to be proved in Lemma~\ref{weak}.
+From the resulting proof we remove all now pre-empted applications of
+the axiom $\vdash P(c)$. We then
+replace every occurrence of $c$ by a fresh variable $u$ and 
+get a proof of $\Gamma,P(u)\vdash_{\vec{x},u}^{T} A$.
+This substitution operation will be defined in Section~\ref{auxlemmas}
+and leaves $\Gamma,A$ unchanged.
+It also replaces $c$ by $u$ in instantiations of axioms of $T_c$,
+which is important to get a proof in $T$. Finally,
+by applying the axiom $\vdash\exists y P(y)$ in $T$ 
+we get a proof of $\Gamma\vdash_{\vec{x}}^{T} A$.
+\end{proof}
+
+Skolem constants are special since the axiom $\vdash\exists y P(y)$
+makes the domain non-empty, which is not true for $\vdash_x\exists y P(x,y)$.
+
+\section{Some Lemmas}\label{auxlemmas}
 
 %% \begin{lemma}\label{rename}
 %% If $\sigma$ is a renaming on variables and
@@ -586,7 +627,7 @@ previous case.
  For the next result, we assume the signature to have at least one constant symbol.
 
 \begin{theorem}
-If $\Gamma,A$ does not mention $f$ and $\Gamma\vdash_{\vec{x}}^{T'} A$ then
+If $\Gamma,A$ does not mention $f$ and $\Gamma\vdash_{\vec{x}}^{T'} A$, then
 $\Gamma\vdash_{\vec{x}}^T A$.
 \end{theorem}
 

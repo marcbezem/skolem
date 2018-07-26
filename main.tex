@@ -341,7 +341,7 @@ in coherent logic represented by  the empty conjunction (set of atoms),
 which is true in any $\Gamma$.
 % left out remark on inconsistency that I didn't understand
 
-\section{Skolem constants}
+\section{Skolem constants}\label{sec:skolemconstant}
 
 Coherent is a logic that, unlike ordinary first-order logic with Tarski semantics,
 allows the domain to be empty. This means that adding a constant to a signature
@@ -381,6 +381,7 @@ we get a proof of $\Gamma\vdash_{\vec{x}}^{T} A$.
 
 Skolem constants are special since the axiom $\vdash\exists y P(y)$
 makes the domain non-empty, which is not true for $\vdash_x\exists y P(x,y)$.
+From now on we assume that the Skolem function has positive arity.
 
 \section{Some Lemmas}\label{auxlemmas}
 
@@ -390,7 +391,7 @@ makes the domain non-empty, which is not true for $\vdash_x\exists y P(x,y)$.
 %% \end{lemma}
 
 \begin{lemma}\label{weak}
-If $\Gamma\vdash_{\vec{x}}^T A$, $\vec{x}\subseteq \vec{y}$, $\Gamma\subseteq \Sigma$ and all free variables of $\Sigma$ are in $\vec{y}$, then $\Sigma\vdash_{\vec{y}}^T A$.
+If $\Gamma\vdash_{\vec{x}}^T A$, $\vec{x}\subseteq \vec{{sec:skolemconstant}y}$, $\Gamma\subseteq \Sigma$ and all free variables of $\Sigma$ are in $\vec{y}$, then $\Sigma\vdash_{\vec{y}}^T A$.
 \end{lemma}
 
 \begin{lemma}\label{subst1}
@@ -414,7 +415,7 @@ One subtlety in the interaction of the two notions of subtitution is that for an
 atomic formula $\phi(\vec{x})$ in free variables $\vec{x}$ and
 a sequence of terms $\vec{t}$, $\phi(\vec{t})\rho$
 can be different from $\phi(\vec{t}\rho)$ when $\phi(\vec{x})$
-contains the term $r$. For example, if  $\phi(x) = P(r,x)$
+contains the term $r$. For example, if  $\phi(x) = P(r,x{sec:skolemconstant})$
 and $t=r$, then $\phi(t)\rho = P(u,u)$ and $\phi(t\rho) = P(r,u)$.
 Even worse, if $\phi(x) = P(f(x))$ and $t=c$ and $r=f(c)$,
 then $\phi(t)\rho = P(u)$ and $\phi(t\rho) = P(f(c))$.
@@ -429,7 +430,7 @@ $\phi(\vec{x})$, then $\phi(\vec{t})\rho =\phi(\vec{t}\rho)$.
 \begin{lemma}\label{subst2}
 Assume $\rho = \rho_{r,u}$ and the head symbol of $r$ does not occur in $T$.
 If all free variables of $r$ are in $\vec{x}$ and
-$\Gamma\vdash_{\vec{x}}^T A$, then $\Gamma\rho_{r,u}\vdash_{\vec{x},u}^T A\rho_{r,u}$.
+$\Gamma\vdash_{\vec{x}}^T A$, then $\Gamma\rho\vdash_{\vec{x},u}^T A\rho$.
 \end{lemma}
 
 \begin{proof}
@@ -458,6 +459,9 @@ $\Gamma\rho,\Delta_i(\vec{t}\rho,\vec{z_i})\vdash^T_{\vec{x},\vec{z_i},u} A\rho$
 and we can infer $\Gamma\rho\vdash^T_{\vec{x},u} A\rho$ as desired.
 \end{proof}
 
+The combination of Lemma~\ref{subst1} and \ref{subst2} m{sec:skolemconstant}akes
+substitution of terms for terms possible.
+
 \begin{lemma}\label{cut}
 If $\Gamma\vdash_{\vec{x}}^T A$ and $\Delta,A\vdash_{\vec{x}}^T B$ then
 $\Gamma,\Delta\vdash_{\vec{x}}^T B$
@@ -484,7 +488,7 @@ $\Gamma\vdash_{\vec{x}}^T \nabla$ where $\nabla$ is a finite set of atomic formu
 free variables among $\vec{x}$, which is now thought of as a disjunction
 (and therefore denoted by $\nabla$ instead of $\Delta$). 
 The inductive clauses are:
-
+{sec:skolemconstant}
 \begin{enumerate}
 \item (base) $\nabla$ meets $\Gamma$, that is, there is an $A$ in $\nabla$ that is 
 also in $\Gamma$
@@ -542,7 +546,7 @@ We also have $\vdash_{\vec{x}}^T P(r_i(t_0,t_1),t_0,t_1)$, and we can conclude b
 \end{proof}
 
 
-\section{Elimination of function symbols}
+\section{Elimination of function symbols}{sec:skolemconstant}
 
  We assume that we have the rule $\vdash_{y_0,y_1}\exists u~P(u,y_0,y_1)$ in $T$.
 (Using the previous section, we can assume instead only that this rule is {\em derivable}
@@ -626,7 +630,7 @@ previous case.
 
  For the next result, we assume the signature to have at least one constant symbol.
 
-\begin{theorem}
+\begin{theorem}\label{thm:skolem}
 If $\Gamma,A$ does not mention $f$ and $\Gamma\vdash_{\vec{x}}^{T'} A$, then
 $\Gamma\vdash_{\vec{x}}^T A$.
 \end{theorem}
@@ -635,6 +639,35 @@ $\Gamma\vdash_{\vec{x}}^T A$.
 By the previous crucial Lemma we get $\Gamma\vdash_{\vec{x}}^{T_0} A$. We then conclude
 $\Gamma\vdash_{\vec{x}}^T A$ by replacing all terms using $f$ by the given constant.
 \end{proof}
+
+\subsection{Alternative proof}
+
+Lemma~\ref{subst2} can be refined as follows.
+
+\begin{lemma}\label{subst3}
+Let $\rho = \rho_{f(\vec{t}),u}$ and let $T$ consist of axioms not
+mentioning $f$ plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
+Assume $u$ and all free variables of $\vec{t}$ are in $\vec{x}$. If the derivation
+of $\Gamma\vdash_{\vec{x}}^T A$ does not use the instance $P(\vec{t},f(\vec{t}))$
+of the only axiom in $T$ mentioning $f$, then $\Gamma\rho\vdash_{\vec{x}}^T A\rho$.
+\end{lemma}
+
+\begin{proof}
+The proof follows the proof of Lemma~\ref{subst2}. The only point requiring extra 
+attention is the (possible) use of the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
+Assume an instance $P(\vec{s},f(\vec{s}))$ is used. Then we know that
+$f(\vec{s}) \neq f(\vec{t})$ and so 
+$P(\vec{s},f(\vec{s}))\rho
+=P(\vec{s}\rho,f(\vec{s})\rho)
+=P(\vec{s}\rho,f(\vec{s}\rho))$,
+which is also an instance of the axiom.
+\end{proof}
+
+As an application of the above lemma we can get Theorem~\ref{thm:skolem}
+even if there is no constant symbol in the signature, since in that case
+any term $f(\vec{t})$ contains a variable that we can use as $u$. Here
+we use that $f$ has positive arity, and that the case of a Skolem constant
+has been settled in Section~\ref{sec:skolemconstant}.
 
 %%  If we have an equality symbol, we consider that we have added all equality axioms for
 %% predicate and function symbols in the theory. It follows from this Theorem that we

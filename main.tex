@@ -647,9 +647,9 @@ Lemma~\ref{subst2} can be refined as follows.
 \begin{lemma}\label{subst3}
 Let $\rho = \rho_{f(\vec{t}),u}$ and let $T$ consist of axioms not
 mentioning $f$ plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
-Assume $u$ and all free variables of $\vec{t}$ are in $\vec{x}$. If the derivation
+Assume all free variables of $\vec{t}$ are in $\vec{x}$. If the derivation
 of $\Gamma\vdash_{\vec{x}}^T A$ does not use the instance $P(\vec{t},f(\vec{t}))$
-of the only axiom in $T$ mentioning $f$, then $\Gamma\rho\vdash_{\vec{x}}^T A\rho$.
+of the only axiom in $T$ mentioning $f$, then $\Gamma\rho\vdash_{\vec{x},u}^T A\rho$.
 \end{lemma}
 
 \begin{proof}
@@ -665,9 +665,47 @@ which is also an instance of the axiom.
 
 As an application of the above lemma we can get Theorem~\ref{thm:skolem}
 even if there is no constant symbol in the signature, since in that case
-any term $f(\vec{t})$ contains a variable that we can use as $u$. Here
-we use that $f$ has positive arity, and that the case of a Skolem constant
-has been settled in Section~\ref{sec:skolemconstant}.
+any term $f(\vec{t})$ contains a variable that we can use as $u$. 
+Then $u$ is in $\vec{x}$ and $(\vec{x},u)=\vec{x}$.
+Here we use that $f$ has positive arity, and that the case of a 
+Skolem constant has been settled in Section~\ref{sec:skolemconstant}.
+
+\begin{lemma}\label{lem:upfront}
+Let $T$ consist of axioms not
+mentioning $f$ plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
+Assume all free variables of $\vec{t}$ are in $\vec{x}$. 
+If $\Gamma\vdash_{\vec{x}}^T A$, 
+then $\Gamma,P(\vec{t},f(\vec{t}))\vdash_{\vec{x}}^T A$
+by a derivation not using the instance $P(\vec{t},f(\vec{t}))$
+of the only axiom in $T$ mentioning $f$.
+\end{lemma}
+
+\begin{proof}
+The base case is trivial.
+The only induction step that is not trivial is when the last step
+of the derivation infers $\Gamma\vdash_{\vec{x}}^T A$
+from $\Gamma,P(\vec{t},f(\vec{t}))\vdash_{\vec{x}}^T A$.
+Then use the induction hypothesis and the idempotency of sets.
+\end{proof}
+
+\begin{theorem}\label{thm:skolem}
+Let $T'$ consist of axioms not
+mentioning $f$ plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
+Let $T$ be $T'$ with the only axiom mentioning $f$ replaced by
+$\vdash_{\vec{y}} \exists u P(\vec{y},u)$.
+If $\Gamma,A$ does not mention $f$ and $\Gamma\vdash_{\vec{x}}^{T'} A$, then
+$\Gamma\vdash_{\vec{x}}^T A$.
+\end{theorem}
+
+\begin{proof}
+Let $T_f$ be the theory $T$ with the signature extended with $f$. 
+First apply Lemma~\ref{lem:upfront} to eliminate all instances of
+$\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$ used in the derivation of
+$\Gamma\vdash_{\vec{x}}^{T'} A$. This results in a derivation
+$\Gamma,P(\vec{t}_1,f(\vec{t}_1)),\ldots,P(\vec{t}_n,f(\vec{t}_n))\vdash_{\vec{x}}^{T_f} A$.
+Without loss of generality we may assume that the $P$-atoms are ordered such
+that $i<j$ whenever $f(\vec{t}_i)$ occurs in $\vec{t}_j$. TBE
+\end{proof}
 
 %%  If we have an equality symbol, we consider that we have added all equality axioms for
 %% predicate and function symbols in the theory. It follows from this Theorem that we

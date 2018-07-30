@@ -546,7 +546,7 @@ We also have $\vdash_{\vec{x}}^T P(r_i(t_0,t_1),t_0,t_1)$, and we can conclude b
 \end{proof}
 
 
-\section{Elimination of function symbols}{sec:skolemconstant}
+\section{Elimination of function symbols}\label{sec:skolemfunction}
 
  We assume that we have the rule $\vdash_{y_0,y_1}\exists u~P(u,y_0,y_1)$ in $T$.
 (Using the previous section, we can assume instead only that this rule is {\em derivable}
@@ -688,6 +688,28 @@ from $\Gamma,P(\vec{t},f(\vec{t}))\vdash_{\vec{x}}^T A$.
 Then use the induction hypothesis and the idempotency of sets.
 \end{proof}
 
+The combination of the previous two lemmas allows us to replace
+under suitable conditions an application of $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$
+by one of $\vdash_{\vec{y}} \exists u P(\vec{y},u)$.
+
+\begin{lemma}\label{lem:elimPtft}
+Let $T$ consist of axioms not mentioning $f$ including $\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
+plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
+Assume all free variables of $\vec{t}$ are in $\vec{x}$. 
+If $\Gamma\vdash_{\vec{x}}^T A$, 
+then $\Gamma,P(\vec{t},f(\vec{t}))\vdash_{\vec{x}}^T A$
+by a derivation not using the instance $P(\vec{t},f(\vec{t}))$
+of the only axiom in $T$ mentioning $f$.
+\end{lemma}
+
+\begin{proof}
+The base case is trivial.
+The only induction step that is not trivial is when the last step
+of the derivation infers $\Gamma\vdash_{\vec{x}}^T A$
+from $\Gamma,P(\vec{t},f(\vec{t}))\vdash_{\vec{x}}^T A$.
+Then use the induction hypothesis and the idempotency of sets.
+\end{proof}
+
 \begin{theorem}\label{thm:skolem}
 Let $T'$ consist of axioms not
 mentioning $f$ plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
@@ -706,6 +728,11 @@ $\Gamma,P(\vec{t}_1,f(\vec{t}_1)),\ldots,P(\vec{t}_n,f(\vec{t}_n))\vdash_{\vec{x
 Without loss of generality we may assume that the $P$-atoms are ordered such
 that $i<j$ whenever $f(\vec{t}_i)$ occurs in $\vec{t}_j$. TBE
 \end{proof}
+
+> any term $f(\vec{t})$ contains a variable that we can use as $u$. Here
+> $f$ must have positive arity (the case of a Skolem constant
+> has been settled in Section~\ref{sec:skolemconstant}).
+
 
 %%  If we have an equality symbol, we consider that we have added all equality axioms for
 %% predicate and function symbols in the theory. It follows from this Theorem that we

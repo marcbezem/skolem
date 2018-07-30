@@ -647,9 +647,10 @@ Lemma~\ref{subst2} can be refined as follows.
 \begin{lemma}\label{subst3}
 Let $\rho = \rho_{f(\vec{t}),u}$ and let $T$ consist of axioms not
 mentioning $f$ plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
-Assume all free variables of $\vec{t}$ are in $\vec{x}$. If the derivation
-of $\Gamma\vdash_{\vec{x}}^T A$ does not use the instance $P(\vec{t},f(\vec{t}))$
+Assume all free variables of $\vec{t}$ are in $\vec{x}$. If
+$\Gamma\vdash_{\vec{x}}^T A$ by a derivation not using the instance $P(\vec{t},f(\vec{t}))$
 of the only axiom in $T$ mentioning $f$, then $\Gamma\rho\vdash_{\vec{x},u}^T A\rho$.
+%by a derivation of the same size.
 \end{lemma}
 
 \begin{proof}
@@ -667,7 +668,7 @@ As an application of the above lemma we can get Theorem~\ref{thm:skolem}
 even if there is no constant symbol in the signature, since in that case
 any term $f(\vec{t})$ contains a variable that we can use as $u$. 
 Then $u$ is in $\vec{x}$ and $(\vec{x},u)=\vec{x}$.
-Here $f$ must have positive arity (the case of a 
+For this argument $f$ must have positive arity (the case of a 
 Skolem constant has been settled in Section~\ref{sec:skolemconstant}).
 
 \begin{lemma}\label{lem:upfront}
@@ -690,16 +691,16 @@ Now use the induction hypothesis and the idempotency of sets.
 
 The combination of the previous two lemmas allows us to replace
 (under suitable conditions ensuring the eigenvariable condition)
-an application of $\vdash_{\vec{x}} P(\vec{t},f(\vec{t}))$
-by one of $\vdash_{\vec{y}} \exists u P(\vec{y},u)$.
+applications of $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$
+by $\vdash_{\vec{y}} \exists u P(\vec{y},u)$.
 
 \begin{lemma}\label{lem:elimPtft}
 Let $T$ consist of axioms not mentioning $f$ including 
 $\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
 plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
-Assume all free variables of $\vec{t}$ are in $\vec{x}$.
-If $\Gamma,A$ does not mention $f(\vec{t})$ 
-and $\Gamma\vdash_{\vec{x}}^T A$, 
+Assume all free variables of $\vec{t}$ are in $\vec{x}$, and
+that $\Gamma,A$ does not mention $f(\vec{t})$.
+If $\Gamma\vdash_{\vec{x}}^T A$, 
 then $\Gamma\vdash_{\vec{x}}^T A$
 by a derivation not using the instance $P(\vec{t},f(\vec{t}))$
 of the only axiom in $T$ mentioning $f$.
@@ -711,28 +712,45 @@ $\Gamma,P(\vec{t},f(\vec{t}))\vdash_{\vec{x}}^T A$.
 Let $\rho = \rho_{f(\vec{t}),u}$ for a fresh variable $u$
 and apply Lemma~\ref{subst3} to get 
 $\Gamma\rho,P(\vec{t},u))\vdash_{\vec{x},u}^T A\rho$.
-Now apply $(\Gamma,A)\rho=\Gamma,A$ and
-use the axiom $\vdash_{\vec{y}} \exists u P(\vec{y},u)$ to get
+Now apply $(\Gamma,A)\rho=\Gamma,A$ to ensure the eigenvariable
+condition and use the axiom $\vdash_{\vec{y}} \exists u P(\vec{y},u)$ to get
 $\Gamma\vdash_{\vec{x}}^T A$ as desired.
 \end{proof}
+
+By iterating the previous lemma we can prove Skolem's Theorem by eliminating
+applications of $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$ one by one.
+The only difficulty is to ensure that the eigenvariable condition holds.
 
 \begin{theorem}\label{thm:skolem}
 Let $T$ consist of axioms not mentioning $f$ including 
 $\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
 plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
-If $\Gamma,A$ does not mention $f$ and $\Gamma\vdash_{\vec{x}}^{T} A$, then
+If  $\Gamma,A$ does not mention $f$ and $\Gamma\vdash_{\vec{x}}^{T} A$, then
 $\Gamma\vdash_{\vec{x}}^T A$ by a derivation not using
 $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
 \end{theorem}
 
 \begin{proof}
-asdlkfj
+By induction on the number of applications of $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
+If the derivation of $\Gamma\vdash_{\vec{x}}^{T} A$ uses an instance
+$P(\vec{t},f(\vec{t}))$ with all variables in $\vec{x}$, then we can eliminate this instance
+(all occurrences)
+by Lemma~\ref{lem:elimPtft} and get a derivation with fewer applications of 
+$\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$. Now assume there is an instance
+$P(\vec{t},f(\vec{t}))$ with some variable not in $\vec{x}$. Move up from the root
+of the derivation to that instance to the \emph{first} position
+$\Gamma,\Delta\vdash_{\vec{x},\vec{y},\vec{z}} A$ such that
+$\vec{t}$ has all its variables in $\vec{x},\vec{y},\vec{z}$. This means that $\vec{t}$
+has some variable not in $\vec{x},\vec{y}$ and that, consequently, 
+$\Delta$ does not mention $f(\vec{t})$. Now we can apply Lemma~\ref{lem:elimPtft}
+to the subderivation and get again a derivation with fewer applications of 
+$\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
 \end{proof}
 
-> any term $f(\vec{t})$ contains a variable that we can use as $u$. Here
-> $f$ must have positive arity (the case of a Skolem constant
-> has been settled in Section~\ref{sec:skolemconstant}).
-
+In the above proof, the resulting derivation could still mention $f$, even
+without using $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$. 
+In order to completely eliminate $f$, use Lemma~\ref{subst3} as described after
+its proof.
 
 %%  If we have an equality symbol, we consider that we have added all equality axioms for
 %% predicate and function symbols in the theory. It follows from this Theorem that we

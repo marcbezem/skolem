@@ -391,7 +391,7 @@ From now on we assume that the Skolem function has positive arity.
 %% \end{lemma}
 
 \begin{lemma}\label{weak}
-If $\Gamma\vdash_{\vec{x}}^T A$, $\vec{x}\subseteq \vec{{sec:skolemconstant}y}$, $\Gamma\subseteq \Sigma$ and all free variables of $\Sigma$ are in $\vec{y}$, then $\Sigma\vdash_{\vec{y}}^T A$.
+If $\Gamma\vdash_{\vec{x}}^T A$, $\vec{x}\subseteq \vec{y}$, $\Gamma\subseteq \Sigma$ and all free variables of $\Sigma$ are in $\vec{y}$, then $\Sigma\vdash_{\vec{y}}^T A$.
 \end{lemma}
 
 \begin{lemma}\label{subst1}
@@ -415,7 +415,7 @@ One subtlety in the interaction of the two notions of subtitution is that for an
 atomic formula $\phi(\vec{x})$ in free variables $\vec{x}$ and
 a sequence of terms $\vec{t}$, $\phi(\vec{t})\rho$
 can be different from $\phi(\vec{t}\rho)$ when $\phi(\vec{x})$
-contains the term $r$. For example, if  $\phi(x) = P(r,x{sec:skolemconstant})$
+contains the term $r$. For example, if  $\phi(x) = P(r,x)$
 and $t=r$, then $\phi(t)\rho = P(u,u)$ and $\phi(t\rho) = P(r,u)$.
 Even worse, if $\phi(x) = P(f(x))$ and $t=c$ and $r=f(c)$,
 then $\phi(t)\rho = P(u)$ and $\phi(t\rho) = P(f(c))$.
@@ -459,7 +459,7 @@ $\Gamma\rho,\Delta_i(\vec{t}\rho,\vec{z_i})\vdash^T_{\vec{x},\vec{z_i},u} A\rho$
 and we can infer $\Gamma\rho\vdash^T_{\vec{x},u} A\rho$ as desired.
 \end{proof}
 
-The combination of Lemma~\ref{subst1} and \ref{subst2} m{sec:skolemconstant}akes
+The combination of Lemma~\ref{subst1} and \ref{subst2} makes
 substitution of terms for terms possible.
 
 \begin{lemma}\label{cut}
@@ -488,7 +488,7 @@ $\Gamma\vdash_{\vec{x}}^T \nabla$ where $\nabla$ is a finite set of atomic formu
 free variables among $\vec{x}$, which is now thought of as a disjunction
 (and therefore denoted by $\nabla$ instead of $\Delta$). 
 The inductive clauses are:
-{sec:skolemconstant}
+
 \begin{enumerate}
 \item (base) $\nabla$ meets $\Gamma$, that is, there is an $A$ in $\nabla$ that is 
 also in $\Gamma$

@@ -816,7 +816,25 @@ In the branch $a\neq b$ we infer $P(a,u),P(b,v)$ and complete. In total:
 \end{align*}
 
 \noindent
-(Remark: end example.)
+(Remark: end example.) To keep notations simple we assume from now on that $f$ is unary.
+We first prove conservativity of adding $f$ to a coherent theory with equality.
+
+\begin{lemma}\label{lem:eq+f=conservative}
+Let $T$ consist of axioms and equality, axioms not mentioning $f$, and
+let $T_f$ be $T$ plus the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$
+for some new function symbol $f$.
+Let $\rho$ be the substitution that substitutes any maximal term $f(t)$ by $t$.
+If  $\Gamma \vdash_{\vec{x}}^{T_f} A$, then
+$\Gamma\rho \vdash_{\vec{x}}^T A\rho$.
+\end{lemma}
+\begin{proof}
+By induction on derivation. Applications of the axiom $x=x'\vdash_{x,x'} f(x) = f(x')$
+can be left out.
+\end{proof}
+This lemma immediately implies the conservativity of $T_f$ over $T$.
+If $f$ has arity $>1$ we obtain the same result by substituting
+maximal terms $f(\vec{t})$ by $t_1$.
+
 
  We only have to consider the new case where we deduce $\Gamma\vdash_{\vec{x}}^{T'} A$ from 
 $\Gamma,f(s_0,t_0) = f(s_1,t_1)\vdash_{\vec{x}}^{T'} A$ and $s_0 = s_1$ and

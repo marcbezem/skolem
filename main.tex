@@ -758,6 +758,43 @@ its proof.
 
 \section{Addition of equality}
 
+In logic with equality, when we add a function symbol $f$, 
+we must also add a congruence axiom for that function. 
+This means that $T_0$ in Section~\ref{sec:skolemfunction},
+when extended to  logic with equality, will in fact mention $f$ . 
+This invalidates the application of Lemma~\ref{subst2}, 
+which requires that the theory does not mention $f$.
+This means that we have to review (and adapt) the proofs of the
+previous section.
+
+To get a clearer picture of what is needed we translate the 
+counterexample~(\ref{all2exist2}) to coherent logic.
+For this we introduce a new predicate $I(x_1,x_2,y_1,y_2)$
+expressing $x_1=x_2 \to y_1=y_2$ by coherent axioms.
+This involves the inequality predicate ${\neq}$, which we also define:
+
+\begin{align*}
+ I(x_1,x_2,y_1,y_2), x_1=x_2 & \vdash_V                 y_1=y_2\\
+ y_1=y_2                                  &\vdash_V                 I(x_1,x_2,y_1,y_2)\\ 
+ x_1\neq x_2                           &\vdash_V                 I(x_1,x_2,y_1,y_2)\\
+                                                 &\vdash_{z,z'}           z=z' \lor z\neq z'\\
+ z=z' \land z\neq z'                &\vdash_{z,z'}           \bot\\
+\end{align*}
+Here $V$ contains the variables $x_1,x_2,y_1,y_2$.
+We take all of (\ref{allexist}),(\ref{allskol}),(\ref{all2exist2})
+with $n=1$ and $\phi=P$.
+Using two new constants $a$ and $b$ we can now express (\ref{all2exist2}) coherently:
+\[
+P(a,y),P(b,y'),I(a,b,y_1,y_2)  \vdash_{y,y'} \bot
+\]
+
+
+
+
+
+
+
+
  The same reasoning seems also to work with the addition of the rule
 $$x=x',~ y = y'\rightarrow f(x,y) = f(x',y')$$
 for the new function symbol $f$.

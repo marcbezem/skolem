@@ -769,6 +769,7 @@ previous section.
 
 To get a clearer picture of what is needed we translate the 
 counterexample~(\ref{all2exist2}) to coherent logic.
+(Remark: not necessarily for inclusion in the final paper.)
 For this we introduce a new predicate $I(x_1,x_2,y_1,y_2)$
 expressing $x_1=x_2 \to y_1=y_2$ by coherent axioms.
 This involves the inequality predicate ${\neq}$, which we also define:
@@ -787,17 +788,35 @@ Using two new constants $a$ and $b$ we can now express (\ref{all2exist2}) cohere
 \[
 P(a,y),P(b,y'),I(a,b,y_1,y_2)  \vdash_{y,y'} \bot
 \]
+We include the equality axioms, which are all coherent, but make only the
+congruence axiom for $f$ explicit, and we add (\ref{allskol}):
+\begin{equation}\label{fmention}
+x=x'\vdash_{x,x'} f(x) = f(x') \quad\quad \vdash_{x} P(x,f(x))
+\end{equation}
+Consider the following stylized proof of $\bot$ in the theory above:
+\begin{align*}
+& a=b,f(a)=f(b),I(a,b,f(a),f(b)),\bot\\
+P(a,f(a)), P(b,f(b)),&{\hphantom w} \lor\\
+& a\neq b,I(a,b,f(a),f(b)),\bot\\
+\end{align*}
+How to transform this derivation in to one using 
+$\vdash_{x} \exists u P(x,u)$ instead of the axioms mentioning $f$ 
+in (\ref{fmention}) above? If we start by $P(a,u), P(b,v)$
+there is no way to conclude $u=v$ from $a=b$. 
+One solution is to do the case distinction upfront. 
+Then, in the branch $a=b$, we replace the application of the congruence
+rule to infer $f(a)=f(b)$ by \emph{one} application of 
+$\vdash_{x} \exists u P(x,u)$ to infer $P(a,u)$, after which
+we infer $P(b,u)$ by equality reasoning. 
+In the branch $a\neq b$ we infer $P(a,u),P(b,v)$ and complete. In total:
+\begin{align*}
+& a=b,P(a,u),P(b,u),I(a,b,u,u),\bot\\
+&{\hphantom w}\lor\\
+& a\neq b,P(a,u), P(b,v),I(a,b,u,v),\bot\\
+\end{align*}
 
-
-
-
-
-
-
-
- The same reasoning seems also to work with the addition of the rule
-$$x=x',~ y = y'\rightarrow f(x,y) = f(x',y')$$
-for the new function symbol $f$.
+\noindent
+(Remark: end example.)
 
  We only have to consider the new case where we deduce $\Gamma\vdash_{\vec{x}}^{T'} A$ from 
 $\Gamma,f(s_0,t_0) = f(s_1,t_1)\vdash_{\vec{x}}^{T'} A$ and $s_0 = s_1$ and

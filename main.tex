@@ -820,7 +820,7 @@ In the branch $a\neq b$ we infer $P(a,u),P(b,v)$ and complete. In total:
 We first prove conservativity of adding $f$ to a coherent theory with equality.
 
 \begin{lemma}\label{lem:eq+f=conservative}
-Let $T$ consist of axioms and equality, axioms not mentioning $f$, and
+Let $T$ be a coherent theory including equality axioms , and
 let $T_f$ be $T$ plus the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$
 for some new function symbol $f$.
 Let $\rho$ be the substitution that substitutes any maximal term $f(t)$ by $t$.
@@ -835,17 +835,25 @@ This lemma immediately implies the conservativity of $T_f$ over $T$.
 If $f$ has arity $>1$ we obtain the same result by substituting
 maximal terms $f(\vec{t})$ by $t_1$.
 
+\medskip
 
- We only have to consider the new case where we deduce $\Gamma\vdash_{\vec{x}}^{T'} A$ from 
-$\Gamma,f(s_0,t_0) = f(s_1,t_1)\vdash_{\vec{x}}^{T'} A$ and $s_0 = s_1$ and
-$t_0 = t_1$ in $\Gamma$. We then have by induction
-$\Gamma,f(s_0,t_0) = f(s_1,t_1),\Sigma \vdash_{\vec{x}}^{T_0} A$
-where  $\Sigma$ is a set of formulae $P(f(s,t),s,t)$ where $f(s,t)$ occurs
-in $\Gamma,f(s_0,t_0) = f(s_1,t_1),A$ and we conclude using Corollary \ref{simpl1}.
+The following definition is inspired by the failure of Lemma~\ref{simpl}
+for $a=b,P(a,f(a)) \vdash P(a,f(b))$, as well as by the above example
+based on (\ref{all2exist2}).
+
+\begin{definition}\label{def:safederivation}
+Let $T$ consist of axioms not mentioning $f$ including 
+$\vdash_{\vec{y}} \exists u P(\vec{y},u)$, plus equality axioms
+including the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$. 
+A derivation of  $\Gamma \vdash_{\vec{x}}^{T} A$ is called $f(t)$-\emph{safe}
+if for every instance of $x=x'\vdash_{x,x'} f(x) = f(x')$ with $x=t,x'=s$  or
+$x'=t,x=s$, that is used in the derivation, we have $\Gamma \vdash_{\vec{x}}^{T} s=t$.
+\end{definition}
+
 
 \medskip
 
- It is remarkable that this proof transformation is quite simple (no combinatorial explosion), while
+ It is remarkable that this proof transformation is quite simple (?combinatorial explosion?), while
 the introduction of an extensional Skolem function is intuitively problematic. For instance,
 we do have for real numbers $\vdash_x \exists n~n\leqslant x$ but there is no Skolem function
 giving $n$ from $x$. While this remark is only heuristic, we provide next two examples where there

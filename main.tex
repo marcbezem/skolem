@@ -846,8 +846,9 @@ Let $T$ consist of axioms not mentioning $f$ including
 $\vdash_{\vec{y}} \exists u P(\vec{y},u)$, plus equality axioms
 including the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$. 
 A derivation of  $\Gamma \vdash_{\vec{x}}^{T} A$ is called $f(t)$-\emph{safe}
-if for every instance of $x=x'\vdash_{x,x'} f(x) = f(x')$ with $x=t,x'=s$  or
-$x'=t,x=s$, that is used in the derivation, we have $\Gamma \vdash_{\vec{x}}^{T} s=t$.
+if for every instance of $x=x'\vdash_{x,x'} f(x) = f(x')$ with $x=s,x'=s'$ 
+that is used in the derivation, we have $\Gamma \vdash_{\vec{x}}^{T} t=s'$ ($t=s$)
+whenever $\Gamma \vdash_{\vec{x}}^{T} t=s$ ($t=s'$).
 \end{definition}
 
 

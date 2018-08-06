@@ -828,7 +828,7 @@ If  $\Gamma \vdash_{\vec{x}}^{T_f} A$, then
 $\Gamma\rho \vdash_{\vec{x}}^T A\rho$.
 \end{lemma}
 \begin{proof}
-By induction on derivation. Applications of the axiom $x=x'\vdash_{x,x'} f(x) = f(x')$
+By induction on derivation. Applications of the congruence axiom for $f$
 can be left out.
 \end{proof}
 This lemma immediately implies the conservativity of $T_f$ over $T$.
@@ -842,15 +842,47 @@ for $a=b,P(a,f(a)) \vdash P(a,f(b))$, as well as by the above example
 based on (\ref{all2exist2}).
 
 \begin{definition}\label{def:safederivation}
-Let $T$ consist of axioms not mentioning $f$ including 
-$\vdash_{\vec{y}} \exists u P(\vec{y},u)$, plus equality axioms
+Let $T$ a theory with equality
 including the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$. 
 A derivation of  $\Gamma \vdash_{\vec{x}}^{T} A$ is called $f(t)$-\emph{safe}
 if for every instance of $x=x'\vdash_{x,x'} f(x) = f(x')$ with $x=s,x'=s'$ 
 that is used in the derivation, we have $\Gamma \vdash_{\vec{x}}^{T} t=s'$ ($t=s$)
 whenever $\Gamma \vdash_{\vec{x}}^{T} t=s$ ($t=s'$).
 \end{definition}
+\begin{proof}
+By induction on derivation. Applications of the congruence axiom for $f$
+can be left out.
+\end{proof}
 
+\begin{lemma}\label{lem:up_f_ront}
+Let $T$ (with equality) consist of axioms not mentioning $f$ including 
+$\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
+plus the $f$-axioms $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$
+and $x=x'\vdash_{x,x'} f(x) = f(x')$.
+Assume $\Gamma\vdash_{\vec{x}}^T A$. 
+Let $\Sigma$ consist of atoms $P(s,f(s))$ and $f(s) = f(s')$
+with all free variables in $\vec{x}$.
+Then $\Gamma,\Sigma\vdash_{\vec{x}}^T A$
+by a derivation not using the instances of the $f$-axioms 
+concluding atoms in $\Sigma$.
+\end{lemma}
+\begin{proof}
+Similar to the proof of Lemma~\ref{lem:upfront}.
+can be left out.
+\end{proof}
+
+\begin{lemma}\label{lem:elim_ft}
+Let $T$ (with equality) consist of axioms not mentioning $f$ including 
+$\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
+plus the $f$-axioms $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$
+and $x=x'\vdash_{x,x'} f(x) = f(x')$.
+%Assume $\Gamma\vdash_{\vec{x}}^T A$. 
+%Let $\Sigma$ consist of atoms $P(s,f(s))$ and $f(s) = f(s')$
+%with all free variables in $\vec{x}$.
+%Then $\Gamma,\Sigma\vdash_{\vec{x}}^T A$
+%by a derivation not using the instances of  $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$
+%or $x=x'\vdash_{x,x'} f(x) = f(x')$ concluding atoms in $\Sigma$.
+\end{lemma}
 
 \medskip
 

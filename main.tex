@@ -820,7 +820,7 @@ In the branch $a\neq b$ we infer $P(a,u),P(b,v)$ and complete. In total:
 We first prove conservativity of adding $f$ to a coherent theory with equality.
 
 \begin{lemma}\label{lem:eq+f=conservative}
-Let $T$ be a coherent theory including equality axioms , and
+Let $T$ be a coherent theory including equality axioms, and
 let $T_f$ be $T$ plus the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$
 for some new function symbol $f$.
 Let $\rho$ be the substitution that substitutes any maximal term $f(t)$ by $t$.
@@ -842,21 +842,18 @@ for $a=b,P(a,f(a)) \vdash P(a,f(b))$, as well as by the above example
 based on (\ref{all2exist2}).
 
 \begin{definition}\label{def:safederivation}
-Let $T$ a theory with equality
-including the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$. 
+Let $T$ be a theory with equality
+including the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$.
+Assume all free variables of $\vec{t}$ are in $\vec{x}$. 
 A derivation of  $\Gamma \vdash_{\vec{x}}^{T} A$ is called $f(t)$-\emph{safe}
-if for every instance of $x=x'\vdash_{x,x'} f(x) = f(x')$ with $x=s,x'=s'$ 
+if for every instance of $x=x'\vdash_{x,x'} f(x) = f(x')$ with $x,x'=s,s'$ 
 that is used in the derivation, we have $\Gamma \vdash_{\vec{x}}^{T} t=s'$ ($t=s$)
 whenever $\Gamma \vdash_{\vec{x}}^{T} t=s$ ($t=s'$).
 \end{definition}
-\begin{proof}
-By induction on derivation. Applications of the congruence axiom for $f$
-can be left out.
-\end{proof}
 
 \begin{lemma}\label{lem:up_f_ront}
-Let $T$ (with equality) consist of axioms not mentioning $f$ including 
-$\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
+Let $T$ with equality consist of axioms not mentioning $f$ 
+%including $\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
 plus the $f$-axioms $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$
 and $x=x'\vdash_{x,x'} f(x) = f(x')$.
 Assume $\Gamma\vdash_{\vec{x}}^T A$. 
@@ -866,17 +863,23 @@ Then $\Gamma,\Sigma\vdash_{\vec{x}}^T A$
 by a derivation not using the instances of the $f$-axioms 
 concluding atoms in $\Sigma$.
 \end{lemma}
+
 \begin{proof}
-Similar to the proof of Lemma~\ref{lem:upfront}.
-can be left out.
+Similarly to Lemma~\ref{lem:upfront},
+applications of $f$-axioms concluding atoms in $\Sigma$ can be left out.
 \end{proof}
 
 \begin{lemma}\label{lem:elim_ft}
-Let $T$ (with equality) consist of axioms not mentioning $f$ including 
-$\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
+Let $T$ with equality consist of axioms not mentioning $f$, 
+including the axiom $\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
 plus the $f$-axioms $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$
 and $x=x'\vdash_{x,x'} f(x) = f(x')$.
-%Assume $\Gamma\vdash_{\vec{x}}^T A$. 
+Assume all free variables of $\vec{t}$ are in $\vec{x}$.
+Consider a derivation of $\Gamma\vdash_{\vec{x}}^T A$
+that is $f(t)$-safe. Then there is a derivation
+of $\Gamma,\Sigma\vdash_{\vec{x}}^T A$ that is
+not using instances of the $f$-axioms with a term $s$
+such that 
 %Let $\Sigma$ consist of atoms $P(s,f(s))$ and $f(s) = f(s')$
 %with all free variables in $\vec{x}$.
 %Then $\Gamma,\Sigma\vdash_{\vec{x}}^T A$
@@ -884,6 +887,9 @@ and $x=x'\vdash_{x,x'} f(x) = f(x')$.
 %or $x=x'\vdash_{x,x'} f(x) = f(x')$ concluding atoms in $\Sigma$.
 \end{lemma}
 
+\begin{proof}
+Similar to the proof of Lemma~\ref{lem:upfront}.
+\end{proof}
 \medskip
 
  It is remarkable that this proof transformation is quite simple (?combinatorial explosion?), while

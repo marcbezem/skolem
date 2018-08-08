@@ -841,7 +841,7 @@ The following definition is inspired by the failure of Lemma~\ref{simpl}
 for $a=b,P(a,f(a)) \vdash P(a,f(b))$, as well as by the above example
 based on (\ref{all2exist2}).
 
-\begin{definition}\label{def:safederivation}
+\begin{definition}\label{def:ft_safety}
 Let $T$ be a theory with equality
 including the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$.
 Assume all free variables of $\vec{t}$ are in $\vec{x}$. 
@@ -849,12 +849,14 @@ A derivation of  $\Gamma \vdash_{\vec{x}}^{T} A$ is called $f(t)$-\emph{safe}
 if for every instance of $x=x'\vdash_{x,x'} f(x) = f(x')$ with $x,x'=s,s'$ 
 that is used in the derivation, we have $\Gamma \vdash_{\vec{x}}^{T} t=s'$ ($t=s$)
 whenever $\Gamma \vdash_{\vec{x}}^{T} t=s$ ($t=s'$).
+$\Gamma,A$  is called $f(t)$-\emph{safe} if $\Gamma,A$ does not mention 
+any term $f(s)$ such that $\Gamma \vdash_{\vec{x}}^{T} t=s$.
 \end{definition}
 
 \begin{lemma}\label{lem:up_f_ront}
 Let $T$ with equality consist of axioms not mentioning $f$ 
-%including $\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
-plus the $f$-axioms $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$
+%including $\vdash_{\vec{y}} \exists u P({y},u)$,  
+plus the $f$-axioms $\vdash_{{y}} P({y},f({y}))$
 and $x=x'\vdash_{x,x'} f(x) = f(x')$.
 Assume $\Gamma\vdash_{\vec{x}}^T A$. 
 Let $\Sigma$ consist of atoms $P(s,f(s))$ and $f(s) = f(s')$
@@ -871,28 +873,57 @@ applications of $f$-axioms concluding atoms in $\Sigma$ can be left out.
 
 \begin{lemma}\label{lem:elim_ft}
 Let $T$ with equality consist of axioms not mentioning $f$, 
-including the axiom $\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
-plus the $f$-axioms $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$
+%including the axiom $\vdash_{{y}} \exists u P({y},u)$,  
+plus the $f$-axioms $\vdash_{{y}} P({y},f({y}))$
 and $x=x'\vdash_{x,x'} f(x) = f(x')$.
-Assume all free variables of $\vec{t}$ are in $\vec{x}$.
+Assume all free variables of ${t}$ are in $\vec{x}$.
+Let $\rho$ be the substitution replacing all terms
+$f(s)$ such that $\Gamma\vdash_{\vec{x}}^T t=s$ by a new variable $u$.
 Consider a derivation of $\Gamma\vdash_{\vec{x}}^T A$
 that is $f(t)$-safe. Then there is a derivation
-of $\Gamma,\Sigma\vdash_{\vec{x}}^T A$ that is
-not using instances of the $f$-axioms with a term $s$
-such that 
-%Let $\Sigma$ consist of atoms $P(s,f(s))$ and $f(s) = f(s')$
-%with all free variables in $\vec{x}$.
-%Then $\Gamma,\Sigma\vdash_{\vec{x}}^T A$
-%by a derivation not using the instances of  $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$
-%or $x=x'\vdash_{x,x'} f(x) = f(x')$ concluding atoms in $\Sigma$.
+of $\Gamma\rho\vdash_{\vec{x},u}^T A\rho$ that is
+not using any instances of the $f$-axioms with a term $s$
+such that $\Gamma \vdash_{\vec{x}}^{T} t=s$.
 \end{lemma}
 
 \begin{proof}
-Similar to the proof of Lemma~\ref{lem:upfront}.
+Similar to Lemma~\ref{subst3}.
 \end{proof}
+
+\begin{lemma}\label{lem:almost}
+Let $T$ with equality consist of axioms not mentioning $f$, 
+including the axiom $\vdash_{{y}} \exists u P({y},u)$,  
+plus the $f$-axioms $\vdash_{{y}} P({y},f({y}))$
+and $x=x'\vdash_{x,x'} f(x) = f(x')$.
+Assume all free variables of ${t}$ are in $\vec{x}$, 
+$\Gamma,A$ is $f(t)$-safe, and $\Gamma\vdash_{\vec{x}}^T A$.
+Then there is a derivation
+of $\Gamma\vdash_{\vec{x}}^T A$ that is
+not using any instances of the $f$-axioms with a term $s$
+such that $\Gamma \vdash_{\vec{x}}^{T} t=s$.
+\end{lemma}
+
+\begin{proof}
+Let $\Sigma$ be the set of all atoms $P(s,f(s))$ and $f(s) = f(s')$
+inferred in the derivation of  $\Gamma\vdash_{\vec{x}}^T A$ by 
+an $f$-axiom, and such that $\Gamma \vdash_{\vec{x}}^{T} t=s$. 
+For $f(s) = f(s')$ it follows that $\Gamma \vdash_{\vec{x}}^{T} t=s'$ by $f(t)$-safety.
+By Lemma~\ref{lem:up_f_ront} we get that $\Gamma,\Sigma\vdash_{\vec{x}}^T A$
+by a derivation not using the instances of the $f$-axioms concluding atoms in $\Sigma$.
+By Lemma~\ref{lem:elim_ft} it follows that $\Gamma,\Sigma\rho\vdash_{\vec{x},u}^T A$
+by a derivation not using the instances of the $f$-axioms concluding atoms in $\Sigma$.
+The atoms in $\Sigma\rho$ are either of the form $P(s,u)$, or $u=u$. The latter can be left out.
+Of the former we know that $\Gamma \vdash_{\vec{x}}^{T} t=s$.
+Therefore we can infer the first atom $P(s,u)$ with the axiom
+$\vdash_{{y}} P({y},f({y}))$, after which all subsequent atoms follow by congruence.
+This gives a derivation of  $\Gamma\vdash_{\vec{x}}^T A$ as desired.
+\end{proof}
+
+
 \medskip
 
- It is remarkable that this proof transformation is quite simple (?combinatorial explosion?), while
+ It is remarkable that this proof transformation is still simple (but there can
+be a combinatorial explosion), while
 the introduction of an extensional Skolem function is intuitively problematic. For instance,
 we do have for real numbers $\vdash_x \exists n~n\leqslant x$ but there is no Skolem function
 giving $n$ from $x$. While this remark is only heuristic, we provide next two examples where there

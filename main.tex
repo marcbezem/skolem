@@ -835,24 +835,6 @@ This lemma immediately implies the conservativity of $T_f$ over $T$.
 If $f$ has arity $>1$ we obtain the same result by substituting
 maximal terms $f(\vec{t})$ by $t_1$.
 
-\medskip
-
-The following definition is inspired by the failure of Lemma~\ref{simpl}
-for $a=b,P(a,f(a)) \vdash P(a,f(b))$, as well as by the above example
-based on (\ref{all2exist2}).
-
-\begin{definition}\label{def:ft_safety}
-Let $T$ be a theory with equality
-including the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$.
-Assume all free variables of $\vec{t}$ are in $\vec{x}$. 
-A derivation of  $\Gamma \vdash_{\vec{x}}^{T} A$ is called $f(t)$-\emph{safe}
-if for every instance of $x=x'\vdash_{x,x'} f(x) = f(x')$ with $x,x'=s,s'$ 
-that is used in the derivation, we have $\Gamma \vdash_{\vec{x}}^{T} t=s'$ ($t=s$)
-whenever $\Gamma \vdash_{\vec{x}}^{T} t=s$ ($t=s'$).
-$\Gamma,A$  is called $f(t)$-\emph{safe} if $\Gamma,A$ does not mention 
-any term $f(s)$ such that $\Gamma \vdash_{\vec{x}}^{T} t=s$.
-\end{definition}
-
 \begin{lemma}\label{lem:up_f_ront}
 Let $T$ with equality consist of axioms not mentioning $f$ 
 %including $\vdash_{\vec{y}} \exists u P({y},u)$,  
@@ -871,6 +853,58 @@ Similarly to Lemma~\ref{lem:upfront},
 applications of $f$-axioms concluding atoms in $\Sigma$ can be left out.
 \end{proof}
 
+
+\medskip
+
+The following definition is inspired by the failure of Lemma~\ref{simpl}
+for $a=b,P(a,f(a)) \vdash P(a,f(b))$ (NB $f(a)$ not in $a=b,P(a,f(b))$), 
+as well as by the above example based on (\ref{all2exist2}). EXPERIMENTAL!
+
+\begin{definition}\label{def:ft_safety}
+Let $T_0$ be a theory with equality such that the only axiom mentioning $f$
+is the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$.
+Assume all free variables of $\vec{t}$ are in $\vec{x}$. 
+A derivation of  $\Gamma \vdash_{\vec{x}}^{T_0} A$ is called $f(t)$-\emph{safe}
+if for every instance of $x=x'\vdash_{x,x'} f(x) = f(x')$ with $x,x'=s,s'$ 
+that is used in the derivation, we have $\Gamma \vdash_{\vec{x}}^{T_0} t=s'$
+if and only if $\Gamma \vdash_{\vec{x}}^{T_0} t=s$.
+$\Gamma,A$  is called $f(t)$-\emph{safe} if $\Gamma,A$ does not mention 
+any term $f(s)$ such that $\Gamma \vdash_{\vec{x}}^{T_0} t=s$.
+\end{definition}
+
+\begin{lemma}\label{lem:subst_all}
+Let $T_0$ be as in Definition~\ref{def:ft_safety}.
+Assume all free variables of ${t}$ are in $\vec{x}$.
+Let $\rho$ be the substitution replacing all maximal terms
+$f(s)$ such that $\Gamma\vdash_{\vec{x}}^{T_0} t=s$ by a new variable $u$.
+If $\Gamma\vdash_{\vec{x}}^{T_0} A$ is $f(t)$-safe,
+then $\Gamma\rho \vdash_{\vec{x}}^{T_0} A\rho$. DECIDABLE???
+\end{lemma}
+
+\begin{proof}
+By induction on derivation.
+CHECK The only interesting case is the congruence axiom for $f$, inferring
+$f(s)=f(s')$ from $s=s'$. By $f(t)$-safety we either get a conclusion $u=u$,
+which can be obtained by reflexivity, or $f(s\rho)=f(s)\rho=f(s')\rho=f(s'\rho)$,
+which follows from $s\rho=s'\rho$.
+\end{proof}
+
+\begin{lemma}\label{lem:T0}
+Let $T_0$ be as in Definition~\ref{def:ft_safety},
+including the axiom $\vdash_{{y}} \exists u P({y},u)$. 
+Assume all free variables of ${t}$ are in $\vec{x}$.
+Let $\Sigma$ consist of atoms $P(s,f(s))$ and $f(s) = f(s')$
+such that $\Gamma \vdash_{\vec{x}}^{T_0} t=s~(=s')$.
+If $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$ is $f(t)$-safe,
+ then $\Gamma\vdash_{\vec{x}}^{T_0} A$.
+\end{lemma}
+
+\begin{proof}
+TBD
+\end{proof}
+
+
+\del{
 \begin{lemma}\label{lem:elim_ft}
 Let $T$ with equality consist of axioms not mentioning $f$, 
 %including the axiom $\vdash_{{y}} \exists u P({y},u)$,  
@@ -928,6 +962,9 @@ the introduction of an extensional Skolem function is intuitively problematic. F
 we do have for real numbers $\vdash_x \exists n~n\leqslant x$ but there is no Skolem function
 giving $n$ from $x$. While this remark is only heuristic, we provide next two examples where there
 is {\em no} Skolem functions in some natural models of the theory $T$.
+
+}
+
 
 \section{Examples}
 

@@ -581,7 +581,8 @@ $\vdash_{\vec{x}}\exists u~P(u,x,t)$ we get  $\Gamma\vdash_{\vec{x}}^{T_0} A$.
 
 \begin{corollary}\label{simpl1}
 If $\Gamma,P(f(s_1,t_1),s_1,t_1),\dots,P(f(s_n,t_n),s_n,t_n)\vdash_{\vec{x}}^{T_0} A$ and
-$f(s_1,t_1),\dots,f(s_n,t_n)$ are not in $\Gamma,A$ then $\Gamma\vdash_{\vec{x}}^{T_0} A$.
+$f(s_i,t_i)$ is not in $\Gamma,A,s_j,t_j$ for $1\leq j < i \leq n$,
+then $\Gamma\vdash_{\vec{x}}^{T_0} A$.
 \end{corollary}
 
 
@@ -616,7 +617,8 @@ Since $\Delta(\vec{y},\vec{z_i})$ does not mention $f$ and all free variables of
 in $\vec{x}$ it follows that all free variables of $\Sigma_i$ are in $\vec{x}$.
 It follows that we have
 $\Gamma,\Sigma_1,\dots,\Sigma_n\vdash_{\vec{x}}^{T_0} A$.
-Then using Corollary \ref{simpl1}, we get the required conclusion.
+Then using Corollary \ref{simpl1} with the $f$-terms in the right order, 
+we get the required conclusion.
 
 \medskip
 
@@ -833,7 +835,65 @@ can be left out.
 \end{proof}
 This lemma immediately implies the conservativity of $T_f$ over $T$.
 If $f$ has arity $>1$ we obtain the same result by substituting
-maximal terms $f(\vec{t})$ by $t_1$.
+maximal terms $f(\vec{t})$ by $t_1$. 
+
+\begin{definition}\label{def:implicational_equality}
+A theory with \emph{implicational equality} is a coherent theory which includes
+the following axioms, where  $I(x_1,x_2,y_1,y_2)$ is a new predicate
+expressing $x_1=x_2 \to y_1=y_2$:
+\begin{align*}
+ I(x_1,x_2,y_1,y_2), x_1=x_2 & \vdash_V                 y_1=y_2  &\text{(I-elim)}\\
+ y_1=y_2                                  &\vdash_V                 I(x_1,x_2,y_1,y_2)&\text{(I-intro1)}\\ 
+                                                 &\vdash_V                 I(x_1,x_2,y_1,y_2) \lor x_1= x_2&\text{(I-intro2)}
+\end{align*}
+Here $V$ consists of the variables $x_1,x_2,y_1,y_2$. In theories with
+implicational equality we denote the congruence axiom for a unary
+function $f$ by $\vdash_{x,x'} I(x,x',f(x),f(x'))$.
+\end{definition}
+Implicational equality is conservative over equality, which can be seen be a
+cut-elimination argument. Alternatively, one can substitute $x_1=x_2 \to y_1=y_2$
+for $I(x_1,x_2,y_1,y_2)$ and observe that the axioms above become
+classical tautologies. The cut-elimination argument is constructive, whereas
+the alternative argument uses the conservativity of classical logic over
+coherent logic (Barr's Theorem), which is not constructive.
+
+\begin{lemma}\label{lem:main}
+Let $T$ be a coherent theory with implicational equality consisting of
+axioms not mentioning $f$ plus the $f$-axioms $\vdash_{{y}} P({y},f({y}))$
+and $\vdash_{x,x'} I(x,x',f(x),f(x'))$. Let $T_0$ be the coherent theory obtained from 
+$T$ by leaving out the $f$-axioms and adding $\vdash_{\vec{y}} \exists u P({y},u)$.
+Then we have:
+\begin{enumerate}
+\item If $\Gamma,P(t,f(t)), I(t,u_1,f(t),f(u_1)),\ldots,I(t,u_n,f(t),f(u_n))\vdash_{\vec{x}}^{T_0} A$
+and $f(t)$ does not occur in $\Gamma,A$, $u_1,\ldots,u_n$, then  
+$\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$, where $\Sigma$ consists of 
+all $P(u_i,f(u_i))$ and $I(u_i,u_j,f(u_i),f(u_j))$;
+\item If $\Gamma\vdash_{\vec{x}}^T A$ and $\Sigma$ contains all $P(t,f(t))$ and
+$I(t,u,f(t),f(u))$ such that $f(t)$ and $f(u)$ occur in $\Gamma,A$,
+then $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+1. By Lemma~\ref{subst2} we can substitute a fresh variable $y$ for $f(t)$ and get:
+\begin{equation}\label{eq:ft=y}
+\Gamma,P(t,y),  I(t,u_1,y,f(u_1)),\ldots,I(t,u_n,y,f(u_n))\vdash_{\vec{x},y}^{T_0} A
+\end{equation}
+Note that $t=u_i,y=f(u_i),\Gamma,\Sigma\vdash_{\vec{x},y}^{T_0} A$
+follows from (\ref{eq:ft=y}) by equality reasoning, for any $i$. 
+By substituting $f(u_i)$ for the
+lone variable $y$ we get $(\ast)~t=u_i,\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$
+by Lemma~\ref{subst1} and reflexivity.
+We now build a proof of $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$ from first 
+$\Gamma,\Sigma,P(t,y)\vdash_{\vec{x},y}^{T_0} A$ and then repeated
+application of the rule (I-intro2) with $I(t,u_i,y,f(u_i)) \lor t=u_i$. 
+All right branches are closed by weakening  $(\ast)$. As a result the derivation
+is left-leaning and the leftmost branch of length $n$ is closed by
+weakening (\ref{eq:ft=y}).
+
+2.
+\end{proof}
+\del{
 
 \begin{lemma}\label{lem:up_f_ront}
 Let $T$ with equality consist of axioms not mentioning $f$ 
@@ -852,7 +912,6 @@ concluding atoms in $\Sigma$.
 Similarly to Lemma~\ref{lem:upfront},
 applications of $f$-axioms concluding atoms in $\Sigma$ can be left out.
 \end{proof}
-
 
 \medskip
 
@@ -904,7 +963,7 @@ TBD
 \end{proof}
 
 
-\del{
+
 \begin{lemma}\label{lem:elim_ft}
 Let $T$ with equality consist of axioms not mentioning $f$, 
 %including the axiom $\vdash_{{y}} \exists u P({y},u)$,  

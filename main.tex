@@ -891,8 +891,63 @@ All right branches are closed by weakening  $(\ast)$. As a result the derivation
 is left-leaning and the leftmost branch of length $n$ is closed by
 weakening (\ref{eq:ft=y}).
 
-2.
+2. By induction on the derivation of $\Gamma\vdash_{\vec{x}}^T A$.
+There are three cases to distinguish, depending on the last step in the derivation.
+
+Case $P(t,f(t))$. Then the IH gives
+\begin{equation}\label{ih:Ptft}
+\Gamma,\Sigma,P(t,f(t)), I(t,u_1,f(t),f(u_1)),\ldots,I(t,u_n,f(t),f(u_n))\vdash_{\vec{x}}^{T_0} A
+\end{equation}
+where $\Sigma$ consists of all $P(u_i,f(u_i))$ and $I(u_i,u_j,f(u_i),f(u_j))$
+with $f(u_i),f(u_j)$ in $\Gamma,A$. If $f(t)$ occurs in $\Gamma,A$ we are done.
+Otherwise we apply part 1 and we are also done.
+
+Case $I(s,t,f(s),f(t))$. Then the IH gives
+\begin{equation}\label{ih:Istfsft}
+\Gamma,I(s,t,f(s),f(t)),\Sigma'\vdash_{\vec{x}}^{T_0} A
+\end{equation}
+where $\Sigma'$ consists of all $P(u_i,f(u_i))$ and $I(u_i,u_j,f(u_i),f(u_j))$
+with $f(u_i),f(u_j)$ in $\Gamma,A,f(s),f(t)$. 
+Let $\Sigma$ consists of all $P(u_i,f(u_i))$ and $I(u_i,u_j,f(u_i),f(u_j))$
+with $f(u_i),f(u_j)$ in $\Gamma,A$. We have to prove 
+$\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$. 
+Modulo idempotency, reflexivity and symmetry we get:
+\begin{equation}\label{eq:sigmas}
+\Sigma' = \Sigma,P(s,f(s)),P(t,f(t)),I(s,t,f(s),f(t)),\ldots,I(s,u_i,f(s),f(u_i)),\ldots,I(t,u_i,f(t),f(u_i)),\ldots
+\end{equation}
+If $f(s),f(t)$ both in $\Gamma,A$,
+then $\Sigma'=\Sigma$ and we are done. Otherwise, there are several cases
+to distinguish. If $f(s)$ in $\Gamma,A$ but not $f(t)$, then we are done by part 1,
+and likewise for $f(t)$ in $\Gamma,A$ but not $f(s)$. The case that neither
+$f(s)$ nor $f(t)$ is in $\Gamma,A$ can be further split into subcases. First, if $s$ and $t$
+are identical, then we are done by part 1. If not, and if $f(t)$ is not a subterm of $s$,
+then we are done by two applications of part 1, one for $f(t)$ and one for $f(s)$.
+If $f(t)$ is a subterm of $s$, then $f(s)$ is not a subterm of $t$, and we are 
+again done by two applications of part 1.
+
+Case of any axiom not mentioning $f$. Then we have an axiom
+$$
+\Delta_0(\vec{y})~\vdash_{\vec{y}}~
+\exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
+$$
+in $T$ with $\vec{t}$ terms using free variables in $\vec{x}$ and
+we have $\Delta_0(\vec{t})$ subset of $\Gamma$ and we have
+$\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash_{\vec{x},\vec{z_i}}^{T'} A$ for $i=1,\dots,n$.
+By induction we have $\Gamma,\Delta_i(\vec{t},\vec{z_i}), \Sigma_i\vdash_{\vec{x},\vec{z_i}}^{T_0} A$
+for $i = 1,\dots,n$, where $\Sigma_i$ is the set of formulae $P(u_j,f(u_j))$ and $I(u_j,u_k,f(u_j),f(u_k))$
+with $f(u_j),f(u_k)$ in in $\Gamma,A,\Delta_i(\vec{t},\vec{z_i})$.
+Since $\Delta_i(\vec{y},\vec{z_i})$ does not mention $f$, all $f$-terms in
+$\Sigma_i$  either occur in $\Gamma,A$, or are subterms of $\vec{t}$, so with
+all free variables in $\vec{x}$. It follows that we have
+$\Gamma,\Sigma_1,\dots,\Sigma_n\vdash_{\vec{x}}^{T_0} A$
+by the same instance of the same axiom above. Now use part 1 to eliminate
+all $f$-terms not occurring in $\Gamma,A$, starting by the maximal ones.
 \end{proof}
+
+
+
+
+
 \del{
 
 \begin{lemma}\label{lem:up_f_ront}

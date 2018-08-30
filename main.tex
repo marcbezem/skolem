@@ -240,13 +240,17 @@ and a new negative answer to a question by Wraith.
 \section*{Introduction}
 Skolemization is the replacement of an axiom of the form
 \begin{equation}\label{allexist}
-\forall\many{x}{n}~\exists y~\phi(\many{x}{n},y)
+\forall\vec{x}~\exists y~\phi(\vec{x},y)
 \end{equation}
 by one of the form
 \begin{equation}\label{allskol}
-\forall\many{x}{n}~\phi(\many{x}{n},f_\phi(\many{x}{n})),
+\forall\vec{x}~\phi(\vec{x},f_\phi(\vec{x})),
 \end{equation}
 where $f_\phi$ is a fresh function symbol, also called a Skolem function.
+Without essential loss of generality we shall from now on take $\phi$ atomic
+and of arity $\leq 2$ in (\ref{allexist}) and (\ref{allskol}). This means
+that $\vec{x}$ has length at most one and that the Skolem function is
+unary or nullary, in which case we speak of a Skolem constant.
 
 Clearly, (\ref{allskol}) is stronger than (\ref{allexist}).
 Nevertheless, Skolem's Theorem states that skolemization is \emph{conservative}
@@ -266,19 +270,18 @@ From the proof theoretic point of view one would like to understand
 in a combinatorial way how to transform proofs using (\ref{allskol}) into proofs
 using  (\ref{allexist}).  Here and below we restrict attention to
 proofs with conclusion not containing $f_\phi$. After all, such proofs are finite
-combinatorial objects and will not use the skolem function in its entirety.
+combinatorial objects and will not use the Skolem function in its entirety.
 Such a proof transformation exists and has been defined by Maehara~\cite{Maehara}. 
-A modern account can be found in, for example, Gallier~\cite[Ch.~7]{Gallier}.
-These proof transformations are quite complicated.
+In view of the simplicity of the semantical argument, the proof transformation
+contains two surprises.
 First, the transformed proofs can be much longer than the original, see \cite{xxx}.
 Second, as we shall see below, in certain cases the transformed proofs must use
 the law of the excluded middle even if the original proof does not.
 
 One natural question is whether Skolem's Theorem holds for other logics as well.
 We first consider constructive logic. Surprisingly, Skolem's Theorem fails
-for constructive logic, a result that is due to Minc?~\cite{xxx}.
-For simplicity, take $n=1$ in (\ref{allexist}) and (\ref{allskol}),
-and let $\phi$ be atomic. Consider the sentence
+for constructive logic, a result which is due to Mints~\cite{Mints}.
+Consider the sentence
 \begin{equation}\label{all2exist2}
 \forall x_1,x_2~\exists y_1,y_2.~\phi(x_1,y_1) \land \phi(x_2,y_2) \land (x_1 = x_2 \to y_1 = y_2)
 \end{equation}
@@ -303,7 +306,7 @@ We use letters $r,s,t,\dots$ for terms and $x,y,z,u,\dots$ for variables.
 
 \medskip
 
- We consider a theory $T$ with axioms of the form
+Given a signature $\Sigma$ we consider a theory $T$ with axioms of the form
 $$
 \Delta_0(\vec{y})~\vdash_{\vec{y}}~
 \exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
@@ -348,6 +351,7 @@ allows the domain to be empty. This means that adding a constant to a signature
 that does not contain constant symbols is \emph{not} conservative.
 As an example, consider the rule $\vdash_{y} P$ for a proposition $P$.
 Now we can only infer $\vdash P$ if we have a constant in the signature.
+
 Skolemization with constants is conservative, and the proof is simpler than,
 but slightly different from, the case of Skolem functions.
 Therefore we deal with Skolem constants in this section first.
@@ -481,76 +485,49 @@ By induction, we have $\Gamma,\Delta,\Delta_i(\vec{t},\vec{y_i})\vdash_{\vec{x},
 and hence $\Gamma,\Delta\vdash_{\vec{x}}^T B$ as desired.
 \end{proof}
 
-\section{Proving disjunctive and existential statements}
-
- We generalize the definition of $\Gamma\vdash_{\vec{x}}^T A$ to 
-$\Gamma\vdash_{\vec{x}}^T \nabla$ where $\nabla$ is a finite set of atomic formulae with
-free variables among $\vec{x}$, which is now thought of as a disjunction
-(and therefore denoted by $\nabla$ instead of $\Delta$). 
-The inductive clauses are:
-
-\begin{enumerate}
-\item (base) $\nabla$ meets $\Gamma$, that is, there is an $A$ in $\nabla$ that is 
-also in $\Gamma$
-
-\item (step) there is a rule
-$$
-\Delta_0(\vec{y})~\vdash_{\vec{y}}~
-\exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
-$$
-in $T$ such that $\Delta_0(\vec{t})$ is a subset of $\Gamma$ and
-we have $\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}} \nabla$ for all $i = 1,\dots,n$
-where $\vec{t}$ are terms using variables in $\vec{x}$.
-\end{enumerate}
-
-The base case above is essentially the introduction rule for $n$-ary disjunction,
-which includes the base case in Section~\ref{coherent} when $n=1$.
-We could do the same for existential statements and add a base case
-$\Gamma\vdash_{y_0,y_1}^T \exists u~P(u,y_0,y_1)$ if there exists a term $r(y_0,y_1)$
-such that $\Gamma\vdash_{y_0,y_1}^T P(r(y_0,y_1),y_0,y_1)$.
-However ... TBE
-
-For proving existential statements we could use the 
- We define $\vdash_{y_0,y_1}^T \exists u~P(u,y_0,y_1)$ to mean that there are a finite number
-of terms $r_1(y_0,y_1),\dots,r_n(y_0,y_1)$ such that
-$\vdash_{y_0,y_1}^T P(r_1,y_0,y_1),\dots,P(r_n,
-y_0,y_1)$.
-%% \begin{lemma}
-%% If $\vdash_{y_0,y_1}^T \exists u~P(u,y_0,y_1)$ and all free variables of $\Gamma,A,t_0,t_1$ are in
-%% $\vec{x}$
-%% and $\Gamma,P(z,t_0,t_1)\vdash_{\vec{x},z}^T A$ then $\Gamma\vdash_{\vec{x}}^T A$.
-%% \end{lemma}
-
-%\section{Addition of existential rules}
-
- We assume that there are a finite number
-of terms $r_i(y_0,y_1)$ such that
-$\vdash_{y_0,y_1}^T P(r_1,y_0,y_1),\dots,P(r_n,x,y)$ (i.e. $\vdash_{y_0,y_1}^T \exists u~P(u,y_0,y_1)$).
-We let $T'$ be the theory where we add the rule
-$$
-\vdash_{y_0,y_1}~\exists u~P(u,y_0,y_1)
-$$
-
-\begin{lemma}
-If $\Gamma\vdash_{\vec{x}}^{T'} A$ then $\Gamma\vdash_{\vec{x}}^T A$.
-\end{lemma}
-
-
-\begin{proof}
-By induction on the proof of $\Gamma\vdash_{\vec{x}}^{T'} A$. The only complex
-case is if we use the new rule. In this case we have terms $t_0,t_1$ using only
-free variables in $\vec{x}$ and $\Gamma,P(u,t_0,t_1)\vdash_{\vec{x},u}^T A$ by induction.
-Using Lemma \ref{subst1} we get
-$\Gamma,P(r_i(t_0,t_1),t_0,t_1)\vdash_{\vec{x}} A$ for $i = 1,\dots,n$.
-We also have $\vdash_{\vec{x}}^T P(r_i(t_0,t_1),t_0,t_1)$, and we can conclude by Lemma \ref{cut}.
-\end{proof}
-
-
 \section{Elimination of function symbols}\label{sec:skolemfunction}
 
- We assume that we have the rule $\vdash_{y_0,y_1}\exists u~P(u,y_0,y_1)$ in $T$.
-(Using the previous section, we can assume instead only that this rule is {\em derivable}
-in $T$.)
+In this section we prove Skolem's Theorem for coherent logic without equality.
+This case is essentially simpler, since now (\ref{allskol}) is the only axiom
+mentioning the Skolem function $f$. In logic with equality in the next section
+we will also have to deal with the congruence axiom for $f$.
+
+Lemma~\ref{subst2} can be refined as follows.
+\begin{lemma}\label{subst3}
+Let $\rho = \rho_{f({t}),u}$ and let $T$ consist of axioms not
+mentioning $f$ plus the $f$-axiom $\vdash_{y} P(y,f(y))$.
+Assume all free variables of $\vec{t}$ are in $\vec{x}$. If
+$\Gamma\vdash_{\vec{x}}^T A$ by a derivation not using the instance $P({t},f({t}))$
+of the $f$-axiom, then $\Gamma\rho\vdash_{\vec{x},u}^T A\rho$.
+%by a derivation of the same size.
+\end{lemma}
+
+\begin{proof}
+The proof follows the proof of Lemma~\ref{subst2}. The only point requiring extra 
+attention is the (possible) use of the axiom $\vdash_{{y}} P({y},f({y}))$.
+Assume an instance $P(\vec{s},f(\vec{s}))$ is used. Then we know that
+$f({s}) \neq f(\vec{t})$ and so 
+$P({s},f({s}))\rho
+=P({s}\rho,f({s})\rho)
+=P({s}\rho,f({s}\rho))$,
+which is also an instance of the axiom.
+\end{proof}
+
+As an application of the above lemma we can get Theorem~\ref{thm:skolem}
+even if there is no constant symbol in the signature, since in that case
+any term $f(\vec{t})$ contains a variable that we can use as $u$. 
+Then $u$ is in $\vec{x}$ and $(\vec{x},u)=\vec{x}$.
+For this argument $f$ must have positive arity (the case of a 
+Skolem constant has been settled in Section~\ref{sec:skolemconstant}).
+
+
+
+
+
+
+
+
+We assume that we have the rule $\vdash_{x}\exists y~P(x,y)$ in $T$.
 We introduce $f$ a binary function
 symbol which is {\em not} in the language of $T$. We let $T_0$ be the theory like $T$ but where we
 add the symbol function $f$ and $T'$ the extension of $T_0$ with the rule
@@ -644,34 +621,7 @@ $\Gamma\vdash_{\vec{x}}^T A$ by replacing all terms using $f$ by the given const
 
 \subsection{Alternative proof}
 
-Lemma~\ref{subst2} can be refined as follows.
 
-\begin{lemma}\label{subst3}
-Let $\rho = \rho_{f(\vec{t}),u}$ and let $T$ consist of axioms not
-mentioning $f$ plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
-Assume all free variables of $\vec{t}$ are in $\vec{x}$. If
-$\Gamma\vdash_{\vec{x}}^T A$ by a derivation not using the instance $P(\vec{t},f(\vec{t}))$
-of the only axiom in $T$ mentioning $f$, then $\Gamma\rho\vdash_{\vec{x},u}^T A\rho$.
-%by a derivation of the same size.
-\end{lemma}
-
-\begin{proof}
-The proof follows the proof of Lemma~\ref{subst2}. The only point requiring extra 
-attention is the (possible) use of the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
-Assume an instance $P(\vec{s},f(\vec{s}))$ is used. Then we know that
-$f(\vec{s}) \neq f(\vec{t})$ and so 
-$P(\vec{s},f(\vec{s}))\rho
-=P(\vec{s}\rho,f(\vec{s})\rho)
-=P(\vec{s}\rho,f(\vec{s}\rho))$,
-which is also an instance of the axiom.
-\end{proof}
-
-As an application of the above lemma we can get Theorem~\ref{thm:skolem}
-even if there is no constant symbol in the signature, since in that case
-any term $f(\vec{t})$ contains a variable that we can use as $u$. 
-Then $u$ is in $\vec{x}$ and $(\vec{x},u)=\vec{x}$.
-For this argument $f$ must have positive arity (the case of a 
-Skolem constant has been settled in Section~\ref{sec:skolemconstant}).
 
 \begin{lemma}\label{lem:upfront}
 Let $T$ consist of axioms not
@@ -911,7 +861,7 @@ with $f(u_i),f(u_j)$ in $\Gamma,A,f(s),f(t)$.
 Let $\Sigma$ consists of all $P(u_i,f(u_i))$ and $I(u_i,u_j,f(u_i),f(u_j))$
 with $f(u_i),f(u_j)$ in $\Gamma,A$. We have to prove 
 $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$. 
-Modulo idempotency, reflexivity and symmetry we get:
+Modulo idempotence, reflexivity and symmetry we get:
 \begin{equation}\label{eq:sigmas}
 \Sigma' = \Sigma,P(s,f(s)),P(t,f(t)),I(s,t,f(s),f(t)),\ldots,I(s,u_i,f(s),f(u_i)),\ldots,I(t,u_i,f(t),f(u_i)),\ldots
 \end{equation}
@@ -921,7 +871,7 @@ to distinguish. If $f(s)$ in $\Gamma,A$ but not $f(t)$, then we are done by part
 and likewise for $f(t)$ in $\Gamma,A$ but not $f(s)$. The case that neither
 $f(s)$ nor $f(t)$ is in $\Gamma,A$ can be further split into subcases. First, if $s$ and $t$
 are identical, then we are done by part 1. If not, and if $f(t)$ is not a subterm of $s$,
-then we are done by two applications of part 1, one for $f(t)$ and one for $f(s)$.
+then we are done by two applications of part 1, first for $f(t)$, then for $f(s)$.
 If $f(t)$ is a subterm of $s$, then $f(s)$ is not a subterm of $t$, and we are 
 again done by two applications of part 1.
 
@@ -1164,20 +1114,36 @@ It can then be checked that the formula $(**)$ above is not forced.
 
 \begin{thebibliography}{9}
 
+\bibitem{Barr} M.~Barr.
+\newblock{Toposes without points}.
+Journal of Pure and Applied Algebra 5(3): 265--280, 1974.
+\url{doi:10.1016/0022-4049(74)90037-1}
+
+\bibitem{CLR} M.~Coste, H.~Lombardi, and M.F.~Roy.
+\newblock{Dynamical methods in algebra: effective Nullstellens\"atze.}
+\newblock\emph{Annals of Pure and Applied Logic}~\textbf{111}(3):203--256, 2001.
+
 \bibitem{DW}
 G. Dowek and B. Werner.
 \newblock{A constructive proof of Skolem theorem for constructive logic.}
 \newblock{Manuscript, 2004.}
 
-\bibitem{Gallier} 
-J. Gallier, 
-\newblock\emph{Logic for Computer Science: Foundations of Automatic Theorem Proving},
-Wiley, 1986. Freely available online at: \url{www.cis.upenn.edu/~jean/gbooks/logic.html}
+%\bibitem{Gallier} 
+%J. Gallier, 
+%\newblock\emph{Logic for Computer Science: Foundations of Automatic Theorem Proving},
+%Wiley, 1986. Freely available online at: \url{www.cis.upenn.edu/~jean/gbooks/logic.html}
 
 \bibitem{Maehara}
 S. Maehara.
 \newblock{The predicate calculus with $\epsilon$-symbol.}
 Journal of the Mathematical Society of Japan, \textbf{7}(4):323--344, 1955.
+
+\bibitem{Mints}
+G. Mints.
+\newblock{Axiomatisation of a Skolem function in intuitionistic logic.}
+\newblock{In: In M.~Faller and S.~Kaufmann, and M.~Pauly,  editors,
+\emph{Formalizing the dynamics of information}, pages 105--114, 
+volume 92 of CSLI Lecture Notes, pages 105--114, 2000.}
 
 \bibitem{Mannaa}
 Th. Coquand and B. Mannaa.

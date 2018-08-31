@@ -536,12 +536,12 @@ We introduce a binary function
 symbol $f$ which is \emph{not} in the language of $T$. 
 We let $T_f$ be the theory like $T$ but where we
 add the symbol function $f$ to the signature.
-Let $T'$ be the extension of $T_f$ with the rule
+Let $Tf^+$ be the extension of $T_f$ with the rule
 $$
 \vdash_{y}~P(y,f(y))\leqno{(*)}
 $$
 
-We prove that $T'$ is a conservative extension of $T_f$,
+We prove that $T_{f{+}}$ is a conservative extension of $T_f$,
 which is a conservative extension of $T$ by Lemma~\ref{subst3}.
 The main idea is that if we use $f$ and the rule
 $(*)$ with $P(t,f(t))$ we should be able to replace $f(t)$ by a fresh variable 
@@ -550,77 +550,63 @@ This idea is cleverly expressed in the crucial Lemma~\ref{crucial}
 (which comes from \cite{Maehara}).
 
 \begin{lemma}\label{simpl}
-If $\Gamma,P(t,f(t))\vdash_{\vec{x}}^{T_0} A$ and
-$f(t)$ is not in $\Gamma,A$ then $\Gamma\vdash_{\vec{x}}^{T_0} A$.
+If $\Gamma,P(t,f(t))\vdash_{\vec{x}}^{T_f} A$ and
+$f(t)$ is not in $\Gamma,A$ then $\Gamma\vdash_{\vec{x}}^{T_f} A$.
 \end{lemma}
 
 \begin{proof}
 We take $r = f(t)$ and we use Lemma \ref{subst2}. We get
 $\Gamma,P(t,u)\vdash_{\vec{x},u}^{T_0} A$. Since we also have
-$\vdash_{\vec{x}}\exists u~P(t,u)$ we get  $\Gamma\vdash_{\vec{x}}^{T_0} A$.
+$\vdash_{\vec{x}}\exists u~P(t,u)$ we get  $\Gamma\vdash_{\vec{x}}^{T_f} A$.
 \end{proof}
 
 \begin{corollary}\label{simpl1}
-If $\Gamma,P(t_1,f(t_1)),\dots,P(t_n,f(t_n))\vdash_{\vec{x}}^{T_0} A$ and
+If $\Gamma,P(t_1,f(t_1)),\dots,P(t_n,f(t_n))\vdash_{\vec{x}}^{T_f} A$ and
 $f(t_i)$ is not in $\Gamma,A,t_j$ for $1\leq j < i \leq n$,
-then $\Gamma\vdash_{\vec{x}}^{T_0} A$.
+then $\Gamma\vdash_{\vec{x}}^{T_f} A$.
 \end{corollary}
 
 
 \begin{lemma} \label{crucial} (crucial Lemma) 
-If $\Gamma\vdash_{\vec{x}}^{T'} A$ then $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$ where
-$\Sigma$ is a set of formulae $P(f(s,t),s,t)$ where $f(s,t)$ is a term which
-occurs in $\Gamma,A$.
+If $\Gamma\vdash_{\vec{x}}^{T_{f{+}}} A$ then $\Gamma,\Sigma\vdash_{\vec{x}}^{T_f} A$ for
+some set $\Sigma$ of formulae $P(t,f(t))$ where $f(t)$ is a term which occurs in $\Gamma,A$.
 \end{lemma}
 
 \begin{proof}
-By induction on the proof of $\Gamma\vdash_{\vec{x}}^{T'} A$.
-
-\medskip
-
- The first case if if $A$ is in $\Gamma$ then $A$ is in $\Gamma,\Sigma$ and so 
-$\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$.
-
-\medskip
-
- The second case is if there is a rule
+By induction on the proof of $\Gamma\vdash_{\vec{x}}^{T_{f{+}}} A$.
+The base case is if $A$ is in $\Gamma$. Then we have
+$\Gamma,\Sigma\vdash_{\vec{x}}^{T_f} A$ for empty $\Sigma$.
+In the step case we distinguish between $(*)$ and other axioms
 $$
 \Delta_0(\vec{y})~\vdash_{\vec{y}}~
 \exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
 $$
 in $T$ with $\vec{t}$ terms using free variables in $\vec{x}$ and
-we have $\Delta_0(\vec{t})$ subset of $\Gamma$ and we have
-$\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash_{\vec{x},\vec{z_i}}^{T'} A$ for $i=1,\dots,n$.
-By induction we have $\Gamma,\Delta_i(\vec{t},\vec{z_i}), \Sigma_i\vdash_{\vec{x},\vec{z_i}}^{T_0} A$
-for $i = 1,\dots,n$, where $\Sigma_i$ is a set of formulae $P(f(t_0,t_1),t_0,t_1)$ where
-$f(t_0,t_1)$ occurs in $\Gamma,A,\Delta_i(\vec{t},\vec{z_i})$.
+we have $\Delta_0(\vec{t})$ subset of $\Gamma$ and
+$\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash_{\vec{x},\vec{z_i}}^{T_{f{+}}} A$ for $i=1,\dots,n$.
+By the induction hypothesis we have $\Gamma,\Delta_i(\vec{t},\vec{z_i}), \Sigma_i\vdash_{\vec{x},\vec{z_i}}^{T_f} A$
+for $i = 1,\dots,n$, where $\Sigma_i$ is a set of formulae $P(t,f(t))$ where
+$f(t)$ occurs in $\Gamma,A,\Delta_i(\vec{t},\vec{z_i})$.
 Since $\Delta(\vec{y},\vec{z_i})$ does not mention $f$ and all free variables of $\vec{t}$ are
 in $\vec{x}$ it follows that all free variables of $\Sigma_i$ are in $\vec{x}$.
-It follows that we have
-$\Gamma,\Sigma_1,\dots,\Sigma_n\vdash_{\vec{x}}^{T_0} A$.
-Then using Corollary \ref{simpl1} with the $f$-terms in the right order, 
+Hence we have $\Gamma,\Sigma_1,\dots,\Sigma_n\vdash_{\vec{x}}^{T_f} A$.
+Using Corollary \ref{simpl1} with the $f$-terms in the right order, 
 we get the required conclusion.
 
-\medskip
-
- The last case is that we have used the rule $(*)$ and
-we have $\Gamma,P(f(t_0,t_1),t_0,t_1)\vdash_{\vec{x}}^{T'} A$. By induction we get
-$\Gamma,P(f(t_0,t_1),t_0,t_1),\Sigma \vdash_{\vec{x}}^{T_0} A$ where
-$\Sigma$ is a set of all formulae $P(f(s,t),s,t)$ where $f(s,t)$ occurs
-in $\Gamma,A,P(f(t_0,t_1),t_0,t_1)$. We then conclude using Corollary \ref{simpl1} as in the
-previous case.
+The last case is that we have used the axiom $(*)$ and
+we have $\Gamma,P(t,f(t))\vdash_{\vec{x}}^{T_{f{+}}} A$. By the induction hypothesis we get
+$\Gamma,P(t,f(t)),\Sigma \vdash_{\vec{x}}^{T_f} A$ and we are
+done using Corollary \ref{simpl1} as in the previous case.
 \end{proof}
 
- For the next result, we assume the signature to have at least one constant symbol.
-
 \begin{theorem}\label{thm:skolem}
-If $\Gamma,A$ does not mention $f$ and $\Gamma\vdash_{\vec{x}}^{T'} A$, then
+If $\Gamma,A$ does not mention $f$ and $\Gamma\vdash_{\vec{x}}^{T_{f{+}}} A$, then
 $\Gamma\vdash_{\vec{x}}^T A$.
 \end{theorem}
 
 \begin{proof}
-By the previous crucial Lemma we get $\Gamma\vdash_{\vec{x}}^{T_0} A$. We then conclude
-$\Gamma\vdash_{\vec{x}}^T A$ by replacing all terms using $f$ by the given constant.
+By the previous crucial Lemma we get $\Gamma\vdash_{\vec{x}}^{T_f} A$. We then conclude
+$\Gamma\vdash_{\vec{x}}^T A$ by Lemma~\ref{subst3}.
 \end{proof}
 
 \subsection{Alternative proof}
@@ -716,7 +702,7 @@ its proof.
 
 In logic with equality, when we add a function symbol $f$, 
 we must also add a congruence axiom for that function. 
-This means that $T_0$ in Section~\ref{sec:skolemfunction},
+This means that $T_f$ in Section~\ref{sec:skolemfunction},
 when extended to  logic with equality, will in fact mention $f$ . 
 This invalidates the application of Lemma~\ref{subst2}, 
 which requires that the theory does not mention $f$.
@@ -886,7 +872,7 @@ $$
 $$
 in $T$ with $\vec{t}$ terms using free variables in $\vec{x}$ and
 we have $\Delta_0(\vec{t})$ subset of $\Gamma$ and we have
-$\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash_{\vec{x},\vec{z_i}}^{T'} A$ for $i=1,\dots,n$.
+$\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash_{\vec{x},\vec{z_i}}^{T_{f{+}}} A$ for $i=1,\dots,n$.
 By induction we have $\Gamma,\Delta_i(\vec{t},\vec{z_i}), \Sigma_i\vdash_{\vec{x},\vec{z_i}}^{T_0} A$
 for $i = 1,\dots,n$, where $\Sigma_i$ is the set of formulae $P(u_j,f(u_j))$ and $I(u_j,u_k,f(u_j),f(u_k))$
 with $f(u_j),f(u_k)$ in in $\Gamma,A,\Delta_i(\vec{t},\vec{z_i})$.
@@ -1096,10 +1082,10 @@ argument.
  We take the language with only a binary relation $R$. The theory $T$ has the rule
 $\vdash_x \exists y~R(x,y)$. As an application of what we have seen, we can add
 in a conservative way a function symbol $f$ with the rule $\vdash _x R(x,f(x))$ and
-get a theory $T'$ which is conservative over $T$ for {\em coherent} formulae. 
+get a theory $T_{f{+}}$ which is conservative over $T$ for {\em coherent} formulae. 
 
  This theory however is {\em not} conservative for arbitrary formulae since we can prove in
-$T'$ the non coherent formula
+$T_{f{+}}$ the non coherent formula
 $$
 \exists y_1~y_2~(R(x_1,y_1)\wedge R(x_2,y_2)\wedge (x_1=x_2\rightarrow y_1=y_2))\leqno{(**)}
 $$

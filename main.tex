@@ -83,6 +83,8 @@
 \newcommand{\res}{{\sf res}}
 \newcommand{\Int}{{\bf I}}
 \newcommand{\sem}[1]{\langle #1\rangle}
+\newcommand{\ld}[1]{#1{\downarrow}}
+\newcommand{\ldf}[1]{#1\rho_{{\downarrow}f}}
 
 \newcommand{\Sph}{{\sf S}^1}
 \newcommand{\PROP}{{\sf prop}}
@@ -485,80 +487,82 @@ By induction, we have $\Gamma,\Delta,\Delta_i(\vec{t},\vec{y_i})\vdash_{\vec{x},
 and hence $\Gamma,\Delta\vdash_{\vec{x}}^T B$ as desired.
 \end{proof}
 
-\section{Elimination of function symbols}\label{sec:skolemfunction}
+We will use yet another kind of substitution. We define an operation
+$\ldf{}$ that replaces \emph{recursively} any $f$-term by its leftmost subterm. 
+We end up with a term which contains no occurrences of $f$.
+\begin{itemize}
+\item $\ldf{f(\vec{t})} = \ldf{t_1}$, and otherwise
+\item $\ldf{g(\vec{t})} = g(\ldf{\vec{t}})$,
+\item $\ldf{x} = x$.
+\end{itemize}
+Again we extend in the usual way for atoms and sets of atoms.
+A trivial (but relevant) observation is that all variables in $\ldf{t}$ occur in $t$.
 
-In this section we prove Skolem's Theorem for coherent logic without equality.
-This case is essentially simpler, since now (\ref{allskol}) is the only axiom
-mentioning the Skolem function $f$. In logic with equality in the next section
-we will also have to deal with the congruence axiom for $f$.
+The following lemma implies the conservativity of adding a new
+function symbol to the signature.
 
-Lemma~\ref{subst2} can be refined as follows.
 \begin{lemma}\label{subst3}
-Let $\rho = \rho_{f({t}),u}$ and let $T$ consist of axioms not
-mentioning $f$ plus the $f$-axiom $\vdash_{y} P(y,f(y))$.
-Assume all free variables of $\vec{t}$ are in $\vec{x}$. If
-$\Gamma\vdash_{\vec{x}}^T A$ by a derivation not using the instance $P({t},f({t}))$
-of the $f$-axiom, then $\Gamma\rho\vdash_{\vec{x},u}^T A\rho$.
+Let $T$ be a theory with equality.
+Let $T_f$ be $T$ extended by the congruence axiom for a new function symbol $f$,
+$\vec{x}=\vec{y} \vdash_{\vec{x},\vec{y}} f(\vec{x}) = f(\vec{y})$. 
+Then we have $\ldf{\Gamma}\vdash_{\vec{x}}^T \ldf{A}$
+whenever $\Gamma\vdash_{\vec{x}}^{T_f} A$.
 %by a derivation of the same size.
 \end{lemma}
 
 \begin{proof}
-The proof follows the proof of Lemma~\ref{subst2}. The only point requiring extra 
-attention is the (possible) use of the axiom $\vdash_{{y}} P({y},f({y}))$.
-Assume an instance $P(\vec{s},f(\vec{s}))$ is used. Then we know that
-$f({s}) \neq f(\vec{t})$ and so 
-$P({s},f({s}))\rho
-=P({s}\rho,f({s})\rho)
-=P({s}\rho,f({s}\rho))$,
-which is also an instance of the axiom.
+By induction on derivation. No axiom of $T$ mentions $f$, which means
+that applications of axioms of $T$ commute with $\ldf{}$. The only case of
+interest is the application of the  congruence axiom for $f$:
+$\vec{s}=\vec{t} \vdash_{\vec{x}} f(\vec{s}) = f(\vec{t})$. Applying $\ldf{}$ we get 
+$\vec{s}\ldf{}=\vec{t}\ldf{} \vdash_{\vec{x}} s_1\ldf{} = t_1\ldf{}$,
+where the conclusion is among the premisses. This means the congruence
+axiom for $f$ can be left out.
 \end{proof}
-
-As an application of the above lemma we can get Theorem~\ref{thm:skolem}
-even if there is no constant symbol in the signature, since in that case
-any term $f(\vec{t})$ contains a variable that we can use as $u$. 
-Then $u$ is in $\vec{x}$ and $(\vec{x},u)=\vec{x}$.
-For this argument $f$ must have positive arity (the case of a 
-Skolem constant has been settled in Section~\ref{sec:skolemconstant}).
+In case of logic without equality, conservativity of extending the signature
+is even easier.
 
 
+\section{Elimination of function symbols}\label{sec:skolemfunction}
 
-
-
-
-
+In this section we prove Skolem's Theorem for coherent logic without equality.
+This case is essentially simpler than the case with equality, 
+since here (\ref{allskol}) is the only axiom
+mentioning the Skolem function $f$. In logic with equality in the next section
+we will also have to deal with the congruence axiom for $f$.
 
 We assume that we have the rule $\vdash_{x}\exists y~P(x,y)$ in $T$.
-We introduce $f$ a binary function
-symbol which is {\em not} in the language of $T$. We let $T_0$ be the theory like $T$ but where we
-add the symbol function $f$ and $T'$ the extension of $T_0$ with the rule
+We introduce a binary function
+symbol $f$ which is \emph{not} in the language of $T$. 
+We let $T_f$ be the theory like $T$ but where we
+add the symbol function $f$ to the signature.
+Let $T'$ be the extension of $T_f$ with the rule
 $$
-\vdash_{y_0,y_1}~P(f(y_0,y_1),y_0,y_1)\leqno{(*)}
+\vdash_{y}~P(y,f(y))\leqno{(*)}
 $$
 
- The goal of this section is to prove that $T'$ is a conservative extension of $T_0$. (It is clear
-that $T_0$ is a conservative extension of $T$ if we have a constant symbol in $T$ since we can always
-interpret the function by a constant function.) The main idea is that if we use $f$ and the rule
-$(*)$ with $P(f(s,t),s,t)$ we should be able to replace $f(s,t)$ by a fresh variable 
-$P(u,s,t)$ and then we can use the fact that $\exists u~P(u,s,t)$ is provable.
-This idea is cleverly expressed in the crucial Lemma \ref{crucial} (which comes from \cite{Maehara}).
-
-% We define a $f$-term of $\Gamma$ to be any term of the form $f(t_0,t_1)$ which appears
-%in $\Gamma$.
+We prove that $T'$ is a conservative extension of $T_f$,
+which is a conservative extension of $T$ by Lemma~\ref{subst3}.
+The main idea is that if we use $f$ and the rule
+$(*)$ with $P(t,f(t))$ we should be able to replace $f(t)$ by a fresh variable 
+$P(t,u)$ and then we can use the fact that $\exists u~P(t,u)$ is provable.
+This idea is cleverly expressed in the crucial Lemma~\ref{crucial} 
+(which comes from \cite{Maehara}).
 
 \begin{lemma}\label{simpl}
-If $\Gamma,P(f(s,t),s,t)\vdash_{\vec{x}}^{T_0} A$ and
-$f(s,t)$ is not in $\Gamma,A$ then $\Gamma\vdash_{\vec{x}}^{T_0} A$.
+If $\Gamma,P(t,f(t))\vdash_{\vec{x}}^{T_0} A$ and
+$f(t)$ is not in $\Gamma,A$ then $\Gamma\vdash_{\vec{x}}^{T_0} A$.
 \end{lemma}
 
 \begin{proof}
-We take $r = f(s,t)$ and we use Lemma \ref{subst2}. We get
-$\Gamma,P(u,s,t)\vdash_{\vec{x},u}^{T_0} A$. Since we also have
-$\vdash_{\vec{x}}\exists u~P(u,x,t)$ we get  $\Gamma\vdash_{\vec{x}}^{T_0} A$.
+We take $r = f(t)$ and we use Lemma \ref{subst2}. We get
+$\Gamma,P(t,u)\vdash_{\vec{x},u}^{T_0} A$. Since we also have
+$\vdash_{\vec{x}}\exists u~P(t,u)$ we get  $\Gamma\vdash_{\vec{x}}^{T_0} A$.
 \end{proof}
 
 \begin{corollary}\label{simpl1}
-If $\Gamma,P(f(s_1,t_1),s_1,t_1),\dots,P(f(s_n,t_n),s_n,t_n)\vdash_{\vec{x}}^{T_0} A$ and
-$f(s_i,t_i)$ is not in $\Gamma,A,s_j,t_j$ for $1\leq j < i \leq n$,
+If $\Gamma,P(t_1,f(t_1)),\dots,P(t_n,f(t_n))\vdash_{\vec{x}}^{T_0} A$ and
+$f(t_i)$ is not in $\Gamma,A,t_j$ for $1\leq j < i \leq n$,
 then $\Gamma\vdash_{\vec{x}}^{T_0} A$.
 \end{corollary}
 

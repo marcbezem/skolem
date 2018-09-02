@@ -637,6 +637,24 @@ Consider the following stylized derivation in the theory above:
 This derivation shows that $\vdash_{x,y} M(x,y,x)  \lor M(x,y,y)$ is an
 admissible rule. Call the extension of $T_0$ by this rule $T_1$.
 
+Let $T_2$ be $T_1$ plus the axiom $\vdash_{x,y} \exists u M(x,y,u)$.
+If $\Gamma \vdash_{\vec{x}}^{T_2} A$ has been inferred from
+$\Gamma,M(x,y,u) \vdash_{\vec{x},u}^{T_1} A$ with $u$ fresh,
+then by Lemma~\ref{subst1} we can substitute both $x$ and $y$ 
+for the lone variable $u$ and get $\Gamma,M(x,y,x) \vdash_{\vec{x},u}^{T_1} A$
+and $\Gamma,M(x,y,y) \vdash_{\vec{x},u}^{T_1} A$, respectively.
+Hence we also have $\Gamma \vdash_{\vec{x},u}^{T_1} A$
+by using $\vdash_{x,y} M(x,y,x)  \lor M(x,y,y)$.
+This means that $\vdash_{x,y} \exists u M(x,y,u)$ is an admissible rule
+for $T_1$.
+
+Let $T_3$ be $T_2$ plus the axiom $\vdash_{x,y} M(x,y,m(x,y))$. 
+Theorem~\ref{thm:skolem} states that  $T_3$ is conservative over
+$T_2$ and hence also over $T_1$ and $T_0$. This means we can add
+$\vdash_{x,y} M(x,y,m(x,y))$ to $T_0$ without getting more consequences
+in the signature $\set{M,{\leq}}$. This is somehow surprising since maxima
+need not be unique in a preorder, so that $m(x,y)$ must make a choice.
+ We will see that the same result holds even in coherent logic with equality.
 
 %%  If we have an equality symbol, we consider that we have added all equality axioms for
 %% predicate and function symbols in the theory. It follows from this Theorem that we

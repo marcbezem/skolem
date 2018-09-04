@@ -285,16 +285,16 @@ We first consider constructive logic. Surprisingly, Skolem's Theorem fails
 for constructive logic, a result which is due to Mints~\cite{Mints}.
 Consider the sentence
 \begin{equation}\label{all2exist2}
-\forall x_1,x_2~\exists y_1,y_2.~\phi(x_1,y_1) \land \phi(x_2,y_2) \land (x_1 = x_2 \to y_1 = y_2)
+\forall x_1,x_2~\exists y_1,y_2.~P(x_1,y_1) \land P(x_2,y_2) \land (x_1 = x_2 \to y_1 = y_2)
 \end{equation}
-Clearly,  (\ref{all2exist2}) follows from (\ref{allskol}) by taking $y_i = f_\phi(x_i)$.
+Clearly,  (\ref{all2exist2}) follows from (\ref{allskol}) by taking $y_i = f(x_i)$.
 In an attempt to prove (\ref{all2exist2}) from (\ref{allexist}), let $x_1,x_2$ be given.
 Using (\ref{allexist}) we can get $y_1,y_2$ satisfying the first two conjuncts
 in (\ref{all2exist2}). However, (\ref{allexist}) does not guarantee the third conjunct.
 For this we would have to decide $ x_1 = x_2 \lor x_1 \neq x_2$ before the
 application of (\ref{allexist}). In constructive logic, equality is in general not decidable.
 We shall prove below that indeed (\ref{all2exist2}) does not follow from  (\ref{allexist})
-in constructive logic, using an argument different from \cite{xxx}.
+in constructive logic, using an argument different from \cite{Mints}.
 The failure of Skolem's Theorem for constructive logic can be remedied by 
 requiring in (\ref{allexist}) unique existence instead of existence, see \cite{xxx}.
 This, of course, results in a weaker Skolem's Theorem for constructive logic.
@@ -610,17 +610,19 @@ $\Gamma\vdash_{\vec{x}}^T A$ by Lemma~\ref{subst3}.
 \end{proof}
 
 \subsection{Example}
-In 
 
 Total preorders with a ternary predicate for maxima can be axiomatized by:
 \begin{align*}
                                                  &\vdash_{x,y}           x\leq y \lor y\leq x
-\quad\text{(this implies reflexivity)}\\
+&\quad\text{(this implies reflexivity)}\\
 x\leq y, y\leq z              &\vdash_{x,y,z}        x\leq z\\
-x\leq y                                     &\vdash_{x,y}           M(x,y,y)\\
-y \leq x                                    &\vdash_{x,y}           M(x,y,x)\\
-M(x,y,z)                                   &\vdash_{x,y,z}        x\leq z,  y\leq z\\
-M(x,y,z), x\leq u,  y\leq u      &\vdash_{x,y,z,u}    z\leq u\\
+x\leq z, y\leq z                   &\vdash_{x,y,z}           M(x,y,z)
+&\quad\text{(M-intro)}\\ 
+%y \leq x                                    &\vdash_{x,y}           M(x,y,x)\\
+M(x,y,z)                                   &\vdash_{x,y,z}        x\leq z,  y\leq z
+&\quad\text{(M-elim1)}\\
+M(x,y,z), x\leq u,  y\leq u      &\vdash_{x,y,z,u}    z\leq u
+&\quad\text{(M-elim2)}\\
 \end{align*}
 Call this theory $T_0$. Note that in a preorder maxima need not be unique.
 
@@ -630,9 +632,9 @@ axioms that do not give new coherent consequences. Although we
 do this for the example, the method is completely general.
 Consider the following stylized derivation in the theory above:
 \begin{align*}
-& x\leq y, M(x,y,y)\\
+& x\leq y, y\leq y,M(x,y,y)\\
 &{\hphantom w} \lor\\
-&y\leq x,M(x,y,x) \\
+&y\leq x, x\leq x,M(x,y,x) \\
 \end{align*}
 This derivation shows that $\vdash_{x,y} M(x,y,x)  \lor M(x,y,y)$ is an
 admissible rule. Call the extension of $T_0$ by this rule $T_1$.
@@ -641,9 +643,9 @@ Let $T_2$ be $T_1$ plus the axiom $\vdash_{x,y} \exists u M(x,y,u)$.
 If $\Gamma \vdash_{\vec{x}}^{T_2} A$ has been inferred from
 $\Gamma,M(x,y,u) \vdash_{\vec{x},u}^{T_1} A$ with $u$ fresh,
 then by Lemma~\ref{subst1} we can substitute both $x$ and $y$ 
-for the lone variable $u$ and get $\Gamma,M(x,y,x) \vdash_{\vec{x},u}^{T_1} A$
-and $\Gamma,M(x,y,y) \vdash_{\vec{x},u}^{T_1} A$, respectively.
-Hence we also have $\Gamma \vdash_{\vec{x},u}^{T_1} A$
+for the lone variable $u$ and get $\Gamma,M(x,y,x) \vdash_{\vec{x}}^{T_1} A$
+and $\Gamma,M(x,y,y) \vdash_{\vec{x}}^{T_1} A$, respectively.
+Hence we also have $\Gamma \vdash_{\vec{x}}^{T_1} A$
 by using $\vdash_{x,y} M(x,y,x)  \lor M(x,y,y)$.
 This means that $\vdash_{x,y} \exists u M(x,y,u)$ is an admissible rule
 for $T_1$.
@@ -669,101 +671,74 @@ when extended to  logic with equality, will in fact mention $f$ .
 This invalidates the application of Lemma~\ref{subst2}, 
 which requires that the theory does not mention $f$.
 This means that we have to review (and adapt) the proofs of the
-previous section.
+previous section. 
 
 To get a clearer picture of what is needed we translate the 
 counterexample~(\ref{all2exist2}) to coherent logic.
-(Remark: not necessarily for inclusion in the final paper.)
-For this we introduce a new predicate $I(x_1,x_2,y_1,y_2)$
+For this we need to introduce a new predicate $I(x_1,x_2,y_1,y_2)$
 expressing $x_1=x_2 \to y_1=y_2$ by coherent axioms.
-This involves the inequality predicate ${\neq}$, which we also define:
-
-\begin{align*}
- I(x_1,x_2,y_1,y_2), x_1=x_2 & \vdash_V                 y_1=y_2\\
- y_1=y_2                                  &\vdash_V                 I(x_1,x_2,y_1,y_2)\\ 
- x_1\neq x_2                           &\vdash_V                 I(x_1,x_2,y_1,y_2)\\
-                                                 &\vdash_{z,z'}           z=z' \lor z\neq z'\\
- z=z' \land z\neq z'                &\vdash_{z,z'}           \bot\\
-\end{align*}
-Here $V$ contains the variables $x_1,x_2,y_1,y_2$.
-We take all of (\ref{allexist}),(\ref{allskol}),(\ref{all2exist2})
-with $n=1$ and $\phi=P$.
-Using two new constants $a$ and $b$ we can now express (\ref{all2exist2}) coherently:
-\[
-P(a,y),P(b,y'),I(a,b,y_1,y_2)  \vdash_{y,y'} \bot
-\]
-We include the equality axioms, which are all coherent, but make only the
-congruence axiom for $f$ explicit, and we add (\ref{allskol}):
-\begin{equation}\label{fmention}
-x=x'\vdash_{x,x'} f(x) = f(x') \quad\quad \vdash_{x} P(x,f(x))
-\end{equation}
-Consider the following stylized proof of $\bot$ in the theory above:
-\begin{align*}
-& a=b,f(a)=f(b),I(a,b,f(a),f(b)),\bot\\
-P(a,f(a)), P(b,f(b)),&{\hphantom w} \lor\\
-& a\neq b,I(a,b,f(a),f(b)),\bot\\
-\end{align*}
-How to transform this derivation in to one using 
-$\vdash_{x} \exists u P(x,u)$ instead of the axioms mentioning $f$ 
-in (\ref{fmention}) above? If we start by $P(a,u), P(b,v)$
-there is no way to conclude $u=v$ from $a=b$. 
-One solution is to do the case distinction upfront. 
-Then, in the branch $a=b$, we replace the application of the congruence
-rule to infer $f(a)=f(b)$ by \emph{one} application of 
-$\vdash_{x} \exists u P(x,u)$ to infer $P(a,u)$, after which
-we infer $P(b,u)$ by equality reasoning. 
-In the branch $a\neq b$ we infer $P(a,u),P(b,v)$ and complete. In total:
-\begin{align*}
-& a=b,P(a,u),P(b,u),I(a,b,u,u),\bot\\
-&{\hphantom w}\lor\\
-& a\neq b,P(a,u), P(b,v),I(a,b,u,v),\bot\\
-\end{align*}
-
-\noindent
-(Remark: end example.) To keep notations simple we assume from now on that $f$ is unary.
-We first prove conservativity of adding $f$ to a coherent theory with equality.
-
-\begin{lemma}\label{lem:eq+f=conservative}
-Let $T$ be a coherent theory including equality axioms, and
-let $T_f$ be $T$ plus the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$
-for some new function symbol $f$.
-Let $\rho$ be the substitution that substitutes any maximal term $f(t)$ by $t$.
-If  $\Gamma \vdash_{\vec{x}}^{T_f} A$, then
-$\Gamma\rho \vdash_{\vec{x}}^T A\rho$.
-\end{lemma}
-\begin{proof}
-By induction on derivation. Applications of the congruence axiom for $f$
-can be left out.
-\end{proof}
-This lemma immediately implies the conservativity of $T_f$ over $T$.
-If $f$ has arity $>1$ we obtain the same result by substituting
-maximal terms $f(\vec{t})$ by $t_1$. 
 
 \begin{definition}\label{def:implicational_equality}
 A theory with \emph{implicational equality} is a coherent theory which includes
-the following axioms, where  $I(x_1,x_2,y_1,y_2)$ is a new predicate
-expressing $x_1=x_2 \to y_1=y_2$:
+the axioms:
 \begin{align*}
  I(x_1,x_2,y_1,y_2), x_1=x_2 & \vdash_V                 y_1=y_2  &\text{(I-elim)}\\
  y_1=y_2                                  &\vdash_V                 I(x_1,x_2,y_1,y_2)&\text{(I-intro1)}\\ 
                                                  &\vdash_V                 I(x_1,x_2,y_1,y_2) \lor x_1= x_2&\text{(I-intro2)}
+ %                                                &\vdash_{z,z'}           z=z' \lor z\neq z'\\
+ %z=z' \land z\neq z'                &\vdash_{z,z'}           \bot\\
 \end{align*}
-Here $V$ consists of the variables $x_1,x_2,y_1,y_2$. In theories with
-implicational equality we denote the congruence axiom for a unary
-function $f$ by $\vdash_{x,x'} I(x,x',f(x),f(x'))$.
+Here $V$ consists of  the variables $x_1,x_2,y_1,y_2$.
+We include the usual axioms of equality, but
+in theories with implicational equality we denote the congruence axiom for 
+a unary function $f$ by $\vdash_{x,x'} I(x,x',f(x),f(x'))$.
 \end{definition}
+
 Implicational equality is conservative over equality, which can be seen be a
-cut-elimination argument. Alternatively, one can substitute $x_1=x_2 \to y_1=y_2$
+cut-elimination argument, see\cite[THM?]{CLR}. 
+Alternatively, one can substitute $x_1=x_2 \to y_1=y_2$
 for $I(x_1,x_2,y_1,y_2)$ and observe that the axioms above become
-classical tautologies. The cut-elimination argument is constructive, whereas
+\emph{classical} tautologies. The cut-elimination argument is constructive, whereas
 the alternative argument uses the conservativity of classical logic over
-coherent logic (Barr's Theorem), which is not constructive.
+coherent logic (Barr's Theorem~\cite{Barr}), which is not constructive.
+
+\begin{example}\label{exa:counter2CL}
+Let $T$  be a theory with implicational equality with the $f$-axioms
+\begin{equation}\label{faxioms}
+\vdash_{x,x'} I(x,x',f(x),f(x') )\quad\quad \vdash_{x} P(x,f(x))
+\end{equation}
+Using two new constants $a$ and $b$ we express (\ref{all2exist2}) coherently
+(in one of the many possible ways):
+\[
+P(a,y_1),P(b,y_2),I(a,b,y_1,y_2)  \vdash_{y,y'} \bot
+\]
+
+Consider the following stylized proof of $\bot$ in the theory above:
+\begin{align*}
+P(a,f(a)), P(b,f(b)),I(a,b,f(a),f(b)),\bot
+\end{align*}
+How to transform this derivation in to one using 
+$\vdash_{x} \exists u P(x,u)$ instead of the $f$-axioms mentioning 
+in (\ref{faxioms}) above? If we start by $P(a,u), P(b,v)$
+there is no way to conclude $u=v$ from $a=b$.
+One solution is to use the instance $I(a,b,u,v) \lor a=b$ of (I-intro2).
+Then one branch is immediate and in the other branch
+we can infer $P(b,u)$ from $P(a,u)$ by equality reasoning and use (I-intro1). 
+\begin{align*}
+&I(a,b,u,v),\bot\\
+P(a,u),P(b,v),&{\hphantom w}\lor\\
+& a=b,P(b,u),I(a,b,u,u),\bot\\
+\end{align*}
+\end{example}
+
+
+
 
 \begin{lemma}\label{lem:main}
 Let $T$ be a coherent theory with implicational equality consisting of
 axioms not mentioning $f$ plus the $f$-axioms $\vdash_{{y}} P({y},f({y}))$
 and $\vdash_{x,x'} I(x,x',f(x),f(x'))$. Let $T_0$ be the coherent theory obtained from 
-$T$ by leaving out the $f$-axioms and adding $\vdash_{\vec{y}} \exists u P({y},u)$.
+$T$ by leaving out the $f$-axioms and adding $\vdash_{{y}} \exists u P({y},u)$.
 Then we have:
 \begin{enumerate}
 \item If $\Gamma,P(t,f(t)), I(t,u_1,f(t),f(u_1)),\ldots,I(t,u_n,f(t),f(u_n))\vdash_{\vec{x}}^{T_0} A$
@@ -781,12 +756,15 @@ then $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$.
 \begin{equation}\label{eq:ft=y}
 \Gamma,P(t,y),  I(t,u_1,y,f(u_1)),\ldots,I(t,u_n,y,f(u_n))\vdash_{\vec{x},y}^{T_0} A
 \end{equation}
-Note that $t=u_i,y=f(u_i),\Gamma,\Sigma\vdash_{\vec{x},y}^{T_0} A$
-follows from (\ref{eq:ft=y}) by equality reasoning, for any $i$. 
+Note that $t=u_i,y=f(u_i),\Gamma,\Sigma\vdash_{\vec{x},y}^{T_0} A$,
+for any $i$, follows from (\ref{eq:ft=y}) by weakening and equality reasoning:
+get $P(t,y)$ from $P(u_i,f(u_i))\in\Sigma$, and get each $I(t,u_j,y,f(u_j))$ 
+from $I(u_i,u_j,f(u_i),f(u_j))\in\Sigma$. 
 By substituting $f(u_i)$ for the
 lone variable $y$ we get $(\ast)~t=u_i,\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$
 by Lemma~\ref{subst1} and reflexivity.
-We now build a proof of $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$ from first 
+
+Now build a proof of $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$ from first 
 $\Gamma,\Sigma,P(t,y)\vdash_{\vec{x},y}^{T_0} A$ and then repeated
 application of the rule (I-intro2) with $I(t,u_i,y,f(u_i)) \lor t=u_i$. 
 All right branches are closed by weakening  $(\ast)$. As a result the derivation

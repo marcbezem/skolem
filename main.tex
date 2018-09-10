@@ -503,10 +503,11 @@ function symbol to the signature.
 
 \begin{lemma}\label{subst3}
 Let $T$ be a theory with equality.
-Let $T_f$ be $T$ extended by the congruence axiom for a new function symbol $f$,
-$\vec{x}=\vec{y} \vdash_{\vec{x},\vec{y}} f(\vec{x}) = f(\vec{y})$. 
+Let $T_{f{=}}$ be $T$ extended by the congruence axiom 
+$\vec{x}=\vec{y} \vdash_{\vec{x},\vec{y}} f(\vec{x}) = f(\vec{y})$
+for a new function symbol $f$. 
 Then we have $\ldf{\Gamma}\vdash_{\vec{x}}^T \ldf{A}$
-whenever $\Gamma\vdash_{\vec{x}}^{T_f} A$.
+whenever $\Gamma\vdash_{\vec{x}}^{T_{f{=}}} A$.
 %by a derivation of the same size.
 \end{lemma}
 
@@ -610,7 +611,7 @@ $\Gamma\vdash_{\vec{x}}^T A$ by Lemma~\ref{subst3}.
 
 \subsection{Example}
 
-Total preorders with a ternary predicate for maxima can be axiomatized by:
+Total preorders with a ternary predicate for maximum can be axiomatized by:
 \begin{align*}
                                                  &\vdash_{x,y}           x\leq y \lor y\leq x
 &\quad\text{(this implies reflexivity)}\\

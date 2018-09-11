@@ -556,7 +556,7 @@ $f(t)$ is not in $\Gamma,A$ then $\Gamma\vdash_{\vec{x}}^{T_f} A$.
 
 \begin{proof}
 We take $r = f(t)$ and we use Lemma \ref{subst2}. We get
-$\Gamma,P(t,u)\vdash_{\vec{x},u}^{T_0} A$. Since we also have
+$\Gamma,P(t,u)\vdash_{\vec{x},u}^{T_f} A$. Since we also have
 $\vdash_{\vec{x}}\exists u~P(t,u)$ we get  $\Gamma\vdash_{\vec{x}}^{T_f} A$.
 \end{proof}
 
@@ -736,49 +736,49 @@ P(a,u),P(b,v),&{\hphantom w}\lor\\
 
 
 \begin{lemma}\label{lem:main}
-Let $T$ be a coherent theory with implicational equality consisting of
-axioms not mentioning $f$ plus the $f$-axioms $\vdash_{{y}} P({y},f({y}))$
-and $\vdash_{x,x'} I(x,x',f(x),f(x'))$. Let $T_0$ be the coherent theory obtained from 
-$T$ by leaving out the $f$-axioms and adding $\vdash_{{y}} \exists u P({y},u)$.
+Let $T_{I\!f{+}}$ be a coherent theory with implicational equality consisting of
+axioms not mentioning $f$ plus the $f$-axioms $\vdash_{x,x'} I(x,x',f(x),f(x'))$
+and $\vdash_{{y}} P({y},f({y}))$. Let $T$ be the coherent theory obtained from 
+$T_{I\!f{+}}$ by leaving out the $f$-axioms and adding $\vdash_{{y}} \exists u P({y},u)$.
 Then we have:
 \begin{enumerate}
-\item If $\Gamma,P(t,f(t)), I(t,u_1,f(t),f(u_1)),\ldots,I(t,u_n,f(t),f(u_n))\vdash_{\vec{x}}^{T_0} A$
+\item If $\Gamma,P(t,f(t)), I(t,u_1,f(t),f(u_1)),\ldots,I(t,u_n,f(t),f(u_n))\vdash_{\vec{x}}^{T} A$
 and $f(t)$ does not occur in $\Gamma,A$, $u_1,\ldots,u_n$, then  
-$\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$, where $\Sigma$ consists of 
+$\Gamma,\Sigma\vdash_{\vec{x}}^{T} A$, where $\Sigma$ consists of 
 all $P(u_i,f(u_i))$ and $I(u_i,u_j,f(u_i),f(u_j))$;
-\item If $\Gamma\vdash_{\vec{x}}^T A$ and $\Sigma$ contains all $P(t,f(t))$ and
+\item If $\Gamma\vdash_{\vec{x}}^{T_{I\!f{+}}} A$ and $\Sigma$ contains all $P(t,f(t))$ and
 $I(t,u,f(t),f(u))$ such that $f(t)$ and $f(u)$ occur in $\Gamma,A$,
-then $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$.
+then $\Gamma,\Sigma\vdash_{\vec{x}}^{T} A$.
 \end{enumerate}
 \end{lemma}
 
 \begin{proof}
 1. By Lemma~\ref{subst2} we can substitute a fresh variable $y$ for $f(t)$ and get:
 \begin{equation}\label{eq:ft=y}
-\Gamma,P(t,y),  I(t,u_1,y,f(u_1)),\ldots,I(t,u_n,y,f(u_n))\vdash_{\vec{x},y}^{T_0} A
+\Gamma,P(t,y),  I(t,u_1,y,f(u_1)),\ldots,I(t,u_n,y,f(u_n))\vdash_{\vec{x},y}^{T} A
 \end{equation}
-Note that $t=u_i,y=f(u_i),\Gamma,\Sigma\vdash_{\vec{x},y}^{T_0} A$,
+Note that $t=u_i,y=f(u_i),\Gamma,\Sigma\vdash_{\vec{x},y}^{T} A$,
 for any $i$, follows from (\ref{eq:ft=y}) by weakening and equality reasoning:
 get $P(t,y)$ from $P(u_i,f(u_i))\in\Sigma$, and get each $I(t,u_j,y,f(u_j))$ 
 from $I(u_i,u_j,f(u_i),f(u_j))\in\Sigma$. 
 By substituting $f(u_i)$ for the
-lone variable $y$ we get $(\ast)~t=u_i,\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$
+lone variable $y$ we get $(\ast)~t=u_i,\Gamma,\Sigma\vdash_{\vec{x}}^{T} A$
 by Lemma~\ref{subst1} and reflexivity.
 
-Now build a proof of $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$ from first 
-$\Gamma,\Sigma,P(t,y)\vdash_{\vec{x},y}^{T_0} A$ and then repeated
+Now build a proof of $\Gamma,\Sigma\vdash_{\vec{x}}^{T} A$ from first 
+$\Gamma,\Sigma,P(t,y)\vdash_{\vec{x},y}^{T} A$ and then repeated
 application of the rule (I-intro2) with $I(t,u_i,y,f(u_i)) \lor t=u_i$. 
 All right branches are closed by weakening  $(\ast)$. As a result the derivation
 is left-leaning and the leftmost branch of length $n$ is closed by
 weakening (\ref{eq:ft=y}).
 
-2. By induction on the derivation of $\Gamma\vdash_{\vec{x}}^T A$.
+2. By induction on the derivation of $\Gamma\vdash_{\vec{x}}^{T_{I\!f{+}}} A$.
 There are three cases to distinguish, depending on the last step in the derivation.
-In all cases we have to prove $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$.
+In all cases we have to prove $\Gamma,\Sigma\vdash_{\vec{x}}^{T} A$.
 
 Case $P(t,f(t))$. By induction we have 
 \begin{equation}\label{ih:Ptft}
-\Gamma,\Sigma,P(t,f(t)), I(t,u_1,f(t),f(u_1)),\ldots,I(t,u_n,f(t),f(u_n))\vdash_{\vec{x}}^{T_0} A
+\Gamma,\Sigma,P(t,f(t)), I(t,u_1,f(t),f(u_1)),\ldots,I(t,u_n,f(t),f(u_n))\vdash_{\vec{x}}^{T} A
 \end{equation}
 where $\Sigma$ consists of all $P(u_i,f(u_i))$ and $I(u_i,u_j,f(u_i),f(u_j))$
 with $f(u_i),f(u_j)$ in $\Gamma,A$. 
@@ -787,7 +787,7 @@ Otherwise we apply part 1 and we are also done.
 
 Case $I(s,t,f(s),f(t))$. By induction we have 
 \begin{equation}\label{ih:Istfsft}
-\Gamma,I(s,t,f(s),f(t)),\Sigma'\vdash_{\vec{x}}^{T_0} A
+\Gamma,I(s,t,f(s),f(t)),\Sigma'\vdash_{\vec{x}}^{T} A
 \end{equation}
 where $\Sigma'$ consists of all $P(u_i,f(u_i))$ and $I(u_i,u_j,f(u_i),f(u_j))$
 with $f(u_i),f(u_j)$ in $\Gamma,A,f(s),f(t)$. 
@@ -814,15 +814,15 @@ $$
 $$
 in $T$ and terms $\vec{t}$ with free variables in $\vec{x}$ such
 that $\Delta_0(\vec{t})$ is a subset of $\Gamma$ and we have
-$\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash_{\vec{x},\vec{z_i}}^{T_{f{+}}} A$ 
+$\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash_{\vec{x},\vec{z_i}}^{T_{I\!f{+}}} A$ 
 for $i=1,\dots,n$.
-By induction we have $\Gamma,\Delta_i(\vec{t},\vec{z_i}), \Sigma_i\vdash_{\vec{x},\vec{z_i}}^{T_0} A$
+By induction we have $\Gamma,\Delta_i(\vec{t},\vec{z_i}), \Sigma_i\vdash_{\vec{x},\vec{z_i}}^{T} A$
 for $i = 1,\dots,n$, where $\Sigma_i$ is the set of formulae $P(u_j,f(u_j))$ and $I(u_j,u_k,f(u_j),f(u_k))$
 with $f(u_j),f(u_k)$ in in $\Gamma,A,\Delta_i(\vec{t},\vec{z_i})$.
 Since $\Delta_i(\vec{y},\vec{z_i})$ does not mention $f$, all $f$-terms in
 $\Sigma_i$  either occur in $\Gamma,A$, or are subterms of $\vec{t}$, so with
 all free variables in $\vec{x}$. It follows that we have
-$\Gamma,\Sigma_1,\dots,\Sigma_n\vdash_{\vec{x}}^{T_0} A$
+$\Gamma,\Sigma_1,\dots,\Sigma_n\vdash_{\vec{x}}^{T} A$
 by the same instance of the same axiom above. Now use part 1 to eliminate
 all $f$-terms not occurring in $\Gamma,A$, starting by the maximal ones.
 \end{proof}
@@ -884,21 +884,22 @@ at all levels and $\ints$ is not a local ring.
 have no Skolem function in the generic model, and thus, we cannot simply rely on a semantical
 argument.
 
-\section{Application to a question of Gavin Wraith}
+\section{Remarks about a question of Gavin Wraith}
 
- We take the language with only a binary relation $R$. The theory $T$ has the rule
+We take the language with $=$ and a binary relation $R$. The theory $T$ has the rule
 $\vdash_x \exists y~R(x,y)$. As an application of what we have seen, we can add
-in a conservative way a function symbol $f$ with the rule $\vdash _x R(x,f(x))$ and
-get a theory $T_{f{+}}$ which is conservative over $T$ for {\em coherent} formulae. 
+in a conservative way a function symbol $f$ with a congruence axiom
+and the axiom $\vdash _y R(y,f(y))$ and get a theory $T_{I\!f{+}}$ which is conservative over 
+$T$ for {\em coherent} formulae. 
 
- This theory however is {\em not} conservative for arbitrary formulae since we can prove in
-$T_{f{+}}$ the non coherent formula
+ This theory however is \emph{not} conservative for arbitrary formulae since we can prove in
+$T_{I\!f{+}}$ the non coherent formula
 $$
 \exists y_1~y_2~(R(x_1,y_1)\wedge R(x_2,y_2)\wedge (x_1=x_2\rightarrow y_1=y_2))\leqno{(**)}
 $$
 which is not provable in $T$.
 
- We show that this theory is {\em not} valid in the generic model of $T$, answering
+ We show that this theory is \emph{not} valid in the generic model of $T$, answering
 in this way a question of Gavin Wraith \cite{Wraith}. The generic model can be described
 in the following way. It is a site model. The object of the site are relations (graphs)
 $I,R_I$ on a finite set
@@ -906,8 +907,12 @@ and morphisms maps $f:I\rightarrow J$ which preserve the relation: if $R_I(i_0,i
 then $R_J(f(i_0),f(i_1))$. A basic covering of $I,R_I$ is obtained by choosing an element $i$
 in $I$ and adding a fresh element $I\rightarrow I,j$ and the relation $R(i,j)$.
 The covariant functor $(I,R_I)\longmapsto I$ satisfies the sheaf condition and is the domain
-of the generic model. We define $(I,R_I)\Vdash\varphi$ by induction on $\varphi$ as usual.
+of the generic model. 
+(Note that $I$ is precisely the set of all terms with variables in $I$ as the
+signature contains no function symbols.)
+We define $(I,R_I)\Vdash\varphi$ by induction on $\varphi$ as usual.
 It can then be checked that the formula $(**)$ above is not forced.
+Details can be found in \cite{BBC18}.
 
 \begin{thebibliography}{9}
 
@@ -1052,138 +1057,3 @@ In the above proof, the resulting derivation could still mention $f$, even
 without using $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$. 
 In order to completely eliminate $f$, use Lemma~\ref{subst3} as described after
 its proof.
-
-
-
-
-
-\del{
-
-\begin{lemma}\label{lem:up_f_ront}
-Let $T$ with equality consist of axioms not mentioning $f$ 
-%including $\vdash_{\vec{y}} \exists u P({y},u)$,  
-plus the $f$-axioms $\vdash_{{y}} P({y},f({y}))$
-and $x=x'\vdash_{x,x'} f(x) = f(x')$.
-Assume $\Gamma\vdash_{\vec{x}}^T A$. 
-Let $\Sigma$ consist of atoms $P(s,f(s))$ and $f(s) = f(s')$
-with all free variables in $\vec{x}$.
-Then $\Gamma,\Sigma\vdash_{\vec{x}}^T A$
-by a derivation not using the instances of the $f$-axioms 
-concluding atoms in $\Sigma$.
-\end{lemma}
-
-\begin{proof}
-Similarly to Lemma~\ref{lem:upfront},
-applications of $f$-axioms concluding atoms in $\Sigma$ can be left out.
-\end{proof}
-
-\medskip
-
-The following definition is inspired by the failure of Lemma~\ref{simpl}
-for $a=b,P(a,f(a)) \vdash P(a,f(b))$ (NB $f(a)$ not in $a=b,P(a,f(b))$), 
-as well as by the above example based on (\ref{all2exist2}). EXPERIMENTAL!
-
-\begin{definition}\label{def:ft_safety}
-Let $T_0$ be a theory with equality such that the only axiom mentioning $f$
-is the congruence axiom $x=x'\vdash_{x,x'} f(x) = f(x')$.
-Assume all free variables of $\vec{t}$ are in $\vec{x}$. 
-A derivation of  $\Gamma \vdash_{\vec{x}}^{T_0} A$ is called $f(t)$-\emph{safe}
-if for every instance of $x=x'\vdash_{x,x'} f(x) = f(x')$ with $x,x'=s,s'$ 
-that is used in the derivation, we have $\Gamma \vdash_{\vec{x}}^{T_0} t=s'$
-if and only if $\Gamma \vdash_{\vec{x}}^{T_0} t=s$.
-$\Gamma,A$  is called $f(t)$-\emph{safe} if $\Gamma,A$ does not mention 
-any term $f(s)$ such that $\Gamma \vdash_{\vec{x}}^{T_0} t=s$.
-\end{definition}
-
-\begin{lemma}\label{lem:subst_all}
-Let $T_0$ be as in Definition~\ref{def:ft_safety}.
-Assume all free variables of ${t}$ are in $\vec{x}$.
-Let $\rho$ be the substitution replacing all maximal terms
-$f(s)$ such that $\Gamma\vdash_{\vec{x}}^{T_0} t=s$ by a new variable $u$.
-If $\Gamma\vdash_{\vec{x}}^{T_0} A$ is $f(t)$-safe,
-then $\Gamma\rho \vdash_{\vec{x}}^{T_0} A\rho$. DECIDABLE???
-\end{lemma}
-
-\begin{proof}
-By induction on derivation.
-CHECK The only interesting case is the congruence axiom for $f$, inferring
-$f(s)=f(s')$ from $s=s'$. By $f(t)$-safety we either get a conclusion $u=u$,
-which can be obtained by reflexivity, or $f(s\rho)=f(s)\rho=f(s')\rho=f(s'\rho)$,
-which follows from $s\rho=s'\rho$.
-\end{proof}
-
-\begin{lemma}\label{lem:T0}
-Let $T_0$ be as in Definition~\ref{def:ft_safety},
-including the axiom $\vdash_{{y}} \exists u P({y},u)$. 
-Assume all free variables of ${t}$ are in $\vec{x}$.
-Let $\Sigma$ consist of atoms $P(s,f(s))$ and $f(s) = f(s')$
-such that $\Gamma \vdash_{\vec{x}}^{T_0} t=s~(=s')$.
-If $\Gamma,\Sigma\vdash_{\vec{x}}^{T_0} A$ is $f(t)$-safe,
- then $\Gamma\vdash_{\vec{x}}^{T_0} A$.
-\end{lemma}
-
-\begin{proof}
-TBD
-\end{proof}
-
-
-
-\begin{lemma}\label{lem:elim_ft}
-Let $T$ with equality consist of axioms not mentioning $f$, 
-%including the axiom $\vdash_{{y}} \exists u P({y},u)$,  
-plus the $f$-axioms $\vdash_{{y}} P({y},f({y}))$
-and $x=x'\vdash_{x,x'} f(x) = f(x')$.
-Assume all free variables of ${t}$ are in $\vec{x}$.
-Let $\rho$ be the substitution replacing all terms
-$f(s)$ such that $\Gamma\vdash_{\vec{x}}^T t=s$ by a new variable $u$.
-Consider a derivation of $\Gamma\vdash_{\vec{x}}^T A$
-that is $f(t)$-safe. Then there is a derivation
-of $\Gamma\rho\vdash_{\vec{x},u}^T A\rho$ that is
-not using any instances of the $f$-axioms with a term $s$
-such that $\Gamma \vdash_{\vec{x}}^{T} t=s$.
-\end{lemma}
-
-\begin{proof}
-Similar to Lemma~\ref{subst3}.
-\end{proof}
-
-\begin{lemma}\label{lem:almost}
-Let $T$ with equality consist of axioms not mentioning $f$, 
-including the axiom $\vdash_{{y}} \exists u P({y},u)$,  
-plus the $f$-axioms $\vdash_{{y}} P({y},f({y}))$
-and $x=x'\vdash_{x,x'} f(x) = f(x')$.
-Assume all free variables of ${t}$ are in $\vec{x}$, 
-$\Gamma,A$ is $f(t)$-safe, and $\Gamma\vdash_{\vec{x}}^T A$.
-Then there is a derivation
-of $\Gamma\vdash_{\vec{x}}^T A$ that is
-not using any instances of the $f$-axioms with a term $s$
-such that $\Gamma \vdash_{\vec{x}}^{T} t=s$.
-\end{lemma}
-
-\begin{proof}
-Let $\Sigma$ be the set of all atoms $P(s,f(s))$ and $f(s) = f(s')$
-inferred in the derivation of  $\Gamma\vdash_{\vec{x}}^T A$ by 
-an $f$-axiom, and such that $\Gamma \vdash_{\vec{x}}^{T} t=s$. 
-For $f(s) = f(s')$ it follows that $\Gamma \vdash_{\vec{x}}^{T} t=s'$ by $f(t)$-safety.
-By Lemma~\ref{lem:up_f_ront} we get that $\Gamma,\Sigma\vdash_{\vec{x}}^T A$
-by a derivation not using the instances of the $f$-axioms concluding atoms in $\Sigma$.
-By Lemma~\ref{lem:elim_ft} it follows that $\Gamma,\Sigma\rho\vdash_{\vec{x},u}^T A$
-by a derivation not using the instances of the $f$-axioms concluding atoms in $\Sigma$.
-The atoms in $\Sigma\rho$ are either of the form $P(s,u)$, or $u=u$. The latter can be left out.
-Of the former we know that $\Gamma \vdash_{\vec{x}}^{T} t=s$.
-Therefore we can infer the first atom $P(s,u)$ with the axiom
-$\vdash_{{y}} P({y},f({y}))$, after which all subsequent atoms follow by congruence.
-This gives a derivation of  $\Gamma\vdash_{\vec{x}}^T A$ as desired.
-\end{proof}
-
-
-\medskip
-
- It is remarkable that this proof transformation is still simple (but there can
-be a combinatorial explosion), while
-the introduction of an extensional Skolem function is intuitively problematic. For instance,
-we do have for real numbers $\vdash_x \exists n~n\leqslant x$ but there is no Skolem function
-giving $n$ from $x$. While this remark is only heuristic, we provide next two examples where there
-is {\em no} Skolem functions in some natural models of the theory $T$.
-
-}

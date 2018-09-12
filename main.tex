@@ -886,6 +886,41 @@ argument.
 
 \section{Remarks about a question of Gavin Wraith}
 
+Let $\vdash_i$ and $\vdash_c$ mean derivability in intuitionistic and classical logic,
+respectively. Given a coherent theory $T$, 
+a sentence $\psi$ is called $T$-\emph{redundant} by
+Wraith~\cite[p. 336]{Wraith}\footnote{The difference
+between geometric logic and coherent logic is not relevant for our remarks here.},
+if for any coherent $\phi$ we have
+$\vdash^T \phi$ whenever $T,\psi \vdash_i \phi$.
+Known sources of $T$-redundancy are:
+\begin{enumerate}
+\item $T \vdash_i \psi$, including the case that $\psi$ is coherent.
+In this case $T$-redundancy is obvious.
+\item $T \vdash_c \psi$. In this case $T$-redundancy follows from the conservativity
+of classical logic over coherent logic (Barr's Theorem, or a cut-elimination argument.)
+\item $\psi$ is true in the generic model of $T$. In this case $T$-redundancy is
+has been observed by Kock~\ref{Kock} as a consequence of the (coherent) completeness
+of the generic model.
+\item $\psi$ is true in some other model of $T$ that is complete for coherent 
+sentences. This case can be understood in the same way as the previous one: 
+if $T,\psi \vdash_i \phi$, then $T \vdash_i \psi\to\phi$, so $\psi\to\phi$ is true in
+the model of $T$, and so is $\phi$, hence $\vdash^{T} \phi$ by completeness.
+\end{enumerate}
+These points need not exclude each other.
+
+Wraith~\cite[p. 336]{Wraith} asks furthermore whether every $T$-redundant
+sentence is true in the generic model. This is clearly true for the points 1 and 3 above.
+However, it need not be true if the $T$-redundancy comes from point 2 or 4.
+Perhaps the easiest negative answer to Wraith's question is the case of
+the empty theory $T$ over the signature with only a propositional variable $p$.
+Then $p\lor\neg p$ is $T$-redundant, but not true in the generic model of $T$
+(.
+
+ and it is unknown whether the list 
+is exhaustive.
+
+
 We take the language with $=$ and a binary relation $R$. The theory $T$ has the rule
 $\vdash_x \exists y~R(x,y)$. As an application of what we have seen, we can add
 in a conservative way a function symbol $f$ with a congruence axiom
@@ -1017,7 +1052,7 @@ Apply Lemma~\ref{lem:upfront} to get a suitable derivation of
 $\Gamma,P(\vec{t},f(\vec{t}))\vdash_{\vec{x}}^T A$.
 Let $\rho = \rho_{f(\vec{t}),u}$ for a fresh variable $u$
 and apply Lemma~\ref{subst3} to get 
-$\Gamma\rho,P(\vec{t},u))\vdash_{\vec{x},u}^T A\rho$.
+$\Gamma\rho,P(\vec{t},u)\vdash_{\vec{x},u}^T A\rho$.
 Now apply $(\Gamma,A)\rho=\Gamma,A$ to ensure the eigenvariable
 condition and use the axiom $\vdash_{\vec{y}} \exists u P(\vec{y},u)$ to get
 $\Gamma\vdash_{\vec{x}}^T A$ as desired.

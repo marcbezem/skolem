@@ -226,7 +226,7 @@
 
 \begin{document}
 
-\title{Proof theory of coherent theories}
+\title{Skolem's Theorem in Coherent Logic}
 
 \author{}
 \date{}
@@ -234,7 +234,8 @@
 
 \begin{abstract}
 We give a constructive proof of Skolem's Theorem for coherent logic
-and a new negative answer to a question by Wraith.
+and discuss several applications, including a negative answer to 
+a question by Wraith.
 \end{abstract}
 
 %\rightfooter{}
@@ -299,12 +300,14 @@ The failure of Skolem's Theorem for constructive logic can be remedied by
 requiring in (\ref{allexist}) unique existence instead of existence, see \cite{xxx}.
 This, of course, results in a weaker Skolem's Theorem for constructive logic.
 
-Coherent logic ... TBE
+Coherent logic is a fragment of first-order logic described in the next section.
+
 
 
 \section{Coherent theories}\label{coherent}
  
-We use letters $r,s,t,\dots$ for terms and $x,y,z,u,\dots$ for variables.
+We use letters $r,s,t,\dots$ for terms, $x,y,z,u,\dots$ for variables,
+and $P,Q,R,\ldots$ for predicates.
 
 \medskip
 
@@ -629,7 +632,7 @@ Call this theory $T_0$. Note that in a preorder maxima need not be unique.
 In the following we show how to work with disjunction and existential
 quantification by means of admissible rules, that is, coherent
 axioms that do not give new coherent consequences. Although we
-do this for the example, the method is completely general.
+only show this for the example, the method is completely general.
 Consider the following stylized derivation in the theory above:
 \begin{align*}
 & x\leq y, y\leq y,M(x,y,y)\\
@@ -908,6 +911,9 @@ in $I$ and adding a fresh element $I\rightarrow I,j$ and the relation $R(i,j)$.
 The covariant functor $(I,R_I)\longmapsto I$ satisfies the sheaf condition and is the domain
 of the generic model. We define $(I,R_I)\Vdash\varphi$ by induction on $\varphi$ as usual.
 It can then be checked that the formula $(**)$ above is not forced.
+
+\section{Acknowledgement}
+The first author acknowledges the support of the Centre for Advanced Study (CAS) in Oslo, Norway, which funded and hosted the research project Homotopy Type Theory and Univalent Foundations during the 2018/19 academic year.
 
 \begin{thebibliography}{9}
 

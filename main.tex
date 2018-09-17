@@ -900,8 +900,8 @@ In this case $T$-redundancy is obvious.
 \item $T \vdash_c \psi$. In this case $T$-redundancy follows from the conservativity
 of classical logic over coherent logic (Barr's Theorem, or a cut-elimination argument.)
 \item $\psi$ is true in the generic model of $T$. In this case $T$-redundancy is
-has been observed by Kock~\ref{Kock} as a consequence of the (coherent) completeness
-of the generic model.
+has been observed by Kock~\ref{Kock} as a consequence of the coherent 
+completeness of the generic model.
 \item $\psi$ is true in some other model of $T$ that is complete for coherent 
 sentences. This case can be understood in the same way as the previous one: 
 if $T,\psi \vdash_i \phi$, then $T \vdash_i \psi\to\phi$, so $\psi\to\phi$ is true in
@@ -915,11 +915,9 @@ However, it need not be true if the $T$-redundancy comes from point 2 or 4.
 Perhaps the easiest negative answer to Wraith's question is the case of
 the empty theory $T$ over the signature with only a propositional variable $p$.
 Then $p\lor\neg p$ is $T$-redundant, but not true in the generic model of $T$
-(.
-
- and it is unknown whether the list 
-is exhaustive.
-
+(it can easily be shown not to be forced). In \cite{BBC18} an example of
+a $T$-redundant formula as under point 4 has been given, and this formula is
+not true in the generic model.
 
 We take the language with $=$ and a binary relation $R$. The theory $T$ has the rule
 $\vdash_x \exists y~R(x,y)$. As an application of what we have seen, we can add

@@ -301,8 +301,20 @@ requiring in (\ref{allexist}) unique existence instead of existence, see \cite{x
 This, of course, results in a weaker Skolem's Theorem for constructive logic.
 
 Coherent logic is a fragment of first-order logic described in the next section.
+It is a constructive logic, with the property that classical logic is conservative
+for the fragment. For this reason one expects Skolem's Theorem to hold
+for coherent logic. Moreover, one would expect a simpler proof transformation,
+with the transformed proofs constructive. We shall see that this indeed works out.
 
-
+The paper is organized as follows. In the next section we introduce coherent logic.
+The easy case of Skolem constants is dealt with in Section~\ref{sec:skolemconstant},
+after which we assume that Skolem functions have positive arity. In the next
+section we give some lemma's used in the sequel, and we prove the
+conservativity of extending the signature (which is not direct in the case
+of a logic in which the domain of discourse can be empty). 
+In Section~\ref{sec:skolemfunction}/\ref{sec:withoutequality} 
+we prove Skolem's Theorem for coherent logic with/out equality.
+We finish by some applications and remarks about a question of Gavin Wraith. 
 
 \section{Coherent theories}\label{coherent}
  
@@ -665,7 +677,7 @@ need not be unique in a preorder, so that $m(x,y)$ must make a choice.
 %% predicate and function symbols in the theory. It follows from this Theorem that we
 %% can eliminate function symbols whenever we have unique existence. 
 
-\section{Addition of equality}
+\section{Addition of equality}\label{sec:withoutequality}
 
 In logic with equality, when we add a function symbol $f$, 
 we must also add a congruence axiom for that function. 

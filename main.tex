@@ -1,4 +1,4 @@
-%\documentclass[12pt,a4paper]{amsart}
+%\documentclass[10pt,a4paper]{amsart}
 \documentclass[10pt,a4paper]{article}
 \ifx\pdfpageheight\undefined\PassOptionsToPackage{dvips}{graphicx}\else%
 \PassOptionsToPackage{pdftex}{graphicx}
@@ -11,7 +11,7 @@
 \usepackage{verbatim}
 \usepackage{latexsym}
 \usepackage{amssymb,amstext,amsmath}
-
+\usepackage{authblk}
 \usepackage{float}
 \floatstyle{boxed}
 \restylefloat{figure}
@@ -228,7 +228,13 @@
 
 \title{Skolem's Theorem in Coherent Logic}
 
-\author{}
+\author[1]{Marc Bezem}
+\affil[1]{Department of Informatics, University of Bergen, \texttt{bezem@ii.uib.no}} 
+
+\author[2]{Thierry Coquand}
+\affil[2]{Department of Computer Science and Engineering, Chalmers/University of Gothenburg, 
+\texttt{coquand@chalmers.se}}
+
 \date{}
 \maketitle
 
@@ -274,7 +280,8 @@ in a combinatorial way how to transform proofs using (\ref{allskol}) into proofs
 using  (\ref{allexist}).  Here and below we restrict attention to
 proofs with conclusion not containing $f_\phi$. After all, such proofs are finite
 combinatorial objects and will not use the Skolem function in its entirety.
-Such a proof transformation exists and has been defined by Maehara~\cite{Maehara}. 
+A proof transformation as asked for above
+exists and has been defined by Maehara~\cite{Maehara}. 
 In view of the simplicity of the semantical argument, the proof transformation
 contains two surprises.
 First, the transformed proofs can be much longer than the original, see \cite{xxx}.
@@ -286,10 +293,12 @@ We first consider constructive logic. Surprisingly, Skolem's Theorem fails
 for constructive logic, a result which is due to Mints~\cite{Mints}.
 Consider the sentence
 \begin{equation}\label{all2exist2}
-\forall x_1,x_2~\exists y_1,y_2.~P(x_1,y_1) \land P(x_2,y_2) \land (x_1 = x_2 \to y_1 = y_2)
+\forall x_1,x_2~\exists y_1,y_2. ~P(x_1,y_1) \land P(x_2,y_2) \land (x_1 = x_2 \to y_1 = y_2)
 \end{equation}
-Clearly,  (\ref{all2exist2}) follows from (\ref{allskol}) by taking $y_i = f(x_i)$.
-In an attempt to prove (\ref{all2exist2}) from (\ref{allexist}), let $x_1,x_2$ be given.
+Clearly,  (\ref{all2exist2}) follows from (\ref{allskol}) 
+with $P$ for $\phi$, by taking $y_i = f(x_i)$.
+In an attempt to prove (\ref{all2exist2}) from (\ref{allexist}) 
+with $P$ for $\phi$, let $x_1,x_2$ be given.
 Using (\ref{allexist}) we can get $y_1,y_2$ satisfying the first two conjuncts
 in (\ref{all2exist2}). However, (\ref{allexist}) does not guarantee the third conjunct.
 For this we would have to decide $ x_1 = x_2 \lor x_1 \neq x_2$ before the
@@ -300,16 +309,17 @@ The failure of Skolem's Theorem for constructive logic can be remedied by
 requiring in (\ref{allexist}) unique existence instead of existence, see \cite{xxx}.
 This, of course, results in a weaker Skolem's Theorem for constructive logic.
 
-Coherent logic is a fragment of first-order logic described in the next section.
-It is a constructive logic, with the property that classical logic is conservative
-for the fragment. For this reason one expects Skolem's Theorem to hold
+Coherent logic is a fragment of first-order logic as described in the next section.
+Its proof theory is constructive, with the property that classical logic is conservative
+for this fragment. For this reason one expects Skolem's Theorem to hold
 for coherent logic. Moreover, one would expect a simpler proof transformation,
-with the transformed proofs constructive. We shall see that this indeed works out.
+with all transformed proofs constructive. We shall see that this works out
+as expected.
 
 The paper is organized as follows. In the next section we introduce coherent logic.
 The easy case of Skolem constants is dealt with in Section~\ref{sec:skolemconstant},
 after which we assume that Skolem functions have positive arity. In the next
-section we give some lemma's used in the sequel, and we prove the
+section we give some lemmas used in the sequel, and we prove the
 conservativity of extending the signature (which is not direct in the case
 of a logic in which the domain of discourse can be empty). 
 In Section~\ref{sec:skolemfunction}/\ref{sec:withoutequality} 
@@ -318,8 +328,8 @@ We finish by some applications and remarks about a question of Gavin Wraith.
 
 \section{Coherent theories}\label{coherent}
  
-We use letters $r,s,t,\dots$ for terms, $x,y,z,u,\dots$ for variables,
-and $P,Q,R,\ldots$ for predicates.
+We use letters $x,y,z,u,\dots$ for variables,
+$r,s,t,\dots$ for terms, and $P,Q,R,\ldots$ for predicates.
 
 \medskip
 
@@ -328,13 +338,16 @@ $$
 \Delta_0(\vec{y})~\vdash_{\vec{y}}~
 \exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
 $$
-where $\Gamma(\vec{y}), \Delta(\vec{y}),\dots$ denote conjunctions of atomic formulae
-all free variables of which are in $\vec{y}$, thought of as a finite sets of atomic formulae.
+where $\Delta_0(\vec{y}),\Delta_i(\vec{y},\vec{z}), \dots$
+denote conjunctions of atomic formulae
+with all free variables among those explicitly shown. We may leave out the variables
+when they are clear from the context.
+We think of the conjunctions above as finite sets of atomic formulae.
 Such sets, as well as the sequences of variables, can be empty, 
 and we can have axioms with $n=0$. 
-We write $\Gamma,\Delta$ for the union of $\Gamma$ and $\Delta$.
 
- We define inductively when we have $\Gamma\vdash_{\vec{x}}^T A$ where $A$ is a atomic formula
+We define inductively when we have $\Gamma\vdash_{\vec{x}}^T A$ 
+where $A$ is a atomic formula and $\Gamma$ a set of atomic formulae,
 and all free variables of $\Gamma,A$ are in $\vec{x}$. There are two clauses:
 
 \begin{enumerate}
@@ -352,22 +365,24 @@ $$
 \Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash^T_{\vec{x},\vec{z_i}} A
 \quad \text{for all $i = 1,\dots,n$.}
 $$
+Here and below we write $\Gamma,\Delta$ for the union of $\Gamma$ and $\Delta$.
 \end{enumerate}
 
-In the special case $n=0$ this means that $\Gamma\vdash_{\vec{x}} A$ for any $A$ if $\Gamma$
+In the special case $n=0$ the above inductive definition
+means that $\Gamma\vdash_{\vec{x}} A$ for any $A$ if $\Gamma$
 includes a finite set $\Delta_0(\vec{t})$. This shows that $\bot$ (absurdity) in coherent logic
 is represented by the empty disjunction, satisfying the Ex Falso rule. Dually, we have $\top$
 in coherent logic represented by  the empty conjunction (set of atoms), 
 which is true in any $\Gamma$.
-% left out remark on inconsistency that I didn't understand
 
 \section{Skolem constants}\label{sec:skolemconstant}
 
 Coherent is a logic that, unlike ordinary first-order logic with Tarski semantics,
 allows the domain to be empty. This means that adding a constant to a signature
 that does not contain constant symbols is \emph{not} conservative.
-As an example, consider the rule $\vdash_{y} P$ for a proposition $P$.
-Now we can only infer $\vdash P$ if we have a constant in the signature.
+As an example, consider the axiom $\vdash_{y} P$ for a proposition $P$.
+Despite the left-hand side being empty,
+we can only infer $\vdash P$ if we have a constant in the signature.
 
 Skolemization with constants is conservative, and the proof is simpler than,
 but slightly different from, the case of Skolem functions.
@@ -410,21 +425,24 @@ From now on we assume that the Skolem function has positive arity.
 %% If $\sigma$ is a renaming on variables and
 %% $\Gamma\vdash_{\vec{x}}^T A$ then $\Gamma\sigma\vdash_{\vec{x},z}^T A\sigma$.
 %% \end{lemma}
+The first two lemmas are for weakening and instantiation, and we omit their obvious proofs.
 
 \begin{lemma}\label{weak}
 If $\Gamma\vdash_{\vec{x}}^T A$, $\vec{x}\subseteq \vec{y}$, $\Gamma\subseteq \Sigma$ and all free variables of $\Sigma$ are in $\vec{y}$, then $\Sigma\vdash_{\vec{y}}^T A$.
 \end{lemma}
 
 \begin{lemma}\label{subst1}
-If $\vec{t} = t_1,\dots,t_n$ are terms using free variables in $\vec{y}$ and
-$\Gamma\vdash_{x_1,\dots,x_n}^T A$ then $\Gamma(\vec{t})\vdash_{\vec{y}}^T A(\vec{t})$.
+If $|\vec{t}| =|\vec{x}|$ and the free variables of $\vec{t}$ are in $\vec{y}$, 
+then $\Gamma(\vec{t})\vdash_{\vec{y}}^T A(\vec{t})$ whenever
+$\Gamma\vdash_{\vec{x}}^T A$.
 \end{lemma}
 
-We will continue using ordinary substitution of variables by terms implicitly, such as in,
-for example, $\Delta_0(\vec{t})$. In proving Skolem's Theorem we also need to
-substitute variables for terms. This we denote explicitly.
-For $r$ be a term, and $u$ a variable, we denote by $\rho = \rho_{r,u}$ the 
-substitution of $r$ by $u$, inductively defined on terms by
+We will continue using ordinary substitution of variables \emph{by} terms implicitly, 
+such as in, for example, $\Gamma(\vec{t})$. 
+In proving Skolem's Theorem we also need to
+substitute terms \emph{by} variables. This we denote explicitly.
+For a term $r$ and a variable $u$ we denote by $\rho = \rho_{r,u}$ the 
+substitution of $r$ by $u$, defined by induction on terms by
 \begin{itemize}
 \item $s\rho = u$ if $s = r$, and otherwise
 \item $f(\vec{t})\rho = f(\vec{t}\rho)$
@@ -433,13 +451,13 @@ substitution of $r$ by $u$, inductively defined on terms by
 We extend in the usual way by taking $P(\vec{t})\rho = P(\vec{t}\rho)$ for
 predicate symbols  $P$, and likewise for sets of atoms. 
 One subtlety in the interaction of the two notions of subtitution is that for an
-atomic formula $\phi(\vec{x})$ in free variables $\vec{x}$ and
-a sequence of terms $\vec{t}$, $\phi(\vec{t})\rho$
-can be different from $\phi(\vec{t}\rho)$ when $\phi(\vec{x})$
-contains the term $r$. For example, if  $\phi(x) = P(r,x)$
-and $t=r$, then $\phi(t)\rho = P(u,u)$ and $\phi(t\rho) = P(r,u)$.
-Even worse, if $\phi(x) = P(f(x))$ and $t=c$ and $r=f(c)$,
-then $\phi(t)\rho = P(u)$ and $\phi(t\rho) = P(f(c))$.
+atomic formula $A(\vec{x})$ in free variables $\vec{x}$ and
+a sequence of terms $\vec{t}$, $A(\vec{t})\rho$
+can be different from $A(\vec{t}\rho)$ when $A(\vec{x})$
+contains the term $r$. For example, if  $A(x) = P(r,x)$
+and $t=r$ a constant, then $A(t)\rho = P(u,u)$ and $A(t\rho) = P(r,u)$.
+Even worse, if $A(x) = P(f(x))$ and $t=c$ and $r=f(c)$,
+then $A(t)\rho = P(u)$ and $A(t\rho) = P(f(c))$.
 A sufficient condition to rule out these anomalies is given in
 the following lemma, whose simple proof we omit.
 
@@ -928,8 +946,8 @@ Wraith~\cite[p. 336]{Wraith} asks furthermore whether every $T$-redundant
 sentence is true in the generic model. This is clearly true for the points 1 and 3 above.
 However, it need not be true if the $T$-redundancy comes from point 2 or 4.
 Perhaps the easiest negative answer to Wraith's question is the case of
-the empty theory $T$ over the signature with only a propositional variable $p$.
-Then $p\lor\neg p$ is $T$-redundant, but not true in the generic model of $T$
+the empty theory $T$ over the signature with only a propositional variable $P$.
+Then $P\lor\neg P$ is $T$-redundant, but not true in the generic model of $T$
 (it can easily be shown not to be forced). In \cite{BBC18} an example of
 a $T$-redundant formula as under point 4 has been given, and this formula is
 not true in the generic model.

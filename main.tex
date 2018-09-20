@@ -434,7 +434,7 @@ If $\Gamma\vdash_{\vec{x}}^T A$, $\vec{x}\subseteq \vec{y}$, $\Gamma\subseteq \S
 \begin{lemma}\label{subst1}
 If $|\vec{t}| =|\vec{x}|$ and the free variables of $\vec{t}$ are in $\vec{y}$, 
 then $\Gamma(\vec{t})\vdash_{\vec{y}}^T A(\vec{t})$ whenever
-$\Gamma\vdash_{\vec{x}}^T A$.
+$\Gamma(\vec{x})\vdash_{\vec{x}}^T A(\vec{x})$.
 \end{lemma}
 
 We will continue using ordinary substitution of variables \emph{by} terms implicitly, 
@@ -442,11 +442,11 @@ such as in, for example, $\Gamma(\vec{t})$.
 In proving Skolem's Theorem we also need to
 substitute terms \emph{by} variables. This we denote explicitly.
 For a term $r$ and a variable $u$ we denote by $\rho = \rho_{r,u}$ the 
-substitution of $r$ by $u$, defined by induction on terms by
+substitution of $r$ by $u$, defined inductively on terms by:
 \begin{itemize}
 \item $s\rho = u$ if $s = r$, and otherwise
-\item $f(\vec{t})\rho = f(\vec{t}\rho)$
-\item $x\rho = x$
+\item $f(\vec{t})\rho = f(\vec{t}\rho)$,
+\item $x\rho = x$.
 \end{itemize}
 We extend in the usual way by taking $P(\vec{t})\rho = P(\vec{t}\rho)$ for
 predicate symbols  $P$, and likewise for sets of atoms. 
@@ -468,15 +468,13 @@ $\phi(\vec{x})$, then $\phi(\vec{t})\rho =\phi(\vec{t}\rho)$.
 
 \begin{lemma}\label{subst2}
 Assume $\rho = \rho_{r,u}$ and the head symbol of $r$ does not occur in $T$.
-If all free variables of $r$ are in $\vec{x}$ and
-$\Gamma\vdash_{\vec{x}}^T A$, then $\Gamma\rho\vdash_{\vec{x},u}^T A\rho$.
+If all free variables of $r$ are in $\vec{x}$, then $\Gamma\rho\vdash_{\vec{x},u}^T A\rho$
+whenever $\Gamma\vdash_{\vec{x}}^T A$.
 \end{lemma}
 
 \begin{proof}
 By induction on the proof of $\Gamma\vdash_{\vec{x}}^T A$.
-
 If $A$ is in $\Gamma$ then $A\rho$ is in $\Gamma\rho$.
-
 If there is a rule
 $$
 \Delta_0(\vec{y})~\vdash_{\vec{y}}~
@@ -520,16 +518,16 @@ By induction, we have $\Gamma,\Delta,\Delta_i(\vec{t},\vec{y_i})\vdash_{\vec{x},
 and hence $\Gamma,\Delta\vdash_{\vec{x}}^T B$ as desired.
 \end{proof}
 
-We will use yet another kind of substitution. We define an operation
-$\ldf{}$ that replaces \emph{recursively} any $f$-term by its leftmost subterm. 
-We end up with a term which contains no occurrences of $f$.
+We will use yet another kind of substitution. Define by induction on terms an operation
+$\ldf{}$ that replaces \emph{recursively} any $f$-term by its leftmost subterm:
 \begin{itemize}
 \item $\ldf{f(\vec{t})} = \ldf{t_1}$, and otherwise
 \item $\ldf{g(\vec{t})} = g(\ldf{\vec{t}})$,
 \item $\ldf{x} = x$.
 \end{itemize}
 Again we extend in the usual way for atoms and sets of atoms.
-A trivial (but relevant) observation is that all variables in $\ldf{t}$ occur in $t$.
+One relevant (but trivial) observation is that $\ldf{t}$ contains no occurrences of $f$
+and that all variables in $\ldf{t}$ occur in $t$.
 
 The following lemma implies the conservativity of adding a new
 function symbol to the signature.
@@ -541,6 +539,7 @@ $\vec{x}=\vec{y} \vdash_{\vec{x},\vec{y}} f(\vec{x}) = f(\vec{y})$
 for a new function symbol $f$. 
 Then we have $\ldf{\Gamma}\vdash_{\vec{x}}^T \ldf{A}$
 whenever $\Gamma\vdash_{\vec{x}}^{T_{f{=}}} A$.
+If the latter derivation does not mention $=$, then neither does the former.
 %by a derivation of the same size.
 \end{lemma}
 
@@ -550,41 +549,36 @@ that applications of axioms of $T$ commute with $\ldf{}$. The only case of
 interest is the application of the  congruence axiom for $f$:
 $\vec{s}=\vec{t} \vdash_{\vec{x}} f(\vec{s}) = f(\vec{t})$. Applying $\ldf{}$ we get 
 $\vec{s}\ldf{}=\vec{t}\ldf{} \vdash_{\vec{x}} s_1\ldf{} = t_1\ldf{}$,
-where the conclusion is among the premisses. This means the congruence
-axiom for $f$ can be left out.
+and see that the conclusion is among the premisses. This means the congruence
+axiom for $f$ can be left out, and all occurrences of $f$ have disappeared.
 \end{proof}
-In case of logic without equality, conservativity of extending the signature
-is even easier.
+
 
 
 \section{Elimination of function symbols}\label{sec:skolemfunction}
 
 In this section we prove Skolem's Theorem for coherent logic without equality.
-This case is essentially simpler than the case with equality, 
-since here (\ref{allskol}) is the only axiom
-mentioning the Skolem function $f$. In logic with equality in the next section
-we will also have to deal with the congruence axiom for $f$.
+This case is essentially simpler since, without congruence for $f$, 
+only axiom (\ref{allskol}) mentions the Skolem function $f$. 
 
 We assume that we have the rule $\vdash_{x}\exists y~P(x,y)$ in $T$.
-We introduce a binary function
-symbol $f$ which is \emph{not} in the language of $T$. 
-We let $T_f$ be the theory $T$ in the signature extended
-with the function symbol $f$.
+Let $f$ be a unary function symbol that is \emph{not} in the language of $T$ and 
+let $T_f$ be the theory $T$ in the signature extended with $f$.
 Let $T_{f+}$ be the extension of $T_f$ with the rule
 $$
 \vdash_{y}~P(y,f(y))\leqno{(*)}
 $$
 
 Our aim is to prove that $T_{f{+}}$ is a conservative extension of $T$.
-The main idea is that if we use $f$ and the rule
-$(*)$ with $P(t,f(t))$ we should be able to replace $f(t)$ by a fresh variable 
+The main idea is that if we use $f$ and the axiom $(*)$ with $P(t,f(t))$,
+then we should be able to replace $f(t)$ by a fresh variable 
 and get $P(t,u)$, and then use the axiom $\exists u~P(t,u)$ in $T$.
 This idea is cleverly expressed in the crucial Lemma~\ref{crucial} 
-(which comes from \cite{Maehara}).
+(which comes from \cite{Maehara}). We prepare by a simpler lemma.
 
 \begin{lemma}\label{simpl}
 If $\Gamma,P(t,f(t))\vdash_{\vec{x}}^{T_f} A$ and
-$f(t)$ is not in $\Gamma,A$ then $\Gamma\vdash_{\vec{x}}^{T_f} A$.
+$f(t)$ is not in $\Gamma,A$, then $\Gamma\vdash_{\vec{x}}^{T_f} A$.
 \end{lemma}
 
 \begin{proof}
@@ -600,9 +594,9 @@ then $\Gamma\vdash_{\vec{x}}^{T_f} A$.
 \end{corollary}
 
 
-\begin{lemma} \label{crucial} (crucial Lemma) 
+\begin{lemma} \label{crucial} (crucial) 
 If $\Gamma\vdash_{\vec{x}}^{T_{f{+}}} A$ then $\Gamma,\Sigma\vdash_{\vec{x}}^{T_f} A$ for
-some set $\Sigma$ of formulae $P(t,f(t))$ where $f(t)$ is a term which occurs in $\Gamma,A$.
+some set $\Sigma$ of formulae $P(t,f(t))$ with $f(t)$ occurring in $\Gamma,A$.
 \end{lemma}
 
 \begin{proof}
@@ -638,7 +632,7 @@ $\Gamma\vdash_{\vec{x}}^T A$.
 \end{theorem}
 
 \begin{proof}
-By the previous crucial Lemma we get $\Gamma\vdash_{\vec{x}}^{T_f} A$. We then conclude
+By the previous Lemma we get $\Gamma\vdash_{\vec{x}}^{T_f} A$. We then conclude
 $\Gamma\vdash_{\vec{x}}^T A$ by Lemma~\ref{subst3}.
 \end{proof}
 
@@ -695,7 +689,7 @@ need not be unique in a preorder, so that $m(x,y)$ must make a choice.
 %% predicate and function symbols in the theory. It follows from this Theorem that we
 %% can eliminate function symbols whenever we have unique existence. 
 
-\section{Addition of equality}\label{sec:withoutequality}
+\section{Addition of equality}\label{sec:addequality}
 
 In logic with equality, when we add a function symbol $f$, 
 we must also add a congruence axiom for that function. 
@@ -703,17 +697,16 @@ This means that $T_f$ in Section~\ref{sec:skolemfunction},
 when extended to  logic with equality, will in fact mention $f$ . 
 This invalidates the application of Lemma~\ref{subst2}, 
 which requires that the theory does not mention $f$.
-This means that we have to review (and adapt) the proofs of the
-previous section. 
+The upshot is that we have to adapt the proofs of the
+previous section to the case with equality.
 
 To get a clearer picture of what is needed we translate the 
-counterexample~(\ref{all2exist2}) to coherent logic.
-For this we need to introduce a new predicate $I(x_1,x_2,y_1,y_2)$
+counterexample~(\ref{all2exist2}) from the introduction to coherent logic.
+To this end we introduce a new predicate $I(x_1,x_2,y_1,y_2)$
 expressing $x_1=x_2 \to y_1=y_2$ by coherent axioms.
 
 \begin{definition}\label{def:implicational_equality}
-A theory with \emph{implicational equality} is a coherent theory which includes
-the axioms:
+A coherent theory with \emph{implicational} equality includes the axioms:
 \begin{align*}
  I(x_1,x_2,y_1,y_2), x_1=x_2 & \vdash_V                 y_1=y_2  &\text{(I-elim)}\\
  y_1=y_2                                  &\vdash_V                 I(x_1,x_2,y_1,y_2)&\text{(I-intro1)}\\ 
@@ -728,12 +721,13 @@ a unary function $f$ by $\vdash_{x,x'} I(x,x',f(x),f(x'))$.
 \end{definition}
 
 Implicational equality is conservative over equality, which can be seen be a
-cut-elimination argument, see\cite[THM?]{CLR}. 
+cut-elimination argument, see \cite[THM?]{CLR}. 
 Alternatively, one can substitute $x_1=x_2 \to y_1=y_2$
 for $I(x_1,x_2,y_1,y_2)$ and observe that the axioms above become
 \emph{classical} tautologies. The cut-elimination argument is constructive, whereas
 the alternative argument uses the conservativity of classical logic over
 coherent logic (Barr's Theorem~\cite{Barr}), which is not constructive.
+(TOO PESSIMISTIC: can be done by cut-elimination as well? CHECK!)
 
 \begin{example}\label{exa:counter2CL}
 Let $T$  be a theory with implicational equality with the $f$-axioms:
@@ -763,6 +757,7 @@ the instance $I(a,b,u,u)$ of (I-intro1):
 P(a,u),P(b,v),&{\hphantom w}\lor\\
 & a=b,P(b,u),I(a,b,u,u),\bot\\
 \end{align*}
+This idea is elaborated in the following lemma.
 \end{example}
 
 
@@ -779,9 +774,10 @@ Then we have:
 and $f(t)$ does not occur in $\Gamma,A$, $u_1,\ldots,u_n$, then  
 $\Gamma,\Sigma\vdash_{\vec{x}}^{T} A$, where $\Sigma$ consists of 
 all $P(u_i,f(u_i))$ and $I(u_i,u_j,f(u_i),f(u_j))$;
-\item If $\Gamma\vdash_{\vec{x}}^{T_{I\!f{+}}} A$ and $\Sigma$ contains all $P(t,f(t))$ and
-$I(t,u,f(t),f(u))$ such that $f(t)$ and $f(u)$ occur in $\Gamma,A$,
-then $\Gamma,\Sigma\vdash_{\vec{x}}^{T} A$.
+\item (crucial) If $\Gamma\vdash_{\vec{x}}^{T_{I\!f{+}}} A$, 
+then $\Gamma,\Sigma\vdash_{\vec{x}}^{T} A$,
+where $\Sigma$ contains all $P(t,f(t))$ and
+$I(t,u,f(t),f(u))$ such that $f(t)$ and $f(u)$ occur in $\Gamma,A$.
 \end{enumerate}
 \end{lemma}
 
@@ -816,7 +812,7 @@ Case $P(t,f(t))$. By induction we have
 where $\Sigma$ consists of all $P(u_i,f(u_i))$ and $I(u_i,u_j,f(u_i),f(u_j))$
 with $f(u_i),f(u_j)$ in $\Gamma,A$. 
 If $f(t)$ occurs in $\Gamma,A$ we are done.
-Otherwise we apply part 1 and we are also done.
+Otherwise we apply Part~1 of the lemma and we are also done.
 
 Case $I(s,t,f(s),f(t))$. By induction we have 
 \begin{equation}\label{ih:Istfsft}
@@ -832,13 +828,13 @@ Modulo idempotence, reflexivity and symmetry we get:
 \end{equation}
 If $f(s),f(t)$ both in $\Gamma,A$,
 then $\Sigma'=\Sigma$ and we are done. Otherwise, there are several cases
-to distinguish. If $f(s)$ in $\Gamma,A$ but not $f(t)$, then we are done by part 1,
+to distinguish. If $f(s)$ in $\Gamma,A$ but not $f(t)$, then we are done by Part~1,
 and likewise for $f(t)$ in $\Gamma,A$ but not $f(s)$. The case that neither
 $f(s)$ nor $f(t)$ is in $\Gamma,A$ can be further split into subcases. First, if $s$ and $t$
-are identical, then we are done by part 1. If not, and if $f(t)$ is not a subterm of $s$,
-then we are done by two applications of part 1, first for $f(t)$, then for $f(s)$.
+are identical, then we are done by Part~1. If not, and if $f(t)$ is not a subterm of $s$,
+then we are done by two applications of Part~1, first for $f(t)$, then for $f(s)$.
 If $f(t)$ is a subterm of $s$, then $f(s)$ is not a subterm of $t$, and we are 
-again done by two applications of part 1.
+again done by two applications of Part~1.
 
 Case of any axiom not mentioning $f$. Then we have an axiom
 $$
@@ -856,7 +852,7 @@ Since $\Delta_i(\vec{y},\vec{z_i})$ does not mention $f$, all $f$-terms in
 $\Sigma_i$  either occur in $\Gamma,A$, or are subterms of $\vec{t}$, so with
 all free variables in $\vec{x}$. It follows that we have
 $\Gamma,\Sigma_1,\dots,\Sigma_n\vdash_{\vec{x}}^{T} A$
-by the same instance of the same axiom above. Now use part 1 to eliminate
+by the same instance of the same axiom above. Now use Part~1 to eliminate
 all $f$-terms not occurring in $\Gamma,A$, starting by the maximal ones.
 \end{proof}
 
@@ -864,14 +860,13 @@ all $f$-terms not occurring in $\Gamma,A$, starting by the maximal ones.
 
 \subsection{Algebraically closed field}
 
- We can take $T$ be the theory of algebraically closed field. This theory
-has for axioms the equational theory of rings together with the rules
+We can take $T$ be the theory of algebraically closed fields. 
+This is the equational theory of rings (which is coherent), together with the axioms
 $$
 \vdash_x x = 0 \vee \exists y~(xy = 1)~~~~~~~~~~~~
 \vdash_{x_1,\dots,x_n} \exists x~(x^n = x_1 x^{n-1} + \dots + x_n)
-$$which require
-
- We can prove in this theory
+$$
+We can prove in this theory
 $$
 \vdash_{x} \exists u~ (x(1-ux) = 0)
 $$

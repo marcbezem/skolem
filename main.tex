@@ -856,6 +856,12 @@ by the same instance of the same axiom above. Now use Part~1 to eliminate
 all $f$-terms not occurring in $\Gamma,A$, starting by the maximal ones.
 \end{proof}
 
+Part 2 of the lemma above immediately yields Skolem's Theorem.
+\begin{corollary}\label{thm:skolemwith=}
+If $\Gamma\vdash_{\vec{x}}^{T_{I\!f{+}}} A$ and $\Gamma,A$ does not mention $f$,
+then $\Gamma\vdash_{\vec{x}}^{T} A$.
+\end{corollary}
+
 \section{Examples}
 
 \subsection{Algebraically closed field}
@@ -866,16 +872,24 @@ $$
 \vdash_x x = 0 \vee \exists y~(xy = 1)~~~~~~~~~~~~
 \vdash_{x_1,\dots,x_n} \exists x~(x^n = x_1 x^{n-1} + \dots + x_n)
 $$
-We can prove in this theory
+Using only the field axioms we can show that the following rule is admissible:
 $$
 \vdash_{x} \exists u~ (x(1-ux) = 0)
 $$
-in this theory. Hence we can introduce a function $inv(x)$ with the axiom
-$x(1 -inv(x) x) = 0$ and we get a conservative extension. 
+For if $\Gamma,\,t(1-ut) = 0\vdash_{\vec{x},u}^{T} A$ with $u$ fresh and
+$t$ with variables in $\vec{x}$, then on one hand we can get
+$\Gamma,\,t = 0\vdash_{\vec{x}}^{T} A$. On the other hand we can get
+$\Gamma,\,t y = 1\vdash_{\vec{x},y}^{T} A$. Both can be obtained by suitable
+substitutions for $u$, and by using the field axiom we get 
+$\Gamma,\vdash_{\vec{x}}^{T} A$.
+
+By Skolem's Theorem~\ref{thm:skolemwith=} we can introduce a function $inv(x)$ with the axiom
+$\vdash_x x(1 - inv(x) x) = 0$ and we get a conservative extension. Note that $inv(x)$
+is total and that $inv(0)$ also returns some value.
 
  Another example with the same theory is to introduce a function $sqrt(x)$ with the axiom
 $sqrt(x)^2 = x$. Since we have $\vdash_{x} \exists u~(u^2 = x)$, we also get a conservative
-extension.
+extension. Note that $sqrt(x)$ has to choose between two complementary numbers.
 
  For this example, notice that we have models of the theory (for instance the model described
 in \cite{Mannaa}) where there is no square root function.

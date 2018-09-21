@@ -764,17 +764,17 @@ This idea is elaborated in the following lemma.
 
 
 \begin{lemma}\label{lem:main}
-Let $T_{I\!f{+}}$ be a coherent theory with implicational equality consisting of
+Let $T_{f\!I\!{+}}$ be a coherent theory with implicational equality consisting of
 axioms not mentioning $f$ plus the $f$-axioms $\vdash_{x,x'} I(x,x',f(x),f(x'))$
 and $\vdash_{{y}} P({y},f({y}))$. Let $T$ be the coherent theory obtained from 
-$T_{I\!f{+}}$ by leaving out the $f$-axioms and adding $\vdash_{{y}} \exists u P({y},u)$.
+$T_{f\!I\!{+}}$ by leaving out the $f$-axioms and adding $\vdash_{{y}} \exists u P({y},u)$.
 Then we have:
 \begin{enumerate}
 \item If $\Gamma,P(t,f(t)), I(t,u_1,f(t),f(u_1)),\ldots,I(t,u_n,f(t),f(u_n))\vdash_{\vec{x}}^{T} A$
 and $f(t)$ does not occur in $\Gamma,A$, $u_1,\ldots,u_n$, then  
 $\Gamma,\Sigma\vdash_{\vec{x}}^{T} A$, where $\Sigma$ consists of 
 all $P(u_i,f(u_i))$ and $I(u_i,u_j,f(u_i),f(u_j))$;
-\item (crucial) If $\Gamma\vdash_{\vec{x}}^{T_{I\!f{+}}} A$, 
+\item (crucial) If $\Gamma\vdash_{\vec{x}}^{T_{f\!I\!{+}}} A$, 
 then $\Gamma,\Sigma\vdash_{\vec{x}}^{T} A$,
 where $\Sigma$ contains all $P(t,f(t))$ and
 $I(t,u,f(t),f(u))$ such that $f(t)$ and $f(u)$ occur in $\Gamma,A$.
@@ -801,7 +801,7 @@ All right branches are closed by weakening  $(\ast)$. As a result the derivation
 is left-leaning and the leftmost branch of length $n$ is closed by
 weakening (\ref{eq:ft=y}).
 
-2. By induction on the derivation of $\Gamma\vdash_{\vec{x}}^{T_{I\!f{+}}} A$.
+2. By induction on the derivation of $\Gamma\vdash_{\vec{x}}^{T_{f\!I\!{+}}} A$.
 There are three cases to distinguish, depending on the last step in the derivation.
 In all cases we have to prove $\Gamma,\Sigma\vdash_{\vec{x}}^{T} A$.
 
@@ -843,7 +843,7 @@ $$
 $$
 in $T$ and terms $\vec{t}$ with free variables in $\vec{x}$ such
 that $\Delta_0(\vec{t})$ is a subset of $\Gamma$ and we have
-$\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash_{\vec{x},\vec{z_i}}^{T_{I\!f{+}}} A$ 
+$\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash_{\vec{x},\vec{z_i}}^{T_{f\!I\!{+}}} A$ 
 for $i=1,\dots,n$.
 By induction we have $\Gamma,\Delta_i(\vec{t},\vec{z_i}), \Sigma_i\vdash_{\vec{x},\vec{z_i}}^{T} A$
 for $i = 1,\dots,n$, where $\Sigma_i$ is the set of formulae $P(u_j,f(u_j))$ and $I(u_j,u_k,f(u_j),f(u_k))$
@@ -856,11 +856,16 @@ by the same instance of the same axiom above. Now use Part~1 to eliminate
 all $f$-terms not occurring in $\Gamma,A$, starting by the maximal ones.
 \end{proof}
 
-Part 2 of the lemma above immediately yields Skolem's Theorem.
-\begin{corollary}\label{thm:skolemwith=}
-If $\Gamma\vdash_{\vec{x}}^{T_{I\!f{+}}} A$ and $\Gamma,A$ does not mention $f$,
-then $\Gamma\vdash_{\vec{x}}^{T} A$.
-\end{corollary}
+We can now state and prove Skolem's Theorem in logic with implicational equality.
+
+\begin{theorem}\label{thm:skolemwith=}
+If $\Gamma\vdash_{\vec{x}}^{T_{f\!I\!{+}}} A$ and $\Gamma,A$ does not mention $f$,
+then $\Gamma\vdash_{\vec{x}}^{T} A$ by a derivation not mentioning $f$.
+\end{theorem}
+\begin{proof}
+By Part 2 of Lemma~\ref{lem:main}. Remaining occurrences of $f$
+in the derivation can be removed by Lemma~\ref{subst3}.
+\end{proof}
 
 \section{Examples}
 
@@ -890,8 +895,7 @@ is total and that $inv(0)$ also returns some value.
  Another example with the same theory is to introduce a function $sqrt(x)$ with the axiom
 $sqrt(x)^2 = x$. Since we have $\vdash_{x} \exists u~(u^2 = x)$, we also get a conservative
 extension. Note that $sqrt(x)$ has to choose between two complementary numbers.
-
- For this example, notice that we have models of the theory (for instance the model described
+Interestingly, we have models of this theory (for instance the model described
 in \cite{Mannaa}) where there is no square root function.
 
 \subsection{Local rings}
@@ -899,11 +903,11 @@ in \cite{Mannaa}) where there is no square root function.
  Another example is the the theory of local rings, given by the equational theory of rings
 with the rules
 $$
-0=1\vdash\bot~~~~~~~~~~~~~~~~~~~~~~~~~~\vdash_x inv(x)\vee inv(1-x)
+0=1\vdash\bot~~~~~~~~~~~~~~~~~~~~~~~~~~\vdash_x Inv(x)\vee Inv(1-x)
 $$
-where $inv(x)$ means $\exists y~(xy = 1)$. 
+where $Inv(x)$ means $\exists y~(xy = 1)$. 
 
- The generic model is given by the site of finitely presented rings with covering
+The generic model is given by the site of finitely presented rings with covering
 $R\rightarrow R[1/x_i]$ for $1 = \ideal{x_1,\dots,x_n}$ (we can have $n = 0$ if $1=0$ in $R$).
 
  We can prove in this theory
@@ -929,8 +933,9 @@ argument.
 \section{Remarks about a question of Gavin Wraith}
 
 Let $\vdash_i$ and $\vdash_c$ mean derivability in intuitionistic and classical logic,
-respectively. Given a coherent theory $T$, 
-a sentence $\psi$ is called $T$-\emph{redundant} by
+respectively. Given a coherent theory $T$, a sentence $\psi$ 
+(which needs not be coherent and may extend the signature of $T$)
+is called $T$-\emph{redundant} by
 Wraith~\cite[p. 336]{Wraith}\footnote{The difference
 between geometric logic and coherent logic is not relevant for our remarks here.},
 if for any coherent $\phi$ we have
@@ -964,11 +969,11 @@ not true in the generic model.
 We take the language with $=$ and a binary relation $R$. The theory $T$ has the rule
 $\vdash_x \exists y~R(x,y)$. As an application of what we have seen, we can add
 in a conservative way a function symbol $f$ with a congruence axiom
-and the axiom $\vdash _y R(y,f(y))$ and get a theory $T_{I\!f{+}}$ which is conservative over 
+and the axiom $\vdash _y R(y,f(y))$ and get a theory $T_{f\!I\!{+}}$ which is conservative over 
 $T$ for {\em coherent} formulae. 
 
  This theory however is \emph{not} conservative for arbitrary formulae since we can prove in
-$T_{I\!f{+}}$ the non coherent formula
+$T_{f\!I\!{+}}$ the non coherent formula
 $$
 \exists y_1~y_2~(R(x_1,y_1)\wedge R(x_2,y_2)\wedge (x_1=x_2\rightarrow y_1=y_2))\leqno{(**)}
 $$

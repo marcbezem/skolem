@@ -155,7 +155,7 @@
 
 \newcommand{\lbr}{\lbrack\!\lbrack}
 \newcommand{\rbr}{\rbrack\!\rbrack}
-%\newcommand{\sem}[2] {\lbr #1 \rbr_{#2}}  % interpretation of the terms
+%\newcommand{\sem}[2] {\lbr #1 \rbP_{#2}}  % interpretation of the terms
 \newcommand{\PAIR}[2] {{<}#1,#2{>}}  % interpretation of the terms
 \newcommand{\add}{\mathsf{add}}
 \newcommand{\app}{\mathsf{app}}
@@ -720,14 +720,14 @@ in theories with implicational equality we state the congruence axiom for
 a unary function $f$ by $\vdash_{x,x'} I(x,x',f(x),f(x'))$.
 \end{definition}
 
-Implicational equality is conservative over equality, which can be seen be a
-cut-elimination argument, see \cite[THM?]{CLR}. 
-Alternatively, one can substitute $x_1=x_2 \to y_1=y_2$
+Implicational equality is conservative over equality, for example,
+one can substitute $x_1=x_2 \to y_1=y_2$
 for $I(x_1,x_2,y_1,y_2)$ and observe that the axioms above become
-\emph{classical} tautologies. The cut-elimination argument is constructive, whereas
-the alternative argument uses the conservativity of classical logic over
-coherent logic (Barr's Theorem~\cite{Barr}), which is not constructive.
-(TOO PESSIMISTIC: can be done by cut-elimination as well? CHECK!)
+\emph{classical} tautologies. Then one can apply the conservativity of 
+classical logic over coherent logic. 
+This special case of Barr's Theorem~\cite{Barr} has been proved
+constructively by several people, using cut-elimination,
+see \cite[Sec. 6]{Negri03} for an overview.
 
 \begin{example}\label{exa:counter2CL}
 Let $T$  be a theory with implicational equality with the $f$-axioms:
@@ -869,6 +869,86 @@ in the derivation can be removed by Lemma~\ref{subst3}.
 
 \section{Examples}
 
+In this section the generic model of a coherent theory will play a role.
+For reasons of space it is not possible to explain this concept
+in categorical semantics here. Instead we refer to \cite{MLM}.
+For the purpose of this paper, the most important property is that 
+the generic model is complete with respect coherent sentences.
+Furthermore, truth in the generic model can be characterized
+by a Kripke-Joyal-style forcing relation on a suitable site.
+
+The examples in this section are examples where 
+skolemized sentence are not true in the generic model,
+so that the conservativity is non-trivial.
+
+\subsection{Remarks about a question of Gavin Wraith}
+
+Let $\vdash_i$ and $\vdash_c$ mean derivability in intuitionistic and classical logic,
+respectively. Given a coherent theory $T$, a sentence $\psi$ 
+(which needs not be coherent and may extend the signature of $T$)
+is called $T$-\emph{redundant} by
+Wraith~\cite[p. 336]{Wraith}\footnote{The difference
+between geometric logic and coherent logic is not relevant for our remarks here.},
+if for any coherent $\phi$ we have
+$\vdash^T \phi$ whenever $T,\psi \vdash_i \phi$.
+Known sources of $T$-redundancy are:
+\begin{enumerate}
+\item $T \vdash_i \psi$, including the case that $\psi$ is coherent.
+In this case $T$-redundancy is obvious.
+\item $T \vdash_c \psi$. In this case $T$-redundancy follows from the conservativity
+of classical logic over coherent logic.
+\item $\psi$ is true in the generic model of $T$. In this case $T$-redundancy is
+has been observed by Kock~\ref{Kock} as a consequence of the coherent 
+completeness of the generic model.
+\item $\psi$ is true in some other model of $T$ that is complete for coherent 
+sentences. This case can be understood in the same way as the previous one: 
+if $T,\psi \vdash_i \phi$, then $T \vdash_i \psi\to\phi$, so $\psi\to\phi$ is true in
+the model of $T$, and so is $\phi$, hence $\vdash^{T} \phi$ by completeness.
+\end{enumerate}
+These points need not exclude each other.
+
+Wraith~\cite[p. 336]{Wraith} asks furthermore whether every $T$-redundant
+sentence is true in the generic model. This is clearly true for the points 1 and 3 above.
+However, it need not be true if the $T$-redundancy comes from point 2 or 4.
+Perhaps the easiest negative answer to Wraith's question is the case of
+the empty theory $T$ over the signature with only a propositional variable $P$.
+Then $P\lor\neg P$ is $T$-redundant, but not true in the generic model of $T$
+(it can easily be shown not to be forced). In \cite{BBC18} an example of
+a $T$-redundant formula as under point 4 has been given, and this formula is
+not true in the generic model.
+
+Consider the language with $=$ and a binary relation $P$. The theory $T$ has one axiom
+$\vdash_x \exists y~P(x,y)$. Applying Theorem~\ref{thm:skolemwith=}, we can add
+in a conservative way a function symbol $f$ with a congruence axiom
+and the axiom $\vdash _y P(y,f(y))$ to get a theory $T_{f\!I\!{+}}$.
+
+However, $T_{f\!I\!{+}}$ is \emph{not} conservative for arbitrary formulae 
+since we can prove in $T_{f\!I\!{+}}$ the non-coherent formula
+$$
+\exists y_1~y_2~(P(x_1,y_1)\wedge P(x_2,y_2)\wedge (x_1=x_2\rightarrow y_1=y_2))\leqno{(**)}
+$$
+which is not constructively provable in $T$.
+
+ We show that this theory is \emph{not} valid in the generic model of $T$, answering
+in this way a question of Gavin Wraith \cite{Wraith}. The generic model can be described
+in the following way. It is a site model. 
+The objects of the site are relations (graphs) $(I;P_I)$ on a finite set.
+Morphisms are maps $f:I\rightarrow J$ which preserve the relation: if $P_I(i_0,i_1)$
+then $P_J(f(i_0),f(i_1))$ (graph morphisms). A basic covering is given by the
+only axiom $\vdash_x \exists y~P(x,y)$, and each object $(I;P_I)$ is covered by an
+object $(I,j;P_I,P(i,j))$, for each chosen $i\in I$ and fresh element $j$. (The covers
+consist of single objects since the theory contains no disjunction; the fresh $j$
+comes from the existential quantification.)
+The covariant functor $(I;P_I)\longmapsto I$ satisfies the sheaf condition and is the domain
+of the generic model. 
+(Note that $I$ is precisely the set of terms with variables in $I$ as the
+signature contains no function symbols.)
+We define the forcing relation $(I,P_I)\Vdash\phi$ by induction on $\phi$ 
+in Kripke-Joyal style.
+It can then be checked that the formula $(**)$ above is not forced.
+%Details can be found in \cite{BBC18} (contravariant direction).
+
+
 \subsection{Algebraically closed field}
 
 We can take $T$ be the theory of algebraically closed fields. 
@@ -930,69 +1010,6 @@ at all levels and $\ints$ is not a local ring.
 have no Skolem function in the generic model, and thus, we cannot simply rely on a semantical
 argument.
 
-\section{Remarks about a question of Gavin Wraith}
-
-Let $\vdash_i$ and $\vdash_c$ mean derivability in intuitionistic and classical logic,
-respectively. Given a coherent theory $T$, a sentence $\psi$ 
-(which needs not be coherent and may extend the signature of $T$)
-is called $T$-\emph{redundant} by
-Wraith~\cite[p. 336]{Wraith}\footnote{The difference
-between geometric logic and coherent logic is not relevant for our remarks here.},
-if for any coherent $\phi$ we have
-$\vdash^T \phi$ whenever $T,\psi \vdash_i \phi$.
-Known sources of $T$-redundancy are:
-\begin{enumerate}
-\item $T \vdash_i \psi$, including the case that $\psi$ is coherent.
-In this case $T$-redundancy is obvious.
-\item $T \vdash_c \psi$. In this case $T$-redundancy follows from the conservativity
-of classical logic over coherent logic (Barr's Theorem, or a cut-elimination argument.)
-\item $\psi$ is true in the generic model of $T$. In this case $T$-redundancy is
-has been observed by Kock~\ref{Kock} as a consequence of the coherent 
-completeness of the generic model.
-\item $\psi$ is true in some other model of $T$ that is complete for coherent 
-sentences. This case can be understood in the same way as the previous one: 
-if $T,\psi \vdash_i \phi$, then $T \vdash_i \psi\to\phi$, so $\psi\to\phi$ is true in
-the model of $T$, and so is $\phi$, hence $\vdash^{T} \phi$ by completeness.
-\end{enumerate}
-These points need not exclude each other.
-
-Wraith~\cite[p. 336]{Wraith} asks furthermore whether every $T$-redundant
-sentence is true in the generic model. This is clearly true for the points 1 and 3 above.
-However, it need not be true if the $T$-redundancy comes from point 2 or 4.
-Perhaps the easiest negative answer to Wraith's question is the case of
-the empty theory $T$ over the signature with only a propositional variable $P$.
-Then $P\lor\neg P$ is $T$-redundant, but not true in the generic model of $T$
-(it can easily be shown not to be forced). In \cite{BBC18} an example of
-a $T$-redundant formula as under point 4 has been given, and this formula is
-not true in the generic model.
-
-We take the language with $=$ and a binary relation $R$. The theory $T$ has the rule
-$\vdash_x \exists y~R(x,y)$. As an application of what we have seen, we can add
-in a conservative way a function symbol $f$ with a congruence axiom
-and the axiom $\vdash _y R(y,f(y))$ and get a theory $T_{f\!I\!{+}}$ which is conservative over 
-$T$ for {\em coherent} formulae. 
-
- This theory however is \emph{not} conservative for arbitrary formulae since we can prove in
-$T_{f\!I\!{+}}$ the non coherent formula
-$$
-\exists y_1~y_2~(R(x_1,y_1)\wedge R(x_2,y_2)\wedge (x_1=x_2\rightarrow y_1=y_2))\leqno{(**)}
-$$
-which is not provable in $T$.
-
- We show that this theory is \emph{not} valid in the generic model of $T$, answering
-in this way a question of Gavin Wraith \cite{Wraith}. The generic model can be described
-in the following way. It is a site model. The object of the site are relations (graphs)
-$I,R_I$ on a finite set
-and morphisms maps $f:I\rightarrow J$ which preserve the relation: if $R_I(i_0,i_1)$
-then $R_J(f(i_0),f(i_1))$. A basic covering of $I,R_I$ is obtained by choosing an element $i$
-in $I$ and adding a fresh element $I\rightarrow I,j$ and the relation $R(i,j)$.
-The covariant functor $(I,R_I)\longmapsto I$ satisfies the sheaf condition and is the domain
-of the generic model. 
-(Note that $I$ is precisely the set of all terms with variables in $I$ as the
-signature contains no function symbols.)
-We define $(I,R_I)\Vdash\varphi$ by induction on $\varphi$ as usual.
-It can then be checked that the formula $(**)$ above is not forced.
-Details can be found in \cite{BBC18}.
 
 \section{Acknowledgement}
 The first author acknowledges the support of the Centre for Advanced Study (CAS) in Oslo, Norway, which funded and hosted the research project Homotopy Type Theory and Univalent Foundations during the 2018/19 academic year.
@@ -1004,9 +1021,15 @@ The first author acknowledges the support of the Centre for Advanced Study (CAS)
 Journal of Pure and Applied Algebra 5(3): 265--280, 1974.
 \url{doi:10.1016/0022-4049(74)90037-1}
 
-\bibitem{CLR} M.~Coste, H.~Lombardi, and M.F.~Roy.
-\newblock{Dynamical methods in algebra: effective Nullstellens\"atze.}
-\newblock\emph{Annals of Pure and Applied Logic}~\textbf{111}(3):203--256, 2001.
+\bibitem{BBC18}
+M.A.~Bezem, U.~Buchholtz and T.~Coquand.
+\newblock{Syntactic Forcing Models for Coherent Logic}.
+\newblock \emph{Indagationes Mathematicae}, 
+\url{https://doi.org/10.1016/j.indag.2018.06.004}.
+
+%\bibitem{CLR} M.~Coste, H.~Lombardi, and M.F.~Roy.
+%\newblock{Dynamical methods in algebra: effective Nullstellens\"atze.}
+%\newblock\emph{Annals of Pure and Applied Logic}~\textbf{111}(3):203--256, 2001.
 
 \bibitem{DW}
 G. Dowek and B. Werner.
@@ -1034,6 +1057,12 @@ volume 92 of CSLI Lecture Notes, pages 105--114, 2000.}
 Th. Coquand and B. Mannaa.
 \newblock{A Sheaf Model of the Algebraic Closure.}
 \newblock{Proceedings of EPTCS, 2014.}
+
+\bibitem{Negri03}
+S. Negri.
+\newblock{Contraction-free sequent calculi for geometric
+theories with an application to Barr’s theorem.}
+\newblock{Arch. Math. Logic 42(4): 389--401, 2003.}
 
 \bibitem{Skolem}
 Th.~Skolem,

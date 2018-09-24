@@ -25,6 +25,7 @@
 
 %%%%%%%%%
 
+\renewcommand*{\phi}{\varphi}
 \newcommand\myfrac[2]{
  \begin{array}{c}
  #1 \\
@@ -877,9 +878,9 @@ the generic model is complete with respect coherent sentences.
 Furthermore, truth in the generic model can be characterized
 by a Kripke-Joyal-style forcing relation on a suitable site.
 
-The examples in this section are examples where 
-skolemized sentence are not true in the generic model,
-so that the conservativity is non-trivial.
+The examples in this section are examples where the
+skolemized sentence is not true in the generic model,
+so that their conservativity does not follow from elementary semantic observations.
 
 \subsection{Remarks about a question of Gavin Wraith}
 
@@ -898,7 +899,7 @@ In this case $T$-redundancy is obvious.
 \item $T \vdash_c \psi$. In this case $T$-redundancy follows from the conservativity
 of classical logic over coherent logic.
 \item $\psi$ is true in the generic model of $T$. In this case $T$-redundancy is
-has been observed by Kock~\ref{Kock} as a consequence of the coherent 
+has been observed by Kock~\cite{Kock1976} as a consequence of the coherent 
 completeness of the generic model.
 \item $\psi$ is true in some other model of $T$ that is complete for coherent 
 sentences. This case can be understood in the same way as the previous one: 
@@ -917,21 +918,26 @@ Then $P\lor\neg P$ is $T$-redundant, but not true in the generic model of $T$
 a $T$-redundant formula as under point 4 has been given, and this formula is
 not true in the generic model.
 
-Consider the language with $=$ and a binary relation $P$. The theory $T$ has one axiom
-$\vdash_x \exists y~P(x,y)$. Applying Theorem~\ref{thm:skolemwith=}, we can add
-in a conservative way a function symbol $f$ with a congruence axiom
-and the axiom $\vdash _y P(y,f(y))$ to get a theory $T_{f\!I\!{+}}$.
-
-However, $T_{f\!I\!{+}}$ is \emph{not} conservative for arbitrary formulae 
-since we can prove in $T_{f\!I\!{+}}$ the non-coherent formula
+We will elaborate the example \ref{all2exist2} from the introduction, 
+which will turn out to fall under point 2 above, but not under point 3.
+Consider the language with $=$ and a binary relation $P$. Let the theory $T$ consist of
+$\vdash_x \exists y~P(x,y)$. Add a function symbol $f$ with a congruence axiom
+and the axiom $\vdash _y P(y,f(y))$ to get a theory $T'$.
+Applying Theorem~\ref{thm:skolemwith=} we get that $T'$ is conservative
+over $T$ for coherent sentences. 
+In $T'$ we can prove constructively, by taking $y_i = f(x_i)$:
 $$
 \exists y_1~y_2~(P(x_1,y_1)\wedge P(x_2,y_2)\wedge (x_1=x_2\rightarrow y_1=y_2))\leqno{(**)}
 $$
-which is not constructively provable in $T$.
+From the conservativity of $T'$ we get that $(**)$ is $T$-redundant,
+which also follows from $T\vdash_c (**)$.
+However, we do \emph{not} have $T\vdash_i (**)$.
+This can be proved in different ways: Mints~\cite{Mints} gives a proof-theoretic argument.
+There exists a simple Kripke countermodel. Here we show that $(**)$ is
+not valid in the generic model of $T$. Hence $(**)$ is a negative answer to the question
+of Gavin Wraith. 
 
- We show that this theory is \emph{not} valid in the generic model of $T$, answering
-in this way a question of Gavin Wraith \cite{Wraith}. The generic model can be described
-in the following way. It is a site model. 
+The generic model can be described as a site model.
 The objects of the site are relations (graphs) $(I;P_I)$ on a finite set.
 Morphisms are maps $f:I\rightarrow J$ which preserve the relation: if $P_I(i_0,i_1)$
 then $P_J(f(i_0),f(i_1))$ (graph morphisms). A basic covering is given by the
@@ -1027,6 +1033,11 @@ M.A.~Bezem, U.~Buchholtz and T.~Coquand.
 \newblock \emph{Indagationes Mathematicae}, 
 \url{https://doi.org/10.1016/j.indag.2018.06.004}.
 
+\bibitem{Mannaa}
+Th. Coquand and B. Mannaa.
+\newblock{A Sheaf Model of the Algebraic Closure.}
+\newblock{Proceedings of EPTCS, 2014.}
+
 %\bibitem{CLR} M.~Coste, H.~Lombardi, and M.F.~Roy.
 %\newblock{Dynamical methods in algebra: effective Nullstellens\"atze.}
 %\newblock\emph{Annals of Pure and Applied Logic}~\textbf{111}(3):203--256, 2001.
@@ -1058,11 +1069,6 @@ G. Mints.
 \newblock{In: In M.~Faller and S.~Kaufmann, and M.~Pauly,  editors,
 \emph{Formalizing the dynamics of information}, pages 105--114, 
 volume 92 of CSLI Lecture Notes, pages 105--114, 2000.}
-
-\bibitem{Mannaa}
-Th. Coquand and B. Mannaa.
-\newblock{A Sheaf Model of the Algebraic Closure.}
-\newblock{Proceedings of EPTCS, 2014.}
 
 \bibitem{Negri03}
 S. Negri.

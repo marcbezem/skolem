@@ -876,11 +876,12 @@ in categorical semantics here. Instead we refer to \cite{MLM}.
 For the purpose of this paper, the most important property is that 
 the generic model is complete with respect coherent sentences.
 Furthermore, truth in the generic model can be characterized
-by a Kripke-Joyal-style forcing relation on a suitable site.
+by a forcing relation on a suitable site.
 
-The examples in this section are examples where the
+The examples in this section are such that the
 skolemized sentence is not true in the generic model,
-so that their conservativity does not follow from elementary semantic observations.
+so that their conservativity does not follow from 
+elementary semantic observations.
 
 \subsection{Remarks about a question of Gavin Wraith}
 
@@ -918,39 +919,41 @@ Then $P\lor\neg P$ is $T$-redundant, but not true in the generic model of $T$
 a $T$-redundant formula as under point 4 has been given, and this formula is
 not true in the generic model.
 
-We will elaborate the example \ref{all2exist2} from the introduction, 
+We will now elaborate the example (\ref{all2exist2}) from the introduction, 
 which will turn out to fall under point 2 above, but not under point 3.
-Consider the language with $=$ and a binary relation $P$. Let the theory $T$ consist of
-$\vdash_x \exists y~P(x,y)$. Add a function symbol $f$ with a congruence axiom
+Consider a language with $=$ and a binary relation $P$. Let the theory $T$ consist of
+$\vdash_x \exists y~P(x,y)$. Add a function symbol $f$ plus its congruence axiom
 and the axiom $\vdash _y P(y,f(y))$ to get a theory $T'$.
 Applying Theorem~\ref{thm:skolemwith=} we get that $T'$ is conservative
 over $T$ for coherent sentences. 
-In $T'$ we can prove constructively, by taking $y_i = f(x_i)$:
+In $T'$ we can prove constructively, by taking $y_i = f(x_i)$,
+the following non-coherent sentence:
 $$
 \exists y_1~y_2~(P(x_1,y_1)\wedge P(x_2,y_2)\wedge (x_1=x_2\rightarrow y_1=y_2))\leqno{(**)}
 $$
 From the conservativity of $T'$ we get that $(**)$ is $T$-redundant,
 which also follows from $T\vdash_c (**)$.
 However, we do \emph{not} have $T\vdash_i (**)$.
-This can be proved in different ways: Mints~\cite{Mints} gives a proof-theoretic argument.
-There exists a simple Kripke countermodel. Here we show that $(**)$ is
-not valid in the generic model of $T$. Hence $(**)$ is a negative answer to the question
-of Gavin Wraith. 
+This can be proved in many different ways: 
+Mints~\cite{Mints} gives a proof-theoretic argument.
+There exists a simple Kripke countermodel. 
+Here we show that $(**)$ is not valid in the generic model of $T$. 
+As a consequence, $(**)$ is a negative answer to the question of Gavin Wraith. 
 
 The generic model can be described as a site model.
-The objects of the site are relations (graphs) $(I;P_I)$ on a finite set.
+The objects $(I;P_I)$ of the site are relations $P_I$ on a finite set  $I$ (so, graphs) .
 Morphisms are maps $f:I\rightarrow J$ which preserve the relation: if $P_I(i_0,i_1)$
-then $P_J(f(i_0),f(i_1))$ (graph morphisms). A basic covering is given by the
+then $P_J(f(i_0),f(i_1))$ (graph morphisms). A basic covering is determined by the
 only axiom $\vdash_x \exists y~P(x,y)$, and each object $(I;P_I)$ is covered by an
-object $(I,j;P_I,P(i,j))$, for each chosen $i\in I$ and fresh element $j$. (The covers
-consist of single objects since the theory contains no disjunction; the fresh $j$
-comes from the existential quantification.)
+object $(I,j;P_I,P(i,j))$, for any $i$ in $I$ and fresh element $j$. (The covers
+all consist of single objects since the theory contains no disjunction; 
+the fresh $j$ comes from the existential quantification.)
 The covariant functor $(I;P_I)\longmapsto I$ satisfies the sheaf condition and is the domain
 of the generic model. 
-(Note that $I$ is precisely the set of terms with variables in $I$ as the
+(Note that $I$ is precisely the set of terms with variables in $I$, since the
 signature contains no function symbols.)
 We define the forcing relation $(I,P_I)\Vdash\phi$ by induction on $\phi$ 
-in Kripke-Joyal style.
+as usual, in Kripke-Joyal style.
 It can then be checked that the formula $(**)$ above is not forced.
 %Details can be found in \cite{BBC18} (contravariant direction).
 
@@ -958,7 +961,8 @@ It can then be checked that the formula $(**)$ above is not forced.
 \subsection{Algebraically closed field}
 
 We can take $T$ be the theory of algebraically closed fields. 
-This is the equational theory of rings (which is coherent), together with the axioms
+This is the equational theory of rings (which is coherent), together with the 
+coherent axioms
 $$
 \vdash_x x = 0 \vee \exists y~(xy = 1)~~~~~~~~~~~~
 \vdash_{x_1,\dots,x_n} \exists x~(x^n = x_1 x^{n-1} + \dots + x_n)
@@ -969,10 +973,9 @@ $$
 $$
 For if $\Gamma,\,t(1-ut) = 0\vdash_{\vec{x},u}^{T} A$ with $u$ fresh and
 $t$ with variables in $\vec{x}$, then on one hand we can get
-$\Gamma,\,t = 0\vdash_{\vec{x}}^{T} A$. On the other hand we can get
-$\Gamma,\,t y = 1\vdash_{\vec{x},y}^{T} A$. Both can be obtained by suitable
-substitutions for $u$, and by using the field axiom we get 
-$\Gamma,\vdash_{\vec{x}}^{T} A$.
+$\Gamma,\,t = 0\vdash_{\vec{x}}^{T} A$ by taking $u=0$. On the other hand we can get
+$\Gamma,\,t y = 1\vdash_{\vec{x},y}^{T} A$ by taking $u=1$. 
+Using the field axiom we get  $\Gamma\vdash_{\vec{x}}^{T} A$.
 
 By Skolem's Theorem~\ref{thm:skolemwith=} we can introduce a function $inv(x)$ with the axiom
 $\vdash_x x(1 - inv(x) x) = 0$ and we get a conservative extension. Note that $inv(x)$
@@ -986,7 +989,7 @@ in \cite{Mannaa}) where there is no square root function.
 
 \subsection{Local rings}
 
- Another example is the the theory of local rings, given by the equational theory of rings
+Another example is the the theory of local rings, given by the equational theory of rings
 with the rules
 $$
 0=1\vdash\bot~~~~~~~~~~~~~~~~~~~~~~~~~~\vdash_x Inv(x)\vee Inv(1-x)
@@ -996,17 +999,20 @@ where $Inv(x)$ means $\exists y~(xy = 1)$.
 The generic model is given by the site of finitely presented rings with covering
 $R\rightarrow R[1/x_i]$ for $1 = \ideal{x_1,\dots,x_n}$ (we can have $n = 0$ if $1=0$ in $R$).
 
- We can prove in this theory
+We can prove in this theory
 $$
 \vdash_x \exists y~z~(x y = 1~\vee ~(1-x) z = 1)
 $$
-hence it is possible in a conservative way
-to introduce two skolem functions $J(x)$ and $K(x)$ with the rule
+Skolemizing here is a little more complicated since we have proved 
+Skolem's Theorem only for atomic formulas. This issue can easily
+be fixed by some definitional extensions. With this in mind one sees that
+it is conservative to introduce two Skolem functions $J(x)$ and $K(x)$ with the rule
 $$
 \vdash_x xJ(x) = 1~\vee~(1-x)K(x) = 1
 $$
+There are no such functions in the generic model.
 
- There are no such functions for the generic model since these functions should be defined
+ since these functions should be defined
 at all levels and $\ints$ is not a local ring.
 (All functions on the generic local rings are polynomials but we don't need to use this fact.)
 

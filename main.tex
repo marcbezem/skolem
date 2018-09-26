@@ -257,10 +257,13 @@ by one of the form
 \forall\vec{x}~\phi(\vec{x},f_\phi(\vec{x})),
 \end{equation}
 where $f_\phi$ is a fresh function symbol, also called a Skolem function.
-Without essential loss of generality we shall from now on take $\phi$ atomic
-and of arity $\leq 2$ in (\ref{allexist}) and (\ref{allskol}). This means
+For simplicity we shall prove Skolem's Theorem for atomic $\phi$;
+non-atomic instances can easily be obtained by definitional extension.
+We also take the arity of $\phi$ to be at most $2$. This means
 that $\vec{x}$ has length at most one and that the Skolem function is
 unary or nullary, in which case we speak of a Skolem constant.
+Also this simplification is harmless, as the proofs can easily be
+generalized to larger arities.
 
 Clearly, (\ref{allskol}) is stronger than (\ref{allexist}).
 Nevertheless, Skolem's Theorem states that skolemization is \emph{conservative}
@@ -285,13 +288,14 @@ A proof transformation as asked for above
 exists and has been defined by Maehara~\cite{Maehara}. 
 In view of the simplicity of the semantical argument, the proof transformation
 contains two surprises.
-First, the transformed proofs can be much longer than the original, see \cite{xxx}.
+First, the transformed proofs can be much longer than the original, 
+see \cite{BaazLeitsch94}.
 Second, as we shall see below, in certain cases the transformed proofs must use
 the law of the excluded middle even if the original proof does not.
 
 One natural question is whether Skolem's Theorem holds for other logics as well.
 We first consider constructive logic. Surprisingly, Skolem's Theorem fails
-for constructive logic, a result which is due to Mints~\cite{Mints}.
+for constructive logic with equality, a result which is due to Mints~\cite{Mints}.
 Consider the sentence
 \begin{equation}\label{all2exist2}
 \forall x_1,x_2~\exists y_1,y_2. ~P(x_1,y_1) \land P(x_2,y_2) \land (x_1 = x_2 \to y_1 = y_2)
@@ -306,9 +310,13 @@ For this we would have to decide $ x_1 = x_2 \lor x_1 \neq x_2$ before the
 application of (\ref{allexist}). In constructive logic, equality is in general not decidable.
 We shall prove below that indeed (\ref{all2exist2}) does not follow from  (\ref{allexist})
 in constructive logic, using an argument different from \cite{Mints}.
-The failure of Skolem's Theorem for constructive logic can be remedied by 
-requiring in (\ref{allexist}) unique existence instead of existence, see \cite{xxx}.
-This, of course, results in a weaker Skolem's Theorem for constructive logic.
+
+Dowek and Werner \cite{DW} give a constructive proof of 
+Skolem's Theorem for constructive logic without equality.
+By viewing equality as a non-logical predicate satisfying the equality
+axioms, \cite{DW} yields Skolem's Theorem for constructive logic with equality
+in cases in which for all $x$ there exists a \emph{unique} $y$  such that $P(x,y)$.
+Then functionality of the Skolem function follows from the uniqueness requirement.
 
 Coherent logic is a fragment of first-order logic as described in the next section.
 Its proof theory is constructive, with the property that classical logic is conservative
@@ -323,7 +331,7 @@ after which we assume that Skolem functions have positive arity. In the next
 section we give some lemmas used in the sequel, and we prove the
 conservativity of extending the signature (which is not direct in the case
 of a logic in which the domain of discourse can be empty). 
-In Section~\ref{sec:skolemfunction}/\ref{sec:withoutequality} 
+In Section~\ref{sec:addequality}/\ref{sec:skolemfunction} 
 we prove Skolem's Theorem for coherent logic with/out equality.
 We finish by some applications and remarks about a question of Gavin Wraith. 
 
@@ -872,16 +880,11 @@ in the derivation can be removed by Lemma~\ref{subst3}.
 
 In this section the generic model of a coherent theory will play a role.
 For reasons of space it is not possible to explain this concept
-in categorical semantics here. Instead we refer to \cite{MLM}.
+in categorical semantics here. Instead we refer to \cite{MLM94}.
 For the purpose of this paper, the most important property is that 
 the generic model is complete with respect coherent sentences.
 Furthermore, truth in the generic model can be characterized
-by a forcing relation on a suitable site.
-
-%FALSE in 6.2? The examples in this section are such that the
-%skolemized sentence is not true in the generic model,
-%so that their conservativity does not follow from 
-%elementary semantic observations.
+by a forcing relation in a suitable site.
 
 \subsection{Remarks about a question of Gavin Wraith}
 
@@ -972,24 +975,22 @@ $$
 \vdash_{x} \exists u~ (x(1-ux) = 0)
 $$
 For if $\Gamma,\,t(1-ut) = 0\vdash_{\vec{x},u}^{T} A$ with $u$ fresh and
-$t$ with variables in $\vec{x}$, then on one hand we can get
-$\Gamma,\,t = 0\vdash_{\vec{x}}^{T} A$ by taking $u=0$. On the other hand we can get
-$\Gamma,\,t y = 1\vdash_{\vec{x},y}^{T} A$ by taking $u=1$. 
-Using the field axiom we get  $\Gamma\vdash_{\vec{x}}^{T} A$.
+$t$ with variables in $\vec{x}$, then we can prove $\Gamma\vdash_{\vec{x}}^{T} A$.
+Using the field axiom it suffices to prove  $\Gamma,t=0\vdash_{\vec{x}}^{T} A$
+and $\Gamma,ty=1\vdash_{\vec{x},y}^{T} A$. Both follow from the assumption.  
 
 By Skolem's Theorem~\ref{thm:skolemwith=} we can introduce a function $inv(x)$ with the axiom
 $\vdash_x x(1 - inv(x) x) = 0$ and we get a conservative extension. Note that $inv(x)$
 is total and that $inv(0)$ also returns some value.
 
- Another example with the same theory is to introduce a function $sqrt(x)$ with the axiom
+An example in algebraically closed fields is to introduce a function $sqrt(x)$ with the axiom
 $sqrt(x)^2 = x$. Since we have $\vdash_{x} \exists u~(u^2 = x)$, we also get a conservative
 extension. Note that $sqrt(x)$ has to choose between two complementary numbers.
-Interestingly, we have models of this theory (for instance the model described
-in \cite{Mannaa}) where there is no square root function.
+The model described in \cite{Mannaa} has no square root function.
 
 \subsection{Local rings}
 
-Another example is the the theory of local rings, given by the equational theory of rings
+Another example is the theory of local rings, given by the equational theory of rings
 with the rules
 $$
 0=1\vdash\bot~~~~~~~~~~~~~~~~~~~~~~~~~~\vdash_x Inv(x)\vee Inv(1-x)
@@ -1003,11 +1004,7 @@ We can prove in this theory
 $$
 \vdash_x \exists y~z~(x y = 1~\vee ~(1-x) z = 1)
 $$
-Skolemizing here is a little more complicated since we have proved 
-Skolem's Theorem only for atomic formulas. That issue can easily
-be fixed by taking suitable definitional extensions. 
-With this in mind one sees that it is conservative to introduce 
-two Skolem functions $J(x)$ and $K(x)$ with the rule
+and introduce in a conservative way two Skolem functions $J(x)$ and $K(x)$ with the rule
 $$
 \vdash_x xJ(x) = 1~\vee~(1-x)K(x) = 1
 $$
@@ -1018,11 +1015,9 @@ constants 0 and 1), and $\ints$ is not a local ring. For example,
 $J(3)$ and $K(3)$ cannot be defined. 
 (All functions on the generic local rings are polynomials but we don't need to use this fact.)
 
-\medskip
-
- Despite the fact that the conservativity can be proved in a simple way, in the last case, we
-have no Skolem function in the generic model, and thus, 
-we cannot simply rely on a semantical argument.
+Despite the fact that the conservativity can be proved in a simple way, 
+in the last case, we have no Skolem function in the generic model, 
+and therefore we cannot simply rely on a semantical argument.
 
 
 \section{Acknowledgement}
@@ -1030,10 +1025,18 @@ The first author acknowledges the support of the Centre for Advanced Study (CAS)
 
 \begin{thebibliography}{9}
 
-\bibitem{Barr} M.~Barr.
+\bibitem{BaazLeitsch94} 
+M.~Baaz and A.~Leitsch.
+\newblock{On Skolemization and Proof Complexity}.
+Fundamenta Informaticae 20(4): 353--379, 1994.
+\url{https://doi.org/10.3233/FI-1994-2044}
+
+
+\bibitem{Barr} 
+M.~Barr.
 \newblock{Toposes without points}.
-Journal of Pure and Applied Algebra 5(3): 265--280, 1974.
-\url{doi:10.1016/0022-4049(74)90037-1}
+Journal of Pure and Applied Algebra 5(3): 265--280, 1974.\\
+\url{https://doi.org/10.1016/0022-4049(74)90037-1}
 
 \bibitem{BBC18}
 M.A.~Bezem, U.~Buchholtz and T.~Coquand.
@@ -1045,6 +1048,7 @@ M.A.~Bezem, U.~Buchholtz and T.~Coquand.
 Th. Coquand and B. Mannaa.
 \newblock{A Sheaf Model of the Algebraic Closure.}
 \newblock{Proceedings of EPTCS, 2014.}
+\url{https://doi.org/10.4204/EPTCS.164.2}
 
 %\bibitem{CLR} M.~Coste, H.~Lombardi, and M.F.~Roy.
 %\newblock{Dynamical methods in algebra: effective Nullstellens\"atze.}
@@ -1053,7 +1057,7 @@ Th. Coquand and B. Mannaa.
 \bibitem{DW}
 G. Dowek and B. Werner.
 \newblock{A constructive proof of Skolem theorem for constructive logic.}
-\newblock{Manuscript, 2004.}
+\newblock{Manuscript, 2004. \url{http://www.lsv.fr/~dowek/Publi/skolem.pdf}}
 
 %\bibitem{Gallier} 
 %J. Gallier, 
@@ -1066,6 +1070,12 @@ A.~Kock.
 \newblock Universal projective geometry via topos theory.
 \newblock {\em J. Pure Appl. Algebra}, 9(1):1--24, 1976/77.
 
+
+\bibitem{MLM94}
+S.~Mac~Lane and I.~Moerdijk.
+\newblock {\em Sheaves in geometry and logic}.
+\newblock Universitext. Springer-Verlag, New York, 1994.
+
 \bibitem{Maehara}
 S. Maehara.
 \newblock{The predicate calculus with $\epsilon$-symbol.}
@@ -1074,7 +1084,7 @@ Journal of the Mathematical Society of Japan, \textbf{7}(4):323--344, 1955.
 \bibitem{Mints}
 G. Mints.
 \newblock{Axiomatisation of a Skolem function in intuitionistic logic.}
-\newblock{In: In M.~Faller and S.~Kaufmann, and M.~Pauly,  editors,
+\newblock{In: In M.~Faller, S.~Kaufmann and M.~Pauly,  editors,
 \emph{Formalizing the dynamics of information}, pages 105--114, 
 volume 92 of CSLI Lecture Notes, pages 105--114, 2000.}
 
@@ -1103,89 +1113,3 @@ G. C. Wraith
 \end{thebibliography}
 
 \end{document}      
-                                                                                  
- 
-\subsection{Alternative proof}
-
-
-
-\begin{lemma}\label{lem:upfront}
-Let $T$ consist of axioms not
-mentioning $f$ plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
-Assume all free variables of $\vec{t}$ are in $\vec{x}$. 
-If $\Gamma\vdash_{\vec{x}}^T A$, 
-then $\Gamma,P(\vec{t},f(\vec{t}))\vdash_{\vec{x}}^T A$
-by a derivation not using the instance $P(\vec{t},f(\vec{t}))$
-of the only axiom in $T$ mentioning $f$.
-\end{lemma}
-
-\begin{proof}
-The base case is trivial.
-The only induction step that is not trivial is when the last step
-of the derivation infers $\Gamma\vdash_{\vec{x}}^T A$
-from $\Gamma,P(\vec{t},f(\vec{t}))\vdash_{\vec{x}}^T A$.
-Now use the induction hypothesis and the idempotency of sets.
-\end{proof}
-
-The combination of the previous two lemmas allows us to replace
-(under suitable conditions ensuring the eigenvariable condition)
-applications of $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$
-by $\vdash_{\vec{y}} \exists u P(\vec{y},u)$.
-
-\begin{lemma}\label{lem:elimPtft}
-Let $T$ consist of axioms not mentioning $f$ including 
-$\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
-plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
-Assume all free variables of $\vec{t}$ are in $\vec{x}$, and
-that $\Gamma,A$ does not mention $f(\vec{t})$.
-If $\Gamma\vdash_{\vec{x}}^T A$, 
-then $\Gamma\vdash_{\vec{x}}^T A$
-by a derivation not using the instance $P(\vec{t},f(\vec{t}))$
-of the only axiom in $T$ mentioning $f$.
-\end{lemma}
-
-\begin{proof}
-Apply Lemma~\ref{lem:upfront} to get a suitable derivation of 
-$\Gamma,P(\vec{t},f(\vec{t}))\vdash_{\vec{x}}^T A$.
-Let $\rho = \rho_{f(\vec{t}),u}$ for a fresh variable $u$
-and apply Lemma~\ref{subst3} to get 
-$\Gamma\rho,P(\vec{t},u)\vdash_{\vec{x},u}^T A\rho$.
-Now apply $(\Gamma,A)\rho=\Gamma,A$ to ensure the eigenvariable
-condition and use the axiom $\vdash_{\vec{y}} \exists u P(\vec{y},u)$ to get
-$\Gamma\vdash_{\vec{x}}^T A$ as desired.
-\end{proof}
-
-By iterating the previous lemma we can prove Skolem's Theorem by eliminating
-applications of $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$ one by one.
-The only difficulty is to ensure that the eigenvariable condition holds.
-
-\begin{theorem}\label{thm:altskolem}
-Let $T$ consist of axioms not mentioning $f$ including 
-$\vdash_{\vec{y}} \exists u P(\vec{y},u)$,  
-plus the axiom $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
-If  $\Gamma,A$ does not mention $f$ and $\Gamma\vdash_{\vec{x}}^{T} A$, then
-$\Gamma\vdash_{\vec{x}}^T A$ by a derivation not using
-$\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
-\end{theorem}
-
-\begin{proof}
-By induction on the number of applications of $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
-If the derivation of $\Gamma\vdash_{\vec{x}}^{T} A$ uses an instance
-$P(\vec{t},f(\vec{t}))$ with all variables in $\vec{x}$, then we can eliminate this instance
-(all occurrences)
-by Lemma~\ref{lem:elimPtft} and get a derivation with fewer applications of 
-$\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$. Now assume there is an instance
-$P(\vec{t},f(\vec{t}))$ with some variable not in $\vec{x}$. Move up from the root
-of the derivation to that instance to the \emph{first} position
-$\Gamma,\Delta\vdash_{\vec{x},\vec{y},\vec{z}} A$ such that
-$\vec{t}$ has all its variables in $\vec{x},\vec{y},\vec{z}$. This means that $\vec{t}$
-has some variable not in $\vec{x},\vec{y}$ and that, consequently, 
-$\Delta$ does not mention $f(\vec{t})$. Now we can apply Lemma~\ref{lem:elimPtft}
-to the subderivation and get again a derivation with fewer applications of 
-$\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$.
-\end{proof}
-
-In the above proof, the resulting derivation could still mention $f$, even
-without using $\vdash_{\vec{y}} P(\vec{y},f(\vec{y}))$. 
-In order to completely eliminate $f$, use Lemma~\ref{subst3} as described after
-its proof.

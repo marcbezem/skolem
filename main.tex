@@ -880,11 +880,12 @@ in the derivation can be removed by Lemma~\ref{subst3}.
 
 In this section the generic model of a coherent theory will play a role.
 For reasons of space it is not possible to explain this concept
-in categorical semantics here. Instead we refer to \cite{MLM94}.
+in categorical semantics here. Instead we refer to \cite{MLM94}
+(where coherent logic is called `geometric logic').
 For the purpose of this paper, the most important property is that 
 the generic model is complete with respect coherent sentences.
 Furthermore, truth in the generic model can be characterized
-by a forcing relation in a suitable site.
+by a forcing relation in a suitable site. 
 
 \subsection{Remarks about a question of Gavin Wraith}
 
@@ -965,7 +966,7 @@ It can then be checked that the formula $(**)$ above is not forced.
 
 We can take $T$ be the theory of algebraically closed fields. 
 This is the equational theory of rings (which is coherent), together with the 
-coherent axioms
+coherent axioms for all $n>0$:
 $$
 \vdash_x x = 0 \vee \exists y~(xy = 1)~~~~~~~~~~~~
 \vdash_{x_1,\dots,x_n} \exists x~(x^n = x_1 x^{n-1} + \dots + x_n)
@@ -991,7 +992,7 @@ The model described in \cite{Mannaa} has no square root function.
 \subsection{Local rings}
 
 Another example is the theory of local rings, given by the equational theory of rings
-with the rules
+with the axioms
 $$
 0=1\vdash\bot~~~~~~~~~~~~~~~~~~~~~~~~~~\vdash_x Inv(x)\vee Inv(1-x)
 $$
@@ -999,12 +1000,13 @@ where $Inv(x)$ means $\exists y~(xy = 1)$.
 
 The generic model is given by the site of finitely presented rings with covering
 $R\rightarrow R[1/x_i]$ for $1 = \ideal{x_1,\dots,x_n}$ (we can have $n = 0$ if $1=0$ in $R$).
+For more information, see \cite[Ch. VIII, Section 6]{MLM94}.
 
 We can prove in this theory
 $$
 \vdash_x \exists y~z~(x y = 1~\vee ~(1-x) z = 1)
 $$
-and introduce in a conservative way two Skolem functions $J(x)$ and $K(x)$ with the rule
+and introduce in a conservative way two Skolem functions $J(x)$ and $K(x)$ with the axiom
 $$
 \vdash_x xJ(x) = 1~\vee~(1-x)K(x) = 1
 $$
@@ -1030,7 +1032,6 @@ M.~Baaz and A.~Leitsch.
 \newblock{On Skolemization and Proof Complexity}.
 Fundamenta Informaticae 20(4): 353--379, 1994.
 \url{https://doi.org/10.3233/FI-1994-2044}
-
 
 \bibitem{Barr} 
 M.~Barr.

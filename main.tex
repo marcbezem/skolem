@@ -261,7 +261,7 @@ For simplicity we shall prove Skolem's Theorem for atomic $\phi$;
 non-atomic instances can easily be obtained by definitional extension.
 We also take the arity of $\phi$ to be at most $2$. This means
 that $\vec{x}$ has length at most one and that the Skolem function is
-unary or nullary, in which case we speak of a Skolem constant.
+either unary or nullary, in the latter case we speak of a Skolem constant.
 Also this simplification is harmless, as the proofs can easily be
 generalized to larger arities.
 
@@ -286,8 +286,8 @@ proofs with conclusion not containing $f_\phi$. After all, such proofs are finit
 combinatorial objects and will not use the Skolem function in its entirety.
 A proof transformation as asked for above
 exists and has been defined by Maehara~\cite{Maehara}. 
-In view of the simplicity of the semantical argument, the proof transformation
-contains two surprises.
+In view of the simplicity of the semantical argument, 
+Maehara's proof transformation contains two surprises.
 First, the transformed proofs can be much longer than the original, 
 see \cite{BaazLeitsch94}.
 Second, as we shall see below, in certain cases the transformed proofs must use
@@ -379,7 +379,7 @@ Here and below we write $\Gamma,\Delta$ for the union of $\Gamma$ and $\Delta$.
 
 In the special case $n=0$ the above inductive definition
 means that $\Gamma\vdash_{\vec{x}} A$ for any $A$ if $\Gamma$
-includes a finite set $\Delta_0(\vec{t})$. This shows that $\bot$ (absurdity) in coherent logic
+includes $\Delta_0(\vec{t})$. This shows that $\bot$ (absurdity) in coherent logic
 is represented by the empty disjunction, satisfying the Ex Falso rule. Dually, we have $\top$
 in coherent logic represented by  the empty conjunction (set of atoms), 
 which is true in any $\Gamma$.
@@ -417,7 +417,7 @@ the axiom $\vdash P(c)$. We then
 replace every occurrence of $c$ by a fresh variable $u$ and 
 get a proof of $\Gamma,P(u)\vdash_{\vec{x},u}^{T} A$.
 This substitution operation will be defined in Section~\ref{auxlemmas}
-and leaves $\Gamma,A$ unchanged.
+and leaves $\Gamma,A$ unchanged by the assumption.
 It also replaces $c$ by $u$ in instantiations of axioms of $T_c$,
 which is important to get a proof in $T$. Finally,
 by applying the axiom $\vdash\exists y P(y)$ in $T$ 
@@ -477,8 +477,8 @@ $\phi(\vec{x})$, then $\phi(\vec{t})\rho =\phi(\vec{t}\rho)$.
 
 \begin{lemma}\label{subst2}
 Assume $\rho = \rho_{r,u}$ and the head symbol of $r$ does not occur in $T$.
-If all free variables of $r$ are in $\vec{x}$, then $\Gamma\rho\vdash_{\vec{x},u}^T A\rho$
-whenever $\Gamma\vdash_{\vec{x}}^T A$.
+If all free variables of $r$ are in $\vec{x}$ and $\Gamma\vdash_{\vec{x}}^T A$, then 
+$\Gamma\rho\vdash_{\vec{x},u}^T A\rho$ by a derivation no mentioning $r$.
 \end{lemma}
 
 \begin{proof}
@@ -506,7 +506,8 @@ and we can infer $\Gamma\rho\vdash^T_{\vec{x},u} A\rho$ as desired.
 \end{proof}
 
 The combination of Lemma~\ref{subst1} and \ref{subst2} makes
-substitution of terms for terms possible.
+substitution of terms for terms possible. The following lemma is the Cut Rule
+for coherent logic.
 
 \begin{lemma}\label{cut}
 If $\Gamma\vdash_{\vec{x}}^T A$ and $\Delta,A\vdash_{\vec{x}}^T B$ then
@@ -700,8 +701,8 @@ need not be unique in a preorder, so that $m(x,y)$ must make a choice.
 
 \section{Addition of equality}\label{sec:addequality}
 
-In logic with equality, when we add a function symbol $f$, 
-we must also add a congruence axiom for that function. 
+In logic with equality, when we add a function symbol, 
+we must also add the congruence axiom for that function. 
 This means that $T_f$ in Section~\ref{sec:skolemfunction},
 when extended to  logic with equality, will in fact mention $f$ . 
 This invalidates the application of Lemma~\ref{subst2}, 
@@ -766,7 +767,8 @@ the instance $I(a,b,u,u)$ of (I-intro1):
 P(a,u),P(b,v),&{\hphantom w}\lor\\
 & a=b,P(b,u),I(a,b,u,u),\bot\\
 \end{align*}
-This idea is elaborated in the following lemma.
+This idea is elaborated in the following lemma, Part 1;
+Part 2 generalizes Lemma~\ref{crucial}.
 \end{example}
 
 
@@ -891,7 +893,7 @@ by a forcing relation in a suitable site.
 
 Let $\vdash_i$ and $\vdash_c$ mean derivability in intuitionistic and classical logic,
 respectively. Given a coherent theory $T$, a sentence $\psi$ 
-(which needs not be coherent and may extend the signature of $T$)
+%(which needs not be coherent and may extend the signature of $T$)
 is called $T$-\emph{redundant} by
 Wraith~\cite[p. 336]{Wraith}\footnote{The difference
 between geometric logic and coherent logic is not relevant for our remarks here.},
@@ -903,7 +905,7 @@ Known sources of $T$-redundancy are:
 In this case $T$-redundancy is obvious.
 \item $T \vdash_c \psi$. In this case $T$-redundancy follows from the conservativity
 of classical logic over coherent logic.
-\item $\psi$ is true in the generic model of $T$. In this case $T$-redundancy is
+\item $\psi$ is true in the generic model of $T$. In this case $T$-redundancy
 has been observed by Kock~\cite{Kock1976} as a consequence of the coherent 
 completeness of the generic model.
 \item $\psi$ is true in some other model of $T$ that is complete for coherent 
@@ -941,10 +943,10 @@ However, we do \emph{not} have $T\vdash_i (**)$.
 This can be proved in many different ways: 
 Mints~\cite{Mints} gives a proof-theoretic argument.
 There exists a simple Kripke countermodel. 
-Here we show that $(**)$ is not valid in the generic model of $T$. 
-As a consequence, $(**)$ is a negative answer to the question of Gavin Wraith. 
+Here we argue that $(**)$ is not valid in the generic model of $T$. 
+As a consequence, $(**)$ constitutes a negative answer to the question of Gavin Wraith. 
 
-The generic model can be described as a site model.
+The generic model of $T$ can be described as a site model.
 The objects $(I;P_I)$ of the site are relations $P_I$ on a finite set  $I$ (so, graphs) .
 Morphisms are maps $f:I\rightarrow J$ which preserve the relation: if $P_I(i_0,i_1)$
 then $P_J(f(i_0),f(i_1))$ (graph morphisms). A basic covering is determined by the
@@ -978,7 +980,8 @@ $$
 For if $\Gamma,\,t(1-ut) = 0\vdash_{\vec{x},u}^{T} A$ with $u$ fresh and
 $t$ with variables in $\vec{x}$, then we can prove $\Gamma\vdash_{\vec{x}}^{T} A$.
 Using the field axiom it suffices to prove  $\Gamma,t=0\vdash_{\vec{x}}^{T} A$
-and $\Gamma,ty=1\vdash_{\vec{x},y}^{T} A$. Both follow from the assumption.  
+and $\Gamma,ty=1\vdash_{\vec{x},y}^{T} A$. 
+Both follow from the assumption by a suitable substitution of $u$ (Lemma~\ref{subst1}).  
 
 By Skolem's Theorem~\ref{thm:skolemwith=} we can introduce a function $inv(x)$ with the axiom
 $\vdash_x x(1 - inv(x) x) = 0$ and we get a conservative extension. Note that $inv(x)$
@@ -996,26 +999,25 @@ with the axioms
 $$
 0=1\vdash\bot~~~~~~~~~~~~~~~~~~~~~~~~~~\vdash_x Inv(x)\vee Inv(1-x)
 $$
-where $Inv(x)$ means $\exists y~(xy = 1)$. 
-
-The generic model is given by the site of finitely presented rings with covering
-$R\rightarrow R[1/x_i]$ for $1 = \ideal{x_1,\dots,x_n}$ (we can have $n = 0$ if $1=0$ in $R$).
-For more information, see \cite[Ch. VIII, Section 6]{MLM94}.
-
-We can prove in this theory
+where $Inv(x)$ means $\exists y~(xy = 1)$. We can prove in this theory
 $$
 \vdash_x \exists y~z~(x y = 1~\vee ~(1-x) z = 1)
 $$
 and introduce in a conservative way two Skolem functions $J(x)$ and $K(x)$ with the axiom
 $$
-\vdash_x xJ(x) = 1~\vee~(1-x)K(x) = 1
+\vdash_x xJ(x) = 1~\vee~(1-x)K(x) = 1.
 $$
-There are no such functions in the generic model,
-since these functions should be defined at all levels. 
+The generic model is given by the site of finitely presented rings with covering
+$R\rightarrow R[1/x_i]$ for $1 = \ideal{x_1,\dots,x_n}$ 
+(we can have $n = 0$ if $1=0$ in $R$).
+For more information, see \cite[Ch.\ VIII, Section 6]{MLM94}.
 At the initial level we have the ring $\ints$ (generated by the
-constants 0 and 1), and $\ints$ is not a local ring. For example,
-$J(3)$ and $K(3)$ cannot be defined. 
-(All functions on the generic local rings are polynomials but we don't need to use this fact.)
+constants 0 and 1), and $\ints$ is not a local ring. 
+Hence there are no such functions $J$ and $K$ in the generic model,
+since these functions should be defined at all levels. 
+Typically, at the initial level $J(3)$ and $K(3)$ cannot be defined. 
+%(All functions on the generic local rings are polynomials but we don't need to use this fact.)
+
 
 Despite the fact that the conservativity can be proved in a simple way, 
 in the last case, we have no Skolem function in the generic model, 

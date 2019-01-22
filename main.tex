@@ -513,7 +513,7 @@ function symbol to the signature.
 Let $T$ be a theory with equality.
 Let $T_{f{=}}$ be $T$ extended by the congruence axiom 
 $\vec{x}=\vec{y} \vdash_{\vec{x},\vec{y}} f(\vec{x}) = f(\vec{y})$
-for a new function symbol $f$. 
+for a \emph{new} function symbol $f$. 
 Then we have $\ldf{\Gamma}\vdash_{\vec{x}}^T \ldf{A}$
 whenever $\Gamma\vdash_{\vec{x}}^{T_{f{=}}} A$.
 If the latter derivation does not mention $=$, then neither does the former.
@@ -538,10 +538,10 @@ In this section we prove Skolem's Theorem for coherent logic without equality.
 This case is essentially simpler since, without congruence for $f$, 
 only axiom (\ref{allskol}) mentions the Skolem function $f$. 
 
-We assume that we have the rule $\vdash_{x}\exists y~P(x,y)$ in $T$.
+We assume that we have the axiom $\vdash_{x}\exists y~P(x,y)$ in $T$.
 Let $f$ be a unary function symbol that is \emph{not} in the language of $T$ and 
 let $T_f$ be the theory $T$ in the signature extended with $f$.
-Let $T_{f+}$ be the extension of $T_f$ with the rule
+Let $T_{f+}$ be the extension of $T_f$ with the axiom
 $$
 \vdash_{y}~P(y,f(y))\leqno{(*)}
 $$
@@ -585,8 +585,8 @@ $$
 \Delta_0(\vec{y})~\vdash_{\vec{y}}~
 \exists \vec{z_1}\Delta_1(\vec{y},\vec{z_1})\vee\dots\vee\exists \vec{z_n}\Delta_n(\vec{y},\vec{z_n})
 $$
-in $T$ with $\vec{t}$ terms using free variables in $\vec{x}$ and
-we have $\Delta_0(\vec{t})$ subset of $\Gamma$ and
+in $T$ such that for terms $\vec{t}$ with free variables in $\vec{x}$ and
+$\Delta_0(\vec{t})$ a subset of $\Gamma$ we have
 $\Gamma,\Delta_i(\vec{t},\vec{z_i})\vdash_{\vec{x},\vec{z_i}}^{T_{f{+}}} A$ for $i=1,\dots,n$.
 By the induction hypothesis we have $\Gamma,\Delta_i(\vec{t},\vec{z_i}), \Sigma_i\vdash_{\vec{x},\vec{z_i}}^{T_f} A$
 for $i = 1,\dots,n$, where $\Sigma_i$ is a set of formulae $P(t,f(t))$ where
@@ -620,9 +620,10 @@ Total preorders with a ternary predicate for maximum can be axiomatized by:
                                                  &\vdash_{x,y}           x\leq y \lor y\leq x
 &\quad\text{(this implies reflexivity)}\\
 x\leq y, y\leq z              &\vdash_{x,y,z}        x\leq z\\
-x\leq z, y\leq z                   &\vdash_{x,y,z}           M(x,y,z)
-&\quad\text{(M-intro)}\\ 
-%y \leq x                                    &\vdash_{x,y}           M(x,y,x)\\
+x\leq y                   &\vdash_{x,y}           M(x,y,y)
+&\quad\text{(M-intro-r)}\\ 
+y \leq x                                    &\vdash_{x,y}           M(x,y,x)
+&\quad\text{(M-intro-l)}\\
 M(x,y,z)                                   &\vdash_{x,y,z}        x\leq z,  y\leq z
 &\quad\text{(M-elim1)}\\
 M(x,y,z), x\leq u,  y\leq u      &\vdash_{x,y,z,u}    z\leq u
@@ -636,9 +637,9 @@ axioms that do not give new coherent consequences. Although we
 only show this for the example, the method is completely general.
 Consider the following stylized derivation in the theory above:
 \begin{align*}
-& x\leq y, y\leq y,M(x,y,y)\\
+& x\leq y, M(x,y,y)\\
 &{\hphantom w} \lor\\
-&y\leq x, x\leq x,M(x,y,x) \\
+&y\leq x, M(x,y,x) \\
 \end{align*}
 This derivation shows that $\vdash_{x,y} M(x,y,x)  \lor M(x,y,y)$ is an
 admissible rule. Call the extension of $T_0$ by this rule $T_1$.
@@ -671,7 +672,7 @@ need not be unique in a preorder, so that $m(x,y)$ must make a choice.
 In logic with equality, when we add a function symbol, 
 we must also add the congruence axiom for that function. 
 This means that $T_f$ in Section~\ref{sec:skolemfunction},
-when extended to  logic with equality, will in fact mention $f$ . 
+when extended to  logic with equality, will in fact mention $f$. 
 This invalidates the application of Lemma~\ref{subst2}, 
 which requires that the theory does not mention $f$.
 The upshot is that we have to adapt the proofs of the
@@ -705,6 +706,20 @@ classical logic over coherent logic.
 This special case of Barr's Theorem~\cite{Barr} has been proved
 constructively by several people, using cut-elimination,
 see \cite[Sec. 6]{Negri03} for an overview.
+
+\begin{example}\label{exa:reflsymm}
+Reflexivity $\vdash_{x_1,x_2,y} I(x_1,x_2,y,y)$ is obtained as a direct 
+consequence of reflexivity of $=$ and (Intro-1).
+%$y=y \vdash_{x_1,x_2,y} I(x_1,x_2,y,y)$.
+Admissibility of symmetry  $I(x_1,x_2,y_1,y_2) \vdash_V  I(x_1,x_2,y_2,y_1)$ 
+follows from the following derivation:
+\begin{align*}
+& x_1=x_2, y_1=y_2,y_2=y_1,I(x_1,x_2,y_2,y_1)\\
+I(x_1,x_2,y_1,y_2),&{\hphantom w}{\hphantom w}\lor\\
+&I(x_1,x_2,y_2,y_1) \\
+\end{align*}
+Reflexivity and symmetry will be applied tacitly.
+\end{example}
 
 \begin{example}\label{exa:counter2CL}
 Let $T$  be a theory with implicational equality with the $f$-axioms:
@@ -831,7 +846,7 @@ $\Sigma_i$  either occur in $\Gamma,A$, or are subterms of $\vec{t}$, so with
 all free variables in $\vec{x}$. It follows that we have
 $\Gamma,\Sigma_1,\dots,\Sigma_n\vdash_{\vec{x}}^{T} A$
 by the same instance of the same axiom above. Now use Part~1 to eliminate
-all $f$-terms not occurring in $\Gamma,A$, starting by the maximal ones.
+all $f$-terms not occurring in $\Gamma,A$, starting with the maximal ones.
 \end{proof}
 
 We can now state and prove Skolem's Theorem in logic with implicational equality.
@@ -852,7 +867,7 @@ For reasons of space it is not possible to explain this concept
 in categorical semantics here. Instead we refer to \cite{MLM94}
 (where coherent logic is called `geometric logic').
 For the purpose of this paper, the most important property is that 
-the generic model is complete with respect coherent sentences.
+the generic model is complete with respect to coherent sentences.
 Furthermore, truth in the generic model can be characterized
 by a forcing relation in a suitable site. 
 
@@ -992,7 +1007,10 @@ and therefore we cannot simply rely on a semantical argument.
 
 
 \section{Acknowledgement}
-The first author acknowledges the support of the Centre for Advanced Study (CAS) in Oslo, Norway, which funded and hosted the research project Homotopy Type Theory and Univalent Foundations during the 2018/19 academic year.
+The first author acknowledges the support of the Centre for Advanced Study (CAS) in Oslo, Norway, which funded and hosted the research project Homotopy Type Theory and Univalent Foundations during the 2018/19 academic year. 
+%(The historic source, Skolem's paper \cite{Skolem}, was available from the cellar of CAS.) 
+Both authors express their gratitude to
+Gilles Dowek and Ulrik Buchholtz for many interesting discussions.
 
 \begin{thebibliography}{9}
 

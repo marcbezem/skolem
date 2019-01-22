@@ -1,29 +1,9 @@
-%\documentclass[10pt,a4paper]{amsart}
-\documentclass[10pt,a4paper]{article}
-\ifx\pdfpageheight\undefined\PassOptionsToPackage{dvips}{graphicx}\else%
-\PassOptionsToPackage{pdftex}{graphicx}
-\PassOptionsToPackage{pdftex}{color}
-\fi
+\documentclass{fundam}
 
 \usepackage{diagrams1}
-\usepackage[all]{xy}
+
+\usepackage{amssymb}
 \usepackage{url}
-\usepackage{verbatim}
-\usepackage{latexsym}
-\usepackage{amssymb,amstext,amsmath}
-\usepackage{authblk}
-\usepackage{float}
-\floatstyle{boxed}
-\restylefloat{figure}
-
-
-%%%%%%%%%
-\def\oge{\leavevmode\raise
-.3ex\hbox{$\scriptscriptstyle\langle\!\langle\,$}}
-\def\feg{\leavevmode\raise
-.3ex\hbox{$\scriptscriptstyle\,\rangle\!\rangle$}}
-
-%%%%%%%%%
 
 \renewcommand*{\phi}{\varphi}
 \newcommand\myfrac[2]{
@@ -32,9 +12,6 @@
  \hline \hline 
  #2
 \end{array}}
-
-\newcommand*{\Scale}[2][4]{\scalebox{#1}{$#2$}}%
-\newcommand*{\Resize}[2]{\resizebox{#1}{!}{$#2$}}
 
 \newcommand{\ideal}[1]{\langle #1\rangle}
 \newcommand{\elim}{{\sf elim}}
@@ -108,20 +85,6 @@
 \newcommand{\rats}{\mathbb{Q}}
 \newcommand{\ints}{\mathbb{Z}}
 
-\usepackage{epsf}
-\usepackage{epsfig}
-% \usepackage{isolatin1}
-\usepackage{a4wide}
-\usepackage{verbatim}
-\usepackage{proof}
-\usepackage{latexsym}
-\usepackage{amssymb}
-% \usepackage{stmaryrd}
-\newcommand{\abs}[2]{\lambda #1 . #2}            % abstraction of #1 in #2
-\usepackage{mytheorems}
-%\newtheorem{proposition}[theorem]{Proposition}
-
-%\documentstyle{article}
 \newcommand{\IF}[3]{{{\sf if}~#1~{\sf then}~#2~{\sf else}~#3}}
 \newcommand{\lfpi}[3]{(\Pi #1{:}#2)#3}
 \newcommand{\HA}{{\sf HA}}
@@ -142,17 +105,6 @@
 \def\N0{\hbox{\sf N}_0}
 \def\ZERO{\hbox{\sf zero}}
 \def\SUCC{\hbox{s}}
-\setlength{\oddsidemargin}{0in} % so, left margin is 1in
-\setlength{\textwidth}{6.27in} % so, right margin is 1in
-\setlength{\topmargin}{0in} % so, top margin is 1in
-\setlength{\headheight}{0in}
-\setlength{\headsep}{0in}
-\setlength{\textheight}{9.19in} % so, foot margin is 1.5in
-\setlength{\footskip}{.8in}
-
-% Definition of \placetitle
-% Want to do an alternative which takes arguments
-% for the names, authors etc.
 
 \newcommand{\lbr}{\lbrack\!\lbrack}
 \newcommand{\rbr}{\rbrack\!\rbrack}
@@ -202,6 +154,7 @@
 \newcommand{\Glue}{{\sf Glue}}
 \newcommand{\glue}{{\sf glue}}
 \newcommand{\Comp}{{\sf fill}}
+
 % Marc's macros
 \newcommand{\op}[1]{#1^\mathit{op}}
 \newcommand{\set}[1]{\{#1\}} 
@@ -227,17 +180,25 @@
 
 \begin{document}
 
+
 \title{Skolem's Theorem in Coherent Logic}
 
-\author[1]{Marc Bezem}
-\affil[1]{Department of Informatics, University of Bergen, \texttt{bezem@ii.uib.no}} 
-
-\author[2]{Thierry Coquand}
-\affil[2]{Department of Computer Science and Engineering, Chalmers/University of Gothenburg, 
+\author{%
+Marc Bezem\\
+Department of Informatics\\
+University of Bergen\\
+\texttt{bezem@ii.uib.no}
+\and
+Thierry Coquand\\
+Department of Computer Science and Engineering\\
+Chalmers/University of Gothenburg\\
 \texttt{coquand@chalmers.se}}
 
-\date{}
+%\date{}
 \maketitle
+
+\runninghead{M. Bezem, T. Coquand}{Skolem's Theorem in Coherent Logic}
+
 
 \begin{abstract}
 We give a constructive proof of Skolem's Theorem for coherent logic
@@ -245,7 +206,9 @@ and discuss several applications, including a negative answer to
 a question by Wraith.
 \end{abstract}
 
-%\rightfooter{}
+\begin{keywords}
+Skolem's theorem, coherent logic, proof theory
+\end{keywords}
 
 \section*{Introduction}
 Skolemization is the replacement of an axiom of the form
@@ -257,13 +220,6 @@ by one of the form
 \forall\vec{x}~\phi(\vec{x},f_\phi(\vec{x})),
 \end{equation}
 where $f_\phi$ is a fresh function symbol, also called a Skolem function.
-For simplicity we shall prove Skolem's Theorem for atomic $\phi$;
-non-atomic instances can easily be obtained by definitional extension.
-We also take the arity of $\phi$ to be at most $2$. This means
-that $\vec{x}$ has length at most one and that the Skolem function is
-either unary or nullary, in the latter case we speak of a Skolem constant.
-Also this simplification is harmless, as the proofs can easily be
-generalized to larger arities.
 
 Clearly, (\ref{allskol}) is stronger than (\ref{allexist}).
 Nevertheless, Skolem's Theorem states that skolemization is \emph{conservative}
@@ -279,19 +235,22 @@ Second, the argument does not explain how to transform proofs using
 Of course, the mere existence of such a proof transformation
 follows from the semantical argument by applying soundness and completeness.
 
-From the proof theoretic point of view one would like to understand
-in a combinatorial way how to transform proofs using (\ref{allskol}) into proofs
-using  (\ref{allexist}).  Here and below we restrict attention to
-proofs with conclusion not containing $f_\phi$. After all, such proofs are finite
+From the proof theoretic point of view\footnote{%
+Here and below we restrict attention to
+proofs with conclusion not containing the Skolem function.} 
+one would like to understand
+in a combinatorial way how to transform proofs
+using (\ref{allskol}) into proofs using  (\ref{allexist}).  
+After all, such proofs are finite
 combinatorial objects and will not use the Skolem function in its entirety.
-A proof transformation as asked for above
-exists and has been defined by Maehara~\cite{Maehara}. 
+A proof transformation as beforementioned
+has been defined by Maehara~\cite{Maehara}. 
 In view of the simplicity of the semantical argument, 
 Maehara's proof transformation contains two surprises.
 First, the transformed proofs can be much longer than the original, 
 see \cite{BaazLeitsch94}.
 Second, as we shall see below, in certain cases the transformed proofs must use
-the law of the excluded middle even if the original proof does not.
+the law of the excluded middle even though the original proof does not.
 
 One natural question is whether Skolem's Theorem holds for other logics as well.
 We first consider constructive logic. Surprisingly, Skolem's Theorem fails
@@ -324,6 +283,14 @@ for this fragment. For this reason one expects Skolem's Theorem to hold
 for coherent logic. Moreover, one would expect a simpler proof transformation,
 with all transformed proofs constructive. We shall see that this works out
 as expected.
+
+For simplicity we shall prove Skolem's Theorem for atomic $\phi$;
+non-atomic instances can easily be obtained by definitional extension.
+We also take the arity of $\phi$ to be at most $2$. This means
+that $\vec{x}$ has length at most one and that the Skolem function is
+either unary or nullary, in the latter case we speak of a Skolem constant.
+Also this simplification is harmless, as the proofs can easily be
+generalized to larger arities.
 
 The paper is organized as follows. In the next section we introduce coherent logic.
 The easy case of Skolem constants is dealt with in Section~\ref{sec:skolemconstant},
@@ -386,9 +353,9 @@ which is true in any $\Gamma$.
 
 \section{Skolem constants}\label{sec:skolemconstant}
 
-Coherent is a logic that, unlike ordinary first-order logic with Tarski semantics,
+Coherent logic, unlike ordinary first-order logic with Tarski semantics,
 allows the domain to be empty. This means that adding a constant to a signature
-that does not contain constant symbols is \emph{not} conservative.
+without constant symbols is \emph{not} conservative.
 As an example, consider the axiom $\vdash_{y} P$ for a proposition $P$.
 Despite the left-hand side being empty,
 we can only infer $\vdash P$ if we have a constant in the signature.
@@ -409,15 +376,15 @@ If $\Gamma,A$ does not mention $c$ and $\Gamma\vdash_{\vec{x}}^{T_c} A$, then
 $\Gamma\vdash_{\vec{x}}^{T} A$.
 \end{theorem}
 
-\begin{proof}
+\begin{proof} 
 If $\Gamma\vdash_{\vec{x}}^{T_c} A$, then $\Gamma,P(c)\vdash_{\vec{x}}^{T_c} A$
 by weakening, to be proved in Lemma~\ref{weak}.
-From the resulting proof we remove all now pre-empted applications of
-the axiom $\vdash P(c)$. We then
+From the resulting proof we can remove all applications of
+the axiom $\vdash P(c)$ since $P(c)$ does already occur on the left. We then
 replace every occurrence of $c$ by a fresh variable $u$ and 
 get a proof of $\Gamma,P(u)\vdash_{\vec{x},u}^{T} A$.
 This substitution operation will be defined in Section~\ref{auxlemmas}
-and leaves $\Gamma,A$ unchanged by the assumption.
+and leaves $\Gamma,A$ unchanged since they do not mention $c$.
 It also replaces $c$ by $u$ in instantiations of axioms of $T_c$,
 which is important to get a proof in $T$. Finally,
 by applying the axiom $\vdash\exists y P(y)$ in $T$ 
@@ -478,7 +445,7 @@ $\phi(\vec{x})$, then $\phi(\vec{t})\rho =\phi(\vec{t}\rho)$.
 \begin{lemma}\label{subst2}
 Assume $\rho = \rho_{r,u}$ and the head symbol of $r$ does not occur in $T$.
 If all free variables of $r$ are in $\vec{x}$ and $\Gamma\vdash_{\vec{x}}^T A$, then 
-$\Gamma\rho\vdash_{\vec{x},u}^T A\rho$ by a derivation no mentioning $r$.
+$\Gamma\rho\vdash_{\vec{x},u}^T A\rho$ by a derivation not mentioning $r$.
 \end{lemma}
 
 \begin{proof}

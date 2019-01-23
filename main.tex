@@ -275,7 +275,8 @@ Skolem's Theorem for constructive logic without equality.
 By viewing equality as a non-logical predicate satisfying the equality
 axioms, \cite{DW} yields Skolem's Theorem for constructive logic with equality
 in cases in which for all $x$ there exists a \emph{unique} $y$  such that $P(x,y)$.
-Then functionality of the Skolem function follows from the uniqueness requirement.
+Then the congruence axiom for the Skolem function follows from 
+the uniqueness requirement.
 
 Coherent logic is a fragment of first-order logic as described in the next section.
 Its proof theory is constructive, with the property that classical logic is conservative
@@ -767,7 +768,7 @@ $T_{f\!I\!{+}}$ by leaving out the $f$-axioms and adding $\vdash_{{y}} \exists u
 Then we have:
 \begin{enumerate}
 \item If $\Gamma,P(t,f(t)), I(t,u_1,f(t),f(u_1)),\ldots,I(t,u_n,f(t),f(u_n))\vdash_{\vec{x}}^{T} A$
-and $f(t)$ does not occur in $\Gamma,A$, $u_1,\ldots,u_n$, then  
+and $f(t)$ not in $\Gamma,A$, $u_1,\ldots,u_n$, then  
 $\Gamma,\Sigma\vdash_{\vec{x}}^{T} A$, where $\Sigma$ consists of 
 all $P(u_i,f(u_i))$ and $I(u_i,u_j,f(u_i),f(u_j))$;
 \item (crucial) If $\Gamma\vdash_{\vec{x}}^{T_{f\!I\!{+}}} A$, 
@@ -783,7 +784,7 @@ $I(t,u,f(t),f(u))$ such that $f(t)$ and $f(u)$ occur in $\Gamma,A$.
 \Gamma,P(t,y),  I(t,u_1,y,f(u_1)),\ldots,I(t,u_n,y,f(u_n))\vdash_{\vec{x},y}^{T} A
 \end{equation}
 Note that $t=u_i,y=f(u_i),\Gamma,\Sigma\vdash_{\vec{x},y}^{T} A$,
-for any $i$, follows from (\ref{eq:ft=y}) by weakening and equality reasoning:
+for any $i$, follows from (\ref{eq:ft=y}) by weakening and equality logic:
 get $P(t,y)$ from $P(u_i,f(u_i))\in\Sigma$, and get each $I(t,u_j,y,f(u_j))$ 
 from $I(u_i,u_j,f(u_i),f(u_j))\in\Sigma$. 
 By substituting $f(u_i)$ for the
@@ -974,7 +975,7 @@ is total and that $inv(0)$ also returns some value.
 
 An example in algebraically closed fields is to introduce a function $sqrt(x)$ with the axiom
 $sqrt(x)^2 = x$. Since we have $\vdash_{x} \exists u~(u^2 = x)$, we also get a conservative
-extension. Note that $sqrt(x)$ has to choose between two complementary numbers.
+extension. Note that $sqrt(x)$ has to choose between two opposite numbers.
 The model described in \cite{Mannaa} has no square root function.
 
 \subsection{Local rings}
@@ -1010,10 +1011,9 @@ and therefore we cannot simply rely on a semantical argument.
 
 
 \section{Acknowledgement}
-The first author acknowledges the support of the Centre for Advanced Study (CAS) in Oslo, Norway, which funded and hosted the research project Homotopy Type Theory and Univalent Foundations during the 2018/19 academic year. 
-%(The historic source, Skolem's paper \cite{Skolem}, was available from the cellar of CAS.) 
-Both authors express their gratitude to
-Gilles Dowek and Ulrik Buchholtz for many interesting discussions.
+The first author acknowledges the support of the Centre for Advanced Study (CAS) in Oslo, Norway, that funded and hosted the research project Homotopy Type Theory and Univalent Foundations during the academic year 2018/19. 
+One primary source, Skolem's paper \cite{Skolem}, was available from the archive of CAS.
+Both authors are indebted to Gilles Dowek and Ulrik Buchholtz. % for many interesting discussions.
 
 \begin{thebibliography}{9}
 

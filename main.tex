@@ -1,182 +1,16 @@
 \documentclass{fundam}
 
-\usepackage{diagrams1}
-
 \usepackage{amssymb}
 \usepackage{url}
 
-\renewcommand*{\phi}{\varphi}
-\newcommand\myfrac[2]{
- \begin{array}{c}
- #1 \\
- \hline \hline 
- #2
-\end{array}}
-
 \newcommand{\ideal}[1]{\langle #1\rangle}
-\newcommand{\elim}{{\sf elim}}
-\newcommand{\dM}{{\sf dM}}
-\newcommand{\Cir}{\mathsf{S^1}}
-\newcommand{\base}{{\sf base}}
-\newcommand{\inc}{{\sf inc}}
-\newcommand{\inh}{\mathsf{inh}}
-\newcommand{\squash}{{\sf squash}}
-\newcommand{\transp}{{\sf transp}}
-\newcommand{\squeeze}{{\sf squeeze}}
-\newcommand{\LOOP}{{\sf loop}}
-\newcommand{\Top}{{\sf Top}}
-\newcommand{\Sys}{{\sf S}}
-\newcommand{\Ref}{{\sf Ref}}
-\newcommand{\LINE}{{\sf line}}
-\newcommand{\JJ}{{\sf J}}
-\newcommand{\II}{\mathbb{I}}
-\newcommand{\PP}{{\sf Path}}
-\newcommand{\Sp}{{\sf S}}
-\newcommand{\TT}{\mathbb{F}}
-\newcommand{\FF}{\mathbb{F}}
-\newcommand{\DD}{\mathbb{D}}
-\newcommand{\Iso}{{\sf Iso}}
-\newcommand{\refl}{{\bf refl}}
-\newcommand{\HH}{{\sf H}}
 
-
-\newcommand{\mkbox}[1]{\ensuremath{#1}}
-
-
-\newcommand{\Id}{{\sf Id}}
-\newcommand{\ident}{{\sf id}}
-\newcommand{\Path}{{\sf Path}}
-\newcommand{\IdP}{{\sf IdP}}
-\newcommand{\ID}{{\sf ID}}
-\newcommand{\Equiv}{{\sf Equiv}}
-\newcommand{\isEquiv}{{\sf isEquiv}}
-\newcommand{\ext}{\mathsf{ext}}
-\newcommand{\lift}{\mathsf{lift}}
-\newcommand{\cof}{\mathsf{cof}}
-\newcommand{\isContr}{{\sf isContr}}
-\newcommand{\Fib}{{\sf Fib}}
-
-\newcommand{\CC}{{\mathcal C}}
-\newcommand{\subst}{{\sf subst}}
-\newcommand{\res}{{\sf res}}
-\newcommand{\Int}{{\bf I}}
-\newcommand{\sem}[1]{\langle #1\rangle}
-\newcommand{\ld}[1]{#1{\downarrow}}
 \newcommand{\ldf}[1]{#1\rho_{{\downarrow}f}}
 
-\newcommand{\Sph}{{\sf S}^1}
-\newcommand{\PROP}{{\sf prop}}
-\newcommand{\SET}{{\sf set}}
-\newcommand{\pair}[1]{{\langle #1 \rangle}}
-\newcommand{\openb}[1]{\mathsf{b}(#1)}
-%\newcommand{\pth}[1]{\mathsf{P}(#1)}
-\newcommand{\pth}[1]{#1^{\II}}
-%\newcommand{\cyl}[1]{\mathsf{Cyl}(#1)}
-\newcommand{\cyl}[1]{#1\times\II}
-\newcommand{\free}[1]{\mathsf{D}(#1)}
-\newcommand{\Prod}[2]{\displaystyle\prod _{#1}~#2}
-\newcommand{\Sum}[2]{\displaystyle\sum _{#1}~#2}
-\newcommand{\gothic}{\mathfrak}
-\newcommand{\omicron}{*}
-\newcommand{\gP}{{\gothic p}}
-%\newcommand{\lift}[1]{\tilde{#1}}
-\newcommand{\gM}{{\gothic M}}
-\newcommand{\gN}{{\gothic N}}
-\newcommand{\rats}{\mathbb{Q}}
 \newcommand{\ints}{\mathbb{Z}}
 
-\newcommand{\IF}[3]{{{\sf if}~#1~{\sf then}~#2~{\sf else}~#3}}
-\newcommand{\lfpi}[3]{(\Pi #1{:}#2)#3}
-\newcommand{\HA}{{\sf HA}}
-\newcommand{\AC}{{\sf AC}}
-\newcommand{\HAw}{\hbox{\sf{HA}$^{\omega}$}}
-\newcommand{\EM}{\hbox{\sf{EM}}}
-\newcommand{\DC}{\hbox{\sf{DC}}}
-\newcommand{\BB}{\hbox{\sf{B}}}
-
-\def\NN{\hbox{\sf N}}
-\def\Type{\hbox{\sf Type}}
-%\def\Box[1]{\mathsf{b}(#1)}
-\def\PER{\hbox{\sf PER}}
-\def\FUN{\Pi}
-\def\ELEM{\hbox{\sf El}}
-\def\GG{\hbox{\sf G}}
-\def\TP{\hbox{\sf TP}}
-\def\N0{\hbox{\sf N}_0}
-\def\ZERO{\hbox{\sf zero}}
-\def\SUCC{\hbox{s}}
-
-\newcommand{\lbr}{\lbrack\!\lbrack}
-\newcommand{\rbr}{\rbrack\!\rbrack}
-%\newcommand{\sem}[2] {\lbr #1 \rbP_{#2}}  % interpretation of the terms
-\newcommand{\PAIR}[2] {{<}#1,#2{>}}  % interpretation of the terms
-\newcommand{\add}{\mathsf{add}}
-\newcommand{\app}{\mathsf{app}}
-\newcommand{\APP}{\mathsf{APP}}
-\newcommand{\BAPP}[2]{\mathsf{app}(#1,#2)}
-\newcommand{\nat}{{N}}
-\newcommand{\NNO}{\hbox{\sf N$_0$}}
-\newcommand{\UU}{\hbox{\sf U}}
-\newcommand{\VV}{\hbox{\sf V}}
-\newcommand{\EXIT}{\mathsf{exit}}
-\newcommand{\natrec}{\hbox{\sf{natrec}}}
-\newcommand{\boolrec}{\hbox{\sf{boolrec}}}
-\newcommand{\nil}{[]}
-\newcommand{\cons}{\mathsf{cons}}
-\newcommand{\lists}{\mathsf{list}}
-\newcommand{\VEC}{\mathsf{vec}}
-\newcommand{\reclist}{\mathsf{RecL}}
-\newcommand{\vect}{\mathsf{vect}}
-\newcommand{\brecp}{\Psi}
-\newcommand{\true}{\mathsf{true}}
-\newcommand{\false}{\mathsf{false}}
-\newcommand{\bool}{{N_2}}
-\newcommand{\ifte}[3]{\mathsf{if}\ #1\ \mathsf{then}\ #2\ \mathsf{else}\ #3}
-\newcommand{\nats}{\mathbb{N}}
-\newcommand{\Con}{{\sf Con}}
-\newcommand{\Typ}{{\sf Type}}
-\newcommand{\Elem}{{\sf Elem}}
-\newcommand{\Char}{{\sf Char}}
-%\newcommand{\id}{{\sf id}}
-\newcommand{\id}{{1}}
-\newcommand{\pp}{{\sf p}}
-\newcommand{\mm}{{\sf m}}
-\newcommand{\qq}{{\sf q}}
-\newcommand{\COMP}[3]{{\sf comp}~#1~#2~#3}
-\newcommand{\comp}{{\sf comp}}
-\newcommand{\hcomp}{{\sf hcomp}}
-\newcommand{\genComp}{{\sf Comp}}
-\newcommand{\pres}{{\sf pres}}
-\newcommand{\extend}{{\sf extend}}
-\newcommand{\eq}{{\sf equiv}}
-
-\newcommand{\Transp}{{\sf fill}}
-\newcommand{\Glue}{{\sf Glue}}
-\newcommand{\glue}{{\sf glue}}
-\newcommand{\Comp}{{\sf fill}}
-
-% Marc's macros
-\newcommand{\op}[1]{#1^\mathit{op}}
+\newcommand{\Inv}{\mathit{Inv}}
 \newcommand{\set}[1]{\{#1\}} 
-\newcommand{\es}{\emptyset}
-\newcommand{\lto}{\longmapsto}
-\newcommand{\rup}[1]{#1{\uparrow}}
-\newcommand{\rdo}[1]{#1{\downarrow}}
-\newcommand{\rupx}[1]{#1{\uparrow_{x}}}
-\newcommand{\rdox}[1]{#1{\downarrow_{x}}}
-\newcommand{\rupxy}[1]{#1{\uparrow_{x,y}}}
-\newcommand{\rdoxy}[1]{#1{\downarrow_{x,y}}}
-\newcommand{\rupyx}[1]{#1{\uparrow_{y,x}}}
-\newcommand{\rdoyx}[1]{#1{\downarrow_{y,x}}}
-\newcommand{\del}[1]{}
-\newcommand{\ul}[1]{\underline{#1}}
-\newcommand{\bind}[2]{{\langle}#1{\rangle}#2}
-\newcommand{\lam}[2]{{\langle}#1{\rangle}#2}
-\newcommand{\make}[1]{{\langle}#1{\rangle}}
-\newcommand{\OO}{O}
-\newcommand{\many}[2]{{#1_1},\ldots,{#1_#2}}
-
-% end Marc's macros
 
 \begin{document}
 
@@ -983,9 +817,9 @@ The model described in \cite{Mannaa} has no square root function.
 Another example is the theory of local rings, given by the equational theory of rings
 with the axioms
 $$
-0=1\vdash\bot~~~~~~~~~~~~~~~~~~~~~~~~~~\vdash_x Inv(x)\vee Inv(1-x)
+0=1\vdash\bot~~~~~~~~~~~~~~~~~~~~~~~~~~\vdash_x \Inv(x)\vee \Inv(1-x)
 $$
-where $Inv(x)$ means $\exists y~(xy = 1)$. We can prove in this theory
+where $\Inv(x)$ means $\exists y~(xy = 1)$. We can prove in this theory
 $$
 \vdash_x \exists y~z~(x y = 1~\vee ~(1-x) z = 1)
 $$
@@ -1011,9 +845,12 @@ and therefore we cannot simply rely on a semantical argument.
 
 
 \section{Acknowledgement}
-The first author acknowledges the support of the Centre for Advanced Study (CAS) in Oslo, Norway, that funded and hosted the research project Homotopy Type Theory and Univalent Foundations during the academic year 2018/19. 
-One primary source, Skolem's paper \cite{Skolem}, was available from the archive of CAS.
-Both authors are indebted to Gilles Dowek and Ulrik Buchholtz. % for many interesting discussions.
+The first author acknowledges the support of the Centre for Advanced Study (CAS)
+at the Norwegian Academy of Science and Letters
+in Oslo, Norway, which funded and hosted the research project Homotopy Type Theory and Univalent Foundations during the academic year 2018/19. 
+(Historical note: Skolem worked here, 
+and his original paper \cite{Skolem} was available from the archive.)
+Both authors are indebted to Gilles Dowek and Ulrik Buchholtz for many interesting discussions.
 
 \begin{thebibliography}{9}
 
@@ -1026,8 +863,8 @@ Fundamenta Informaticae 20(4): 353--379, 1994.
 \bibitem{Barr} 
 M.~Barr.
 \newblock{Toposes without points}.
-Journal of Pure and Applied Algebra 5(3): 265--280, 1974.\\
-\url{https://doi.org/10.1016/0022-4049(74)90037-1}
+Journal of Pure and Applied Algebra 5(3): 265--280, 1974.
+%\url{https://doi.org/10.1016/0022-4049(74)90037-1}% MAB to save one line
 
 \bibitem{BBC18}
 M.A.~Bezem, U.~Buchholtz and T.~Coquand.
@@ -1065,7 +902,7 @@ A.~Kock.
 \bibitem{MLM94}
 S.~Mac~Lane and I.~Moerdijk.
 \newblock {\em Sheaves in geometry and logic}.
-\newblock Universitext. Springer-Verlag, New York, 1994.
+\newblock Springer-Verlag, New York, 1994.
 
 \bibitem{Maehara}
 S. Maehara.

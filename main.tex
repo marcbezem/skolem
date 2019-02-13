@@ -467,9 +467,10 @@ M(x,y,z), x\leq u,  y\leq u      &\vdash_{x,y,z,u}    z\leq u
 Call this theory $T_0$. Note that in a preorder maxima need not be unique.
 
 In the following we show how to work with disjunction and existential
-quantification by means of admissible rules, that is, coherent
-axioms that do not extend the relation $\Gamma\vdash_{\vec{x}}^T A$. 
-Although we only show this for the example, the method is completely general.
+quantification by means of c, that is, coherent
+axioms that do not extend the relation $\Gamma\vdash_{\vec{x}}^T A$.
+Although we only show this for the example, the method is completely general,
+cf.\ \emph{valid dynamical rules} in \cite{CLR}.
 Consider the axiom $\vdash_{x,y} M(x,y,x)  \lor M(x,y,y)$, and use
 it to conclude $\Gamma\vdash_{\vec{x}}^{T_0} A$ from 
 $\Gamma, M(x,y,x) \vdash_{\vec{x}}^{T_0} A$ and
@@ -850,7 +851,8 @@ at the Norwegian Academy of Science and Letters
 in Oslo, Norway, which funded and hosted the research project Homotopy Type Theory and Univalent Foundations during the academic year 2018/19. 
 (Historical note: Skolem worked here, 
 and his original paper \cite{Skolem} was available from the archive.)
-Both authors are indebted to Gilles Dowek and Ulrik Buchholtz for many interesting discussions.
+Both authors are indebted to Ulrik Buchholtz, Gilles Dowek and Henri Lombardi
+for many interesting discussions.
 
 \begin{thebibliography}{9}
 
@@ -872,15 +874,15 @@ M.A.~Bezem, U.~Buchholtz and T.~Coquand.
 \newblock \emph{Indagationes Mathematicae}, 
 \url{https://doi.org/10.1016/j.indag.2018.06.004}.
 
+\bibitem{CLR} M.~Coste, H.~Lombardi, and M.F.~Roy.
+\newblock{Dynamical methods in algebra: effective Nullstellens\"atze.}
+\newblock\emph{Annals of Pure and Applied Logic}~\textbf{111}(3):203--256, 2001.
+
 \bibitem{Mannaa}
 Th. Coquand and B. Mannaa.
 \newblock{A Sheaf Model of the Algebraic Closure.}
 \newblock{Proceedings of EPTCS, 2014.}
 \url{https://doi.org/10.4204/EPTCS.164.2}
-
-%\bibitem{CLR} M.~Coste, H.~Lombardi, and M.F.~Roy.
-%\newblock{Dynamical methods in algebra: effective Nullstellens\"atze.}
-%\newblock\emph{Annals of Pure and Applied Logic}~\textbf{111}(3):203--256, 2001.
 
 \bibitem{DW}
 G. Dowek and B. Werner.
